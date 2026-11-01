@@ -1,5 +1,5 @@
 {
-    "name": "uams-web/statamic-form-settings",
+    "name": "uams-web/aether-form-settings",
     "description": "Control Panel form settings for Statamic: notification routing and conditions, confirmations, submission restrictions, and quiz and survey scoring, each behind its own switch.",
     "license": "MIT",
     "keywords": [
@@ -7,7 +7,7 @@
         "statamic-addon"
     ],
     "type": "statamic-addon",
-    "homepage": "https://github.com/UAMS-Web/statamic-form-settings",
+    "homepage": "https://github.com/UAMS-Web/aether-form-settings",
     "authors": [
         {
             "name": "UAMS Web Services"
@@ -18,17 +18,17 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/UAMS-Web/statamic-form-settings/issues",
-        "source": "https://github.com/UAMS-Web/statamic-form-settings"
+        "issues": "https://github.com/UAMS-Web/aether-form-settings/issues",
+        "source": "https://github.com/UAMS-Web/aether-form-settings"
     },
     "autoload": {
         "psr-4": {
-            "UAMSWeb\\FormSettings\\": "src/"
+            "UAMSWeb\\Aether\\Forms\\Settings\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "UAMSWeb\\FormSettings\\Tests\\": "tests/"
+            "UAMSWeb\\Aether\\Forms\\Settings\\Tests\\": "tests/"
         },
         "files": [
             "tests/Support/TypeNarrowing.php",
@@ -43,7 +43,7 @@
         },
         "laravel": {
             "providers": [
-                "UAMSWeb\\FormSettings\\ServiceProvider"
+                "UAMSWeb\\Aether\\Forms\\Settings\\ServiceProvider"
             ]
         },
         "composer-exit-on-patch-failure": true

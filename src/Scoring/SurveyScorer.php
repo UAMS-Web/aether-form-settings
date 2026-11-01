@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Scoring;
+namespace UAMSWeb\Aether\Forms\Settings\Scoring;
 
 use Illuminate\Support\Collection;
 use Statamic\Fields\Blueprint;
 use Statamic\Fields\Field;
 use Statamic\Fields\Fieldtype;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\Fieldtypes\LikertScale;
-use UAMSWeb\FormSettings\Scoring\Survey\SurveyQuestionResult;
-use UAMSWeb\FormSettings\Scoring\Survey\SurveyResults;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\LikertScale;
+use UAMSWeb\Aether\Forms\Settings\Scoring\Survey\SurveyQuestionResult;
+use UAMSWeb\Aether\Forms\Settings\Scoring\Survey\SurveyResults;
 
 /**
  * Scores a Gravity-Forms-style survey submission (UAMS-Web/uams-statamic-archive#210).

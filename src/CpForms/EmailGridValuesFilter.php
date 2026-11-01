@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\CpForms;
+namespace UAMSWeb\Aether\Forms\Settings\CpForms;
 
 /**
  * Normalizes the email grid value array before it is written to YAML storage.

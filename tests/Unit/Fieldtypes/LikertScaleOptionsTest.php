@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use UAMSWeb\FormSettings\Fieldtypes\LikertScale;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\LikertScale;
 
 /**
  * Pins every preset Likert answer set, label by label and in order.

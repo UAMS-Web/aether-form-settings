@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Symfony\Component\Yaml\Yaml;
-use UAMSWeb\FormSettings\Support\ConditionalLogicEvaluator;
+use UAMSWeb\Aether\Forms\Settings\Support\ConditionalLogicEvaluator;
 
 /**
  * Behavior of {@see ConditionalLogicEvaluator}, which gates a form email notification

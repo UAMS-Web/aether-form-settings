@@ -15,9 +15,9 @@ use Statamic\Forms\Submission;
 use Symfony\Component\Mailer\SentMessage;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
-use UAMSWeb\FormSettings\Contracts\SubmissionContext;
-use UAMSWeb\FormSettings\Jobs\SendFormNotification;
-use UAMSWeb\FormSettings\Support\NullSubmissionContext;
+use UAMSWeb\Aether\Forms\Settings\Contracts\SubmissionContext;
+use UAMSWeb\Aether\Forms\Settings\Jobs\SendFormNotification;
+use UAMSWeb\Aether\Forms\Settings\Support\NullSubmissionContext;
 
 /**
  * Drives {@see SendFormNotification} directly, without a submit request, so each decision it
@@ -30,7 +30,7 @@ use UAMSWeb\FormSettings\Support\NullSubmissionContext;
  * cover the class): 55 mutants, all killed, no annotations. An `is_bool` branch in the Active
  * toggle read that changed nothing beside the `(bool)` fallback was deleted.
  *
- * @covers \UAMSWeb\FormSettings\Jobs\SendFormNotification
+ * @covers \UAMSWeb\Aether\Forms\Settings\Jobs\SendFormNotification
  *
  * @command  vendor/bin/pest tests/Integration/Forms/SendFormNotificationJobTest.php
  */

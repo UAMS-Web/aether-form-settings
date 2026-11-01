@@ -5,9 +5,9 @@ declare(strict_types=1);
 use Statamic\Facades\Blueprint;
 use Statamic\Fields\Value;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\Scoring\Concerns\ResolvesScoredSubmission;
-use UAMSWeb\FormSettings\Tags\Quiz;
-use UAMSWeb\FormSettings\Tags\Survey;
+use UAMSWeb\Aether\Forms\Settings\Scoring\Concerns\ResolvesScoredSubmission;
+use UAMSWeb\Aether\Forms\Settings\Tags\Quiz;
+use UAMSWeb\Aether\Forms\Settings\Tags\Survey;
 
 /**
  * Pins the exact output of the {{ quiz }} and {{ survey }} tags and the shared

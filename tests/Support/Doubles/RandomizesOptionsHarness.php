@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Tests\Support\Doubles;
+namespace UAMSWeb\Aether\Forms\Settings\Tests\Support\Doubles;
 
 use Statamic\Fields\Fieldtype;
-use UAMSWeb\FormSettings\Fieldtypes\Traits\RandomizesOptions;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\Traits\RandomizesOptions;
 
 /**
  * A fieldtype using the RandomizesOptions trait whose preset options are the

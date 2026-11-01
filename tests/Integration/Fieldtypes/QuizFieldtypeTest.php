@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 use Statamic\Fields\Field;
-use UAMSWeb\FormSettings\Fieldtypes\Quiz;
-use UAMSWeb\FormSettings\Rules\QuizAnswerValidation;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\Quiz;
+use UAMSWeb\Aether\Forms\Settings\Rules\QuizAnswerValidation;
 
 /**
  * Unit tests for {@see Quiz}.
  *
- * Mutation: 100% on UAMSWeb\FormSettings\Fieldtypes\Quiz (90 mutants, --covered-only).
+ * Mutation: 100% on UAMSWeb\Aether\Forms\Settings\Fieldtypes\Quiz (90 mutants, --covered-only).
  *
  * @command  vendor/bin/pest tests/Integration/Fieldtypes/QuizFieldtypeTest.php
  */

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\CpForms;
+namespace UAMSWeb\Aether\Forms\Settings\CpForms;
 
 use Statamic\Fields\Field;
 use Statamic\Fields\Fields;
@@ -15,7 +15,7 @@ use Statamic\Fields\Fields;
  * normalization to EmailGridValuesFilter, and confirmation settings normalization
  * to ConfirmationSettingsValuesFilter.
  *
- * Used from UAMSWeb\FormSettings\Http\Controllers\FormsController::update after
+ * Used from UAMSWeb\Aether\Forms\Settings\Http\Controllers\FormsController::update after
  * Fields::process().
  */
 final readonly class FormConfigurationValuesFilter

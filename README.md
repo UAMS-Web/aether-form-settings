@@ -9,18 +9,18 @@ PHP 8.4 or later and Statamic 6.35 or later.
 ## Installation
 
 ```bash
-composer require uams-web/statamic-form-settings
+composer require uams-web/aether-form-settings
 ```
 
 Statamic discovers the add-on through Composer. To change its settings, publish the config file:
 
 ```bash
-php artisan vendor:publish --tag=statamic-form-settings-config
+php artisan vendor:publish --tag=aether-form-settings-config
 ```
 
 ## Features
 
-Each feature has its own switch in `config/statamic-form-settings.php`, and all are on by default. Turning one off disables that feature alone; the others keep working. Stored form settings are kept either way, so turning a feature back on restores it as it was.
+Each feature has its own switch in `config/aether-form-settings.php`, and all are on by default. Turning one off disables that feature alone; the others keep working. Stored form settings are kept either way, so turning a feature back on restores it as it was.
 
 | Switch | Environment variable | What it covers |
 | --- | --- | --- |
@@ -57,8 +57,19 @@ The `quiz` and `survey` tags show a scored submission in a confirmation message 
 
 ## Extending
 
-- **Submission context.** A notification sent from a queue worker cannot see the submitter's request. A host that keeps that context binds its own implementation of `UAMSWeb\FormSettings\Contracts\SubmissionContext`: the job calls it to capture the context when the form is submitted, and again to make that context active while the email is sent. The add-on's default captures nothing.
-- **More settings sections.** Another package adds a section to the form settings screen by tagging an implementation of `UAMSWeb\FormSettings\Contracts\FormSettingsSection` with `FormSettingsSection::TAG` in its service provider's `register()`.
+- **Submission context.** A notification sent from a queue worker cannot see the submitter's request. A host that keeps that context binds its own implementation of `UAMSWeb\Aether\Forms\Settings\Contracts\SubmissionContext`: the job calls it to capture the context when the form is submitted, and again to make that context active while the email is sent. The add-on's default captures nothing.
+- **More settings sections.** Another package adds a section to the form settings screen by tagging an implementation of `UAMSWeb\Aether\Forms\Settings\Contracts\FormSettingsSection` with `FormSettingsSection::TAG` in its service provider's `register()`.
+
+## Upgrading from `statamic-form-settings`
+
+The package was renamed from `uams-web/statamic-form-settings` to `uams-web/aether-form-settings`, and Composer does not redirect a package name. The add-on handle, config key, publish tags and published asset path follow the package name, so a site changes four things:
+
+1. Run `composer remove uams-web/statamic-form-settings` and `composer require uams-web/aether-form-settings`.
+2. Run `php artisan vendor:publish --tag=aether-form-settings --force`, then delete `public/vendor/statamic-form-settings/`. The Control Panel build now publishes to `public/vendor/aether-form-settings/build`.
+3. Where a site published the configuration, rename `config/statamic-form-settings.php` to `config/aether-form-settings.php`. The add-on registers no settings blueprint, so there is no stored add-on settings file to move.
+4. Update references to the PHP namespace, which changed from `UAMSWeb\FormSettings` to `UAMSWeb\Aether\Forms\Settings`, and to the translation namespace `statamic-form-settings::`, which is now `aether-form-settings::`.
+
+Environment variables, view namespaces and the form tags are unchanged.
 
 ## License
 

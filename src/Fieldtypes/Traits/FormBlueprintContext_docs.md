@@ -16,7 +16,7 @@ This trait is designed to help fieldtypes that need different configuration opti
 ### Including the Trait
 
 ```php
-use UAMSWeb\FormSettings\Fieldtypes\Traits\FormBlueprintContext;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\Traits\FormBlueprintContext;
 
 class MyCustomFieldtype extends BaseFieldtype
 {

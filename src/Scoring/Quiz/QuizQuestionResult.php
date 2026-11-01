@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Scoring\Quiz;
+namespace UAMSWeb\Aether\Forms\Settings\Scoring\Quiz;
 
-use UAMSWeb\FormSettings\Scoring\QuizScorer;
-use UAMSWeb\FormSettings\Tags\Quiz;
+use UAMSWeb\Aether\Forms\Settings\Scoring\QuizScorer;
+use UAMSWeb\Aether\Forms\Settings\Tags\Quiz;
 
 /**
  * The scored outcome of a single quiz question within a submission (UAMS-Web/uams-statamic-archive#209).

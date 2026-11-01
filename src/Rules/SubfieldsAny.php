@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Rules;
+namespace UAMSWeb\Aether\Forms\Settings\Rules;
 
 use Closure;
 
@@ -62,6 +62,6 @@ class SubfieldsAny extends BaseSubfieldsRule
         // ---
 
         // Fail validation with a specific message
-        $fail(__('statamic-form-settings::validation.subfields_any', ['attribute' => $attribute]));
+        $fail(__('aether-form-settings::validation.subfields_any', ['attribute' => $attribute]));
     }
 }

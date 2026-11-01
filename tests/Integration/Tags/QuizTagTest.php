@@ -8,7 +8,7 @@ use Statamic\Facades\Blueprint;
 use Statamic\Fields\BlueprintRepository;
 use Statamic\Forms\Form;
 use Statamic\Forms\Submission;
-use UAMSWeb\FormSettings\Tags\Quiz;
+use UAMSWeb\Aether\Forms\Settings\Tags\Quiz;
 
 /**
  * Proves the {{ quiz }} tag (UAMS-Web/uams-statamic-archive#209) renders a scored submission the way a form
@@ -17,7 +17,7 @@ use UAMSWeb\FormSettings\Tags\Quiz;
  * the score / percentage / grade / pass-fail and the per-question breakdown,
  * while a non-quiz form yields nothing.
  *
- * @covers \UAMSWeb\FormSettings\Tags\Quiz
+ * @covers \UAMSWeb\Aether\Forms\Settings\Tags\Quiz
  *
  * @command  vendor/bin/pest tests/Integration/Tags/QuizTagTest.php
  */

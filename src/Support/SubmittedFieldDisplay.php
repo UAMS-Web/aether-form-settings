@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Support;
+namespace UAMSWeb\Aether\Forms\Settings\Support;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Statamic\Assets\Asset;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /*
 | Validation messages for the add-on's own rules, read as
-| `statamic-form-settings::validation.<key>`.
+| `aether-form-settings::validation.<key>`.
 */
 
 return [

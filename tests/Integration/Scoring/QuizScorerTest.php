@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\File;
 use Statamic\Facades\Blueprint;
 use Statamic\Fields\BlueprintRepository;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\Scoring\QuizScorer;
+use UAMSWeb\Aether\Forms\Settings\Scoring\QuizScorer;
 
 /**
  * Proves the quiz scoring engine (UAMS-Web/uams-statamic-archive#209) matches the Gravity Forms Quiz add-on's
@@ -16,7 +16,7 @@ use UAMSWeb\FormSettings\Scoring\QuizScorer;
  * sums, correct max-score derivation (sum for checkboxes, highest for radio), and
  * optional form-level grade/pass thresholds.
  *
- * @covers \UAMSWeb\FormSettings\Scoring\QuizScorer
+ * @covers \UAMSWeb\Aether\Forms\Settings\Scoring\QuizScorer
  *
  * @command  vendor/bin/pest tests/Integration/Scoring/QuizScorerTest.php
  */

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use UAMSWeb\FormSettings\CpForms\FormConfigurationSectionLocator;
+use UAMSWeb\Aether\Forms\Settings\CpForms\FormConfigurationSectionLocator;
 
 /**
  * Behavior of {@see FormConfigurationSectionLocator}: finding a section of the Statamic 6 CP

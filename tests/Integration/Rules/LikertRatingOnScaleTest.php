@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use UAMSWeb\FormSettings\Rules\LikertRatingOnScale;
+use UAMSWeb\Aether\Forms\Settings\Rules\LikertRatingOnScale;
 
 covers(LikertRatingOnScale::class);
 
@@ -48,7 +48,7 @@ it('accepts a string scale compared with an integer rating', function (): void {
 });
 
 it('rejects a single rating off the scale', function (mixed $value): void {
-    expect(likertRatingMessages([1, 2, 3, 4, 5], [], $value))->toBe([__('statamic-form-settings::validation.likert_scale.not_on_scale')]);
+    expect(likertRatingMessages([1, 2, 3, 4, 5], [], $value))->toBe([__('aether-form-settings::validation.likert_scale.not_on_scale')]);
 })->with([
     'above' => [6],
     'zero' => ['0'],
@@ -71,7 +71,7 @@ it('accepts integer row keys matched against string rows', function (): void {
 
 it('rejects a row rating off the scale', function (mixed $rating): void {
     expect(likertRatingMessages(['agree', 'disagree'], ['speed', 'clarity'], ['speed' => 'agree', 'clarity' => $rating]))
-        ->toBe([__('statamic-form-settings::validation.likert_scale.not_on_scale')]);
+        ->toBe([__('aether-form-settings::validation.likert_scale.not_on_scale')]);
 })->with([
     'unknown value' => ['strongly agree'],
     'a list' => [['agree']],
@@ -80,11 +80,11 @@ it('rejects a row rating off the scale', function (mixed $rating): void {
 
 it('rejects a row the question does not list, before reading its rating', function (): void {
     expect(likertRatingMessages(['agree'], ['speed'], ['speed' => 'agree', 'price' => 'not on the scale']))
-        ->toBe([__('statamic-form-settings::validation.likert_scale.unknown_row')]);
+        ->toBe([__('aether-form-settings::validation.likert_scale.unknown_row')]);
 });
 
 it('rejects a value that is not a list of row ratings for a question with rows', function (mixed $value): void {
-    expect(likertRatingMessages(['agree'], ['speed'], $value))->toBe([__('statamic-form-settings::validation.likert_scale.not_on_scale')]);
+    expect(likertRatingMessages(['agree'], ['speed'], $value))->toBe([__('aether-form-settings::validation.likert_scale.not_on_scale')]);
 })->with([
     'a single rating' => ['agree'],
     'null' => [null],
@@ -92,12 +92,12 @@ it('rejects a value that is not a list of row ratings for a question with rows',
 
 it('reports only the first failing row', function (): void {
     expect(likertRatingMessages(['agree'], ['speed', 'clarity'], ['speed' => 'nope', 'clarity' => 'also nope']))
-        ->toBe([__('statamic-form-settings::validation.likert_scale.not_on_scale')]);
+        ->toBe([__('aether-form-settings::validation.likert_scale.not_on_scale')]);
 });
 
 it('checks the rows after a blank one', function (mixed $blank): void {
     expect(likertRatingMessages(['agree'], ['speed', 'clarity'], ['speed' => $blank, 'clarity' => 'nope']))
-        ->toBe([__('statamic-form-settings::validation.likert_scale.not_on_scale')]);
+        ->toBe([__('aether-form-settings::validation.likert_scale.not_on_scale')]);
 })->with([
     'null' => [null],
     'empty string' => [''],
@@ -106,5 +106,5 @@ it('checks the rows after a blank one', function (mixed $blank): void {
 it('matches row keys against the listed rows strictly', function (): void {
     // The integer key 1 reads as '1', which a loose comparison would equate with '01'.
     expect(likertRatingMessages(['agree'], ['01'], [1 => 'agree']))
-        ->toBe([__('statamic-form-settings::validation.likert_scale.unknown_row')]);
+        ->toBe([__('aether-form-settings::validation.likert_scale.unknown_row')]);
 });

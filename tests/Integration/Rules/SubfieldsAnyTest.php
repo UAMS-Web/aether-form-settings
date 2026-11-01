@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Validator;
-use UAMSWeb\FormSettings\Rules\SubfieldsAny;
+use UAMSWeb\Aether\Forms\Settings\Rules\SubfieldsAny;
 
 /**
  * Behavior of the add-on's SubfieldsAny rule (src/Rules/SubfieldsAny.php) and its base

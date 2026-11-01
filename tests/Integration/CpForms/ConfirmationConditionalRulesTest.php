@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use UAMSWeb\FormSettings\CpForms\ConfirmationSettingsFieldBuilder;
-use UAMSWeb\FormSettings\Tests\Support\ConfirmationSettingsValidation as Confirmation;
+use UAMSWeb\Aether\Forms\Settings\CpForms\ConfirmationSettingsFieldBuilder;
+use UAMSWeb\Aether\Forms\Settings\Tests\Support\ConfirmationSettingsValidation as Confirmation;
 
 /*
  * Guards the confirmation settings' conditional rules against the nested Control Panel blueprint
@@ -136,7 +136,7 @@ it('limits each page setting to a single entry', function (string $handle): void
 })->with(['confirmation_page', 'confirmation_replace_entry']);
 
 it('offers the configured collections in each page picker', function (string $handle): void {
-    config(['statamic-form-settings.confirmation_page_collections' => ['pages', 'landing_pages']]);
+    config(['aether-form-settings.confirmation_page_collections' => ['pages', 'landing_pages']]);
 
     $entry = mustBeStringKeyed((new ConfirmationSettingsFieldBuilder)->build(Confirmation::DEFAULT)[$handle] ?? null, $handle);
     $field = mustBeStringKeyed($entry['field'] ?? null, $handle.' field');
@@ -145,7 +145,7 @@ it('offers the configured collections in each page picker', function (string $ha
 })->with(['confirmation_page', 'confirmation_replace_entry']);
 
 it('falls back to the pages collection when none is configured', function (): void {
-    config(['statamic-form-settings.confirmation_page_collections' => []]);
+    config(['aether-form-settings.confirmation_page_collections' => []]);
 
     $entry = mustBeStringKeyed((new ConfirmationSettingsFieldBuilder)->build(Confirmation::DEFAULT)['confirmation_page'] ?? null, 'confirmation_page');
     $field = mustBeStringKeyed($entry['field'] ?? null, 'confirmation_page field');
@@ -154,19 +154,19 @@ it('falls back to the pages collection when none is configured', function (): vo
 });
 
 it('falls back to the pages collection when the setting is missing', function (): void {
-    $all = config('statamic-form-settings');
+    $all = config('aether-form-settings');
     $remaining = is_array($all) ? array_diff_key($all, ['confirmation_page_collections' => true]) : [];
-    config(['statamic-form-settings' => $remaining]);
+    config(['aether-form-settings' => $remaining]);
 
     $entry = mustBeStringKeyed((new ConfirmationSettingsFieldBuilder)->build(Confirmation::DEFAULT)['confirmation_page'] ?? null, 'confirmation_page');
     $field = mustBeStringKeyed($entry['field'] ?? null, 'confirmation_page field');
 
-    expect(config('statamic-form-settings.confirmation_page_collections'))->toBeNull()
+    expect(config('aether-form-settings.confirmation_page_collections'))->toBeNull()
         ->and($field['collections'])->toBe(['pages']);
 });
 
 it('offers only the string collection handles, as a list', function (): void {
-    config(['statamic-form-settings.confirmation_page_collections' => ['a' => 'news', 'b' => 7, 'c' => 'events']]);
+    config(['aether-form-settings.confirmation_page_collections' => ['a' => 'news', 'b' => 7, 'c' => 'events']]);
 
     $entry = mustBeStringKeyed((new ConfirmationSettingsFieldBuilder)->build(Confirmation::DEFAULT)['confirmation_page'] ?? null, 'confirmation_page');
     $field = mustBeStringKeyed($entry['field'] ?? null, 'confirmation_page field');
@@ -175,7 +175,7 @@ it('offers only the string collection handles, as a list', function (): void {
 });
 
 it('falls back to the pages collection when no configured handle is a string', function (): void {
-    config(['statamic-form-settings.confirmation_page_collections' => [1, 2]]);
+    config(['aether-form-settings.confirmation_page_collections' => [1, 2]]);
 
     $entry = mustBeStringKeyed((new ConfirmationSettingsFieldBuilder)->build(Confirmation::DEFAULT)['confirmation_page'] ?? null, 'confirmation_page');
     $field = mustBeStringKeyed($entry['field'] ?? null, 'confirmation_page field');

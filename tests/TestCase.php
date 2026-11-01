@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Tests;
+namespace UAMSWeb\Aether\Forms\Settings\Tests;
 
 use Illuminate\Foundation\Application;
 use Statamic\Testing\AddonTestCase;
-use UAMSWeb\FormSettings\ServiceProvider;
+use UAMSWeb\Aether\Forms\Settings\ServiceProvider;
 
 /**
  * Base class for the Integration suite: boots a minimal Statamic through
@@ -213,7 +213,7 @@ abstract class TestCase extends AddonTestCase
         $app['config']->set('mail.default', 'array');
 
         // Quiz scoring is on by default; set here too, so a test that turns it off has a known start.
-        $app['config']->set('statamic-form-settings.quiz_scoring', true);
+        $app['config']->set('aether-form-settings.quiz_scoring', true);
 
         // Apply the values a test rebooted with, before the add-on boots
         foreach ($this->configBeforeBoot as $key => $value) {

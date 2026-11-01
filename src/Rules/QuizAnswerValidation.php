@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Rules;
+namespace UAMSWeb\Aether\Forms\Settings\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\DataAwareRule;
@@ -76,7 +76,7 @@ class QuizAnswerValidation implements DataAwareRule, ValidationRule
         // Check if the value is not an array
         if (! \is_array($value)) {
             // Fail validation with a specific message
-            $fail(__('statamic-form-settings::validation.quiz_answer.array'));
+            $fail(__('aether-form-settings::validation.quiz_answer.array'));
 
             // Return early to prevent further validation
             return;
@@ -92,7 +92,7 @@ class QuizAnswerValidation implements DataAwareRule, ValidationRule
             // Check if exactly one answer is marked as correct
             if ($correctAnswers !== 1) {
                 // Fail validation with a specific message
-                $fail(__('statamic-form-settings::validation.quiz_answer.marked_correct.exactly_one'));
+                $fail(__('aether-form-settings::validation.quiz_answer.marked_correct.exactly_one'));
             }
 
             // Return early, since a single-answer question is fully checked
@@ -103,7 +103,7 @@ class QuizAnswerValidation implements DataAwareRule, ValidationRule
         // any other fieldtype
         if ($correctAnswers < 1) {
             // Fail validation with a specific message
-            $fail(__('statamic-form-settings::validation.quiz_answer.marked_correct.at_least_one'));
+            $fail(__('aether-form-settings::validation.quiz_answer.marked_correct.at_least_one'));
         }
     }
 }

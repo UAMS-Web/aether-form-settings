@@ -16,8 +16,8 @@ use Statamic\Forms\Form;
  * redirects (with an optional query string), and conditional confirmations select the first
  * matching one (else the default). A form with no confirmation config keeps Statamic's default.
  *
- * @covers \UAMSWeb\FormSettings\Http\Middleware\ApplyFormConfirmation
- * @covers \UAMSWeb\FormSettings\Support\FormConfirmationResolver
+ * @covers \UAMSWeb\Aether\Forms\Settings\Http\Middleware\ApplyFormConfirmation
+ * @covers \UAMSWeb\Aether\Forms\Settings\Support\FormConfirmationResolver
  *
  * @command  vendor/bin/pest tests/Integration/Forms/FormConfirmationTest.php
  */

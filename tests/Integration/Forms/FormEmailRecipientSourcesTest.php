@@ -18,8 +18,8 @@ use Symfony\Component\Mime\Email;
  * source (literal email, a submitted field, or conditional routing) when the form is
  * submitted (UAMS-Web/uams-statamic-archive#201).
  *
- * @covers \UAMSWeb\FormSettings\Support\RecipientResolver
- * @covers \UAMSWeb\FormSettings\Jobs\SendFormNotification
+ * @covers \UAMSWeb\Aether\Forms\Settings\Support\RecipientResolver
+ * @covers \UAMSWeb\Aether\Forms\Settings\Jobs\SendFormNotification
  *
  * @command  vendor/bin/pest tests/Integration/Forms/FormEmailRecipientSourcesTest.php
  */

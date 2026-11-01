@@ -12,7 +12,7 @@ use Statamic\Fields\BlueprintRepository;
 use Symfony\Component\Mailer\SentMessage;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
-use UAMSWeb\FormSettings\Tests\TestCase;
+use UAMSWeb\Aether\Forms\Settings\Tests\TestCase;
 
 /**
  * Proves the email row's `message` is sent as the notification body (UAMS-Web/uams-statamic-archive#3149, decided on UAMS-Web/uams-statamic-archive#3094).

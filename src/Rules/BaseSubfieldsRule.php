@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Rules;
+namespace UAMSWeb\Aether\Forms\Settings\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\DataAwareRule;

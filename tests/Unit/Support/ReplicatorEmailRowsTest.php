@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use UAMSWeb\FormSettings\Support\ReplicatorEmailRows;
+use UAMSWeb\Aether\Forms\Settings\Support\ReplicatorEmailRows;
 
 /**
  * Behavior of ReplicatorEmailRows (src/Support/ReplicatorEmailRows.php): the

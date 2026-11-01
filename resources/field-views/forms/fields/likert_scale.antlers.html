@@ -1,5 +1,5 @@
 {{#
-	LikertScale fieldtype (UAMSWeb\FormSettings\Fieldtypes\LikertScale, handle `likert_scale`),
+	LikertScale fieldtype (UAMSWeb\Aether\Forms\Settings\Fieldtypes\LikertScale, handle `likert_scale`),
 	an accessible radio scale for public forms (UAMS-Web/uams-statamic-archive#194). Two modes, driven by
 	`enable_multiple_rows`:
 
@@ -15,7 +15,7 @@
 	Likert field has no `options` config key of its own, the default fallback
 	would otherwise render a plain text input.
 
-	UAMSWeb\FormSettings\Scoring\SurveyScorer (UAMS-Web/uams-statamic-archive#210) defines and consumes these submit
+	UAMSWeb\Aether\Forms\Settings\Scoring\SurveyScorer (UAMS-Web/uams-statamic-archive#210) defines and consumes these submit
 	shapes; keep the `name` attributes below in sync with it.
 
 	`options` is a LIST of maps, so each item is looped as `{{ value }}` /

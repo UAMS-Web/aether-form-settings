@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\File;
 use Statamic\Facades\Antlers;
 use Statamic\Fields\Field;
-use UAMSWeb\FormSettings\Fieldtypes\LikertScale;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\LikertScale;
 
 /**
  * The public-form template for the LikertScale fieldtype (UAMS-Web/uams-statamic-archive#194),
@@ -16,7 +16,7 @@ use UAMSWeb\FormSettings\Fieldtypes\LikertScale;
  * (LikertScale::extraRenderableFieldData() merged with the wrapper-provided
  * keys, mirroring RendersForms::getRenderableField()) and assert the template
  * renders accessible radio groups, honors the config, reflects the submitted
- * value as `checked`, uses the submit-shape UAMSWeb\FormSettings\Scoring\SurveyScorer
+ * value as `checked`, uses the submit-shape UAMSWeb\Aether\Forms\Settings\Scoring\SurveyScorer
  * consumes, and escapes author-controlled labels. Rendering a template against a
  * hand-built scope has no mutable PHP surface.
  *

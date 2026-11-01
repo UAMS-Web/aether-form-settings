@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\CpForms;
+namespace UAMSWeb\Aether\Forms\Settings\CpForms;
 
 /**
  * The base configuration of the rich-text and URL fields the form settings
@@ -151,7 +151,7 @@ final class FieldDefinitions
      */
     private static function extraArticleButtons(): array
     {
-        $buttons = config('statamic-form-settings.article_bard_extra_buttons', []);
+        $buttons = config('aether-form-settings.article_bard_extra_buttons', []);
 
         return is_array($buttons) ? array_values(array_filter($buttons, is_string(...))) : [];
     }

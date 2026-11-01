@@ -18,7 +18,7 @@ use Symfony\Component\Mime\Email;
  * an inactive notification is skipped (with a debug log line) before its conditional logic
  * is evaluated, while active/default notifications still fire.
  *
- * @covers \UAMSWeb\FormSettings\Jobs\SendFormNotification
+ * @covers \UAMSWeb\Aether\Forms\Settings\Jobs\SendFormNotification
  *
  * @command  vendor/bin/pest tests/Integration/Forms/FormEmailActiveToggleTest.php
  */

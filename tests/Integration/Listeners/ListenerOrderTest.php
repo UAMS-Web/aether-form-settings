@@ -10,9 +10,9 @@ use Statamic\Facades\Blueprint;
 use Statamic\Facades\Stache;
 use Statamic\Fields\BlueprintRepository;
 use Statamic\Stache\Stores\Store;
-use UAMSWeb\FormSettings\Listeners\EnforceFormRestrictions;
-use UAMSWeb\FormSettings\Tests\Fixtures\Host\HostEventServiceProvider;
-use UAMSWeb\FormSettings\Tests\Fixtures\Host\RefuseEverySubmission;
+use UAMSWeb\Aether\Forms\Settings\Listeners\EnforceFormRestrictions;
+use UAMSWeb\Aether\Forms\Settings\Tests\Fixtures\Host\HostEventServiceProvider;
+use UAMSWeb\Aether\Forms\Settings\Tests\Fixtures\Host\RefuseEverySubmission;
 
 /**
  * The restrictions listener runs before a host application's own `FormSubmitted`
@@ -101,7 +101,7 @@ it('registers every listener in src/Listeners, since the provider skips their di
 
     // The classes Statamic's discovery would have registered
     $classes = array_map(
-        static fn (SplFileInfo $file): string => 'UAMSWeb\\FormSettings\\Listeners\\'.$file->getBasename('.php'),
+        static fn (SplFileInfo $file): string => 'UAMSWeb\\Aether\\Forms\\Settings\\Listeners\\'.$file->getBasename('.php'),
         File::files(__DIR__.'/../../../src/Listeners'),
     );
 

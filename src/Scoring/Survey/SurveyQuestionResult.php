@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Scoring\Survey;
+namespace UAMSWeb\Aether\Forms\Settings\Scoring\Survey;
 
-use UAMSWeb\FormSettings\Scoring\SurveyScorer;
-use UAMSWeb\FormSettings\Tags\Survey;
+use UAMSWeb\Aether\Forms\Settings\Scoring\SurveyScorer;
+use UAMSWeb\Aether\Forms\Settings\Tags\Survey;
 
 /**
  * The scored outcome of a single survey (Likert) question within a submission (UAMS-Web/uams-statamic-archive#210).

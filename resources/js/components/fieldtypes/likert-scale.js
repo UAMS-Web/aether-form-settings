@@ -5,7 +5,7 @@
  * plain module, outside the component, so Vitest can exercise them without the
  * `@statamic/cms` imports a `.vue` file needs (the same split as
  * `consent-agreement.js`). Every option, label and order is resolved server-side
- * in `UAMSWeb\FormSettings\Fieldtypes\LikertScale::preload()`; nothing here re-derives them.
+ * in `UAMSWeb\Aether\Forms\Settings\Fieldtypes\LikertScale::preload()`; nothing here re-derives them.
  *
  * Value shapes:
  *   - single row: a scale point (number) or the string 'not_applicable'

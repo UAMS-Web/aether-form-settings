@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\CpForms;
+namespace UAMSWeb\Aether\Forms\Settings\CpForms;
 
 /**
  * Finds sections in the Statamic 6 CP form-configuration blueprint contents.

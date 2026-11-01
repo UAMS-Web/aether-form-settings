@@ -9,10 +9,10 @@ use Statamic\Facades\Blueprint;
 use Statamic\Fields\BlueprintRepository;
 use Statamic\Fields\Field;
 use Statamic\Forms\Submission;
-use UAMSWeb\FormSettings\Features;
-use UAMSWeb\FormSettings\Fieldtypes\Quiz;
-use UAMSWeb\FormSettings\Tags\Quiz as QuizTag;
-use UAMSWeb\FormSettings\Tags\Survey as SurveyTag;
+use UAMSWeb\Aether\Forms\Settings\Features;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\Quiz;
+use UAMSWeb\Aether\Forms\Settings\Tags\Quiz as QuizTag;
+use UAMSWeb\Aether\Forms\Settings\Tags\Survey as SurveyTag;
 
 /**
  * The `quiz_scoring` switch (UAMS-Web/uams-statamic#264): on, the `quiz` and `survey` tags render
@@ -95,11 +95,11 @@ it('renders each tag method with scoring on, and nothing with it off', function 
     $context = quizScoringSwitchContext();
 
     // On, the method renders the submission's result
-    config(['statamic-form-settings.quiz_scoring' => true]);
+    config(['aether-form-settings.quiz_scoring' => true]);
     expect(quizScoringSwitchRender($template, $context))->toContain($whenOn);
 
     // Off, the same template renders nothing
-    config(['statamic-form-settings.quiz_scoring' => false]);
+    config(['aether-form-settings.quiz_scoring' => false]);
     expect(quizScoringSwitchRender($template, $context))->toBe('');
 })->with([
     'quiz' => ['{{ quiz }}', 'Capital of France?'],
@@ -111,29 +111,29 @@ it('renders each tag method with scoring on, and nothing with it off', function 
 ]);
 
 it('reads a missing quiz scoring setting as on, and a set one as given', function (): void {
-    $all = config('statamic-form-settings');
-    config(['statamic-form-settings' => is_array($all) ? array_diff_key($all, ['quiz_scoring' => true]) : []]);
-    expect(config('statamic-form-settings.quiz_scoring'))->toBeNull()
+    $all = config('aether-form-settings');
+    config(['aether-form-settings' => is_array($all) ? array_diff_key($all, ['quiz_scoring' => true]) : []]);
+    expect(config('aether-form-settings.quiz_scoring'))->toBeNull()
         ->and(Features::quizScoring())->toBeTrue();
 
-    config(['statamic-form-settings.quiz_scoring' => false]);
+    config(['aether-form-settings.quiz_scoring' => false]);
     expect(Features::quizScoring())->toBeFalse();
 
-    config(['statamic-form-settings.quiz_scoring' => true]);
+    config(['aether-form-settings.quiz_scoring' => true]);
     expect(Features::quizScoring())->toBeTrue();
 
     // A value that is not a bool, as an environment variable read without the config's cast gives
-    config(['statamic-form-settings.quiz_scoring' => 1]);
+    config(['aether-form-settings.quiz_scoring' => 1]);
     expect(Features::quizScoring())->toBeTrue();
 });
 
 it('keeps the quiz and likert scale form views with scoring and every feature switched off', function (): void {
     $this->rebootWithConfig([
-        'statamic-form-settings.quiz_scoring' => false,
-        'statamic-form-settings.features.control_panel' => false,
-        'statamic-form-settings.features.notifications' => false,
-        'statamic-form-settings.features.confirmations' => false,
-        'statamic-form-settings.features.restrictions' => false,
+        'aether-form-settings.quiz_scoring' => false,
+        'aether-form-settings.features.control_panel' => false,
+        'aether-form-settings.features.notifications' => false,
+        'aether-form-settings.features.confirmations' => false,
+        'aether-form-settings.features.restrictions' => false,
     ]);
 
     // Both resolve to this add-on's own field views

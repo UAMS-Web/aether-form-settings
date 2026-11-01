@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\CpForms;
+namespace UAMSWeb\Aether\Forms\Settings\CpForms;
 
 /**
  * Builds the reusable confirmation-settings field-configuration array.
@@ -210,7 +210,7 @@ final class ConfirmationSettingsFieldBuilder
         // The fallback below returns `pages` for an empty list, so this default restates it and
         // removing it changes no result.
         // @pest-mutate-ignore: RemoveArrayItem
-        $collections = config('statamic-form-settings.confirmation_page_collections', ['pages']);
+        $collections = config('aether-form-settings.confirmation_page_collections', ['pages']);
         $handles = is_array($collections) ? array_values(array_filter($collections, is_string(...))) : [];
 
         return $handles === [] ? ['pages'] : $handles;

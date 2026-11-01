@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Contracts;
+namespace UAMSWeb\Aether\Forms\Settings\Contracts;
 
 use Statamic\Forms\Form;
 
@@ -23,7 +23,7 @@ interface FormSettingsSection
     /**
      * The container tag implementations are registered under.
      */
-    public const string TAG = 'statamic-form-settings.sections';
+    public const string TAG = 'aether-form-settings.sections';
 
     /**
      * The section to inject, keyed by a name, in the shape the add-on's own

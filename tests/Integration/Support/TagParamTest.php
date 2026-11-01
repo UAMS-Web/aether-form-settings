@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Collection;
-use UAMSWeb\FormSettings\Support\TagParam;
+use UAMSWeb\Aether\Forms\Settings\Support\TagParam;
 
 covers(TagParam::class);
 
 /**
- * @covers \UAMSWeb\FormSettings\Support\TagParam
+ * @covers \UAMSWeb\Aether\Forms\Settings\Support\TagParam
  *
- * Mutation: 100% on UAMSWeb\FormSettings\Support\TagParam (6 mutants, --covered-only).
+ * Mutation: 100% on UAMSWeb\Aether\Forms\Settings\Support\TagParam (6 mutants, --covered-only).
  *
  * @command  vendor/bin/pest tests/Integration/Support/TagParamTest.php
  */

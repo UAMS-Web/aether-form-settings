@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Scoring;
+namespace UAMSWeb\Aether\Forms\Settings\Scoring;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Statamic\Fields\Blueprint;
 use Statamic\Fields\Field;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\Scoring\Quiz\QuizQuestionResult;
-use UAMSWeb\FormSettings\Scoring\Quiz\QuizResults;
+use UAMSWeb\Aether\Forms\Settings\Scoring\Quiz\QuizQuestionResult;
+use UAMSWeb\Aether\Forms\Settings\Scoring\Quiz\QuizResults;
 
 /**
  * Scores a Gravity-Forms-style quiz submission (UAMS-Web/uams-statamic-archive#209).

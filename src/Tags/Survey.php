@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Tags;
+namespace UAMSWeb\Aether\Forms\Settings\Tags;
 
 use Statamic\Forms\Form;
 use Statamic\Tags\Tags;
-use UAMSWeb\FormSettings\Features;
-use UAMSWeb\FormSettings\Scoring\Concerns\ResolvesScoredSubmission;
-use UAMSWeb\FormSettings\Scoring\Survey\SurveyQuestionResult;
-use UAMSWeb\FormSettings\Scoring\Survey\SurveyResults;
-use UAMSWeb\FormSettings\Scoring\SurveyScorer;
+use UAMSWeb\Aether\Forms\Settings\Features;
+use UAMSWeb\Aether\Forms\Settings\Scoring\Concerns\ResolvesScoredSubmission;
+use UAMSWeb\Aether\Forms\Settings\Scoring\Survey\SurveyQuestionResult;
+use UAMSWeb\Aether\Forms\Settings\Scoring\Survey\SurveyResults;
+use UAMSWeb\Aether\Forms\Settings\Scoring\SurveyScorer;
 
 /**
  * Emulates the Gravity Forms survey merge tags (UAMS-Web/uams-statamic-archive#210).

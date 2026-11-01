@@ -16,8 +16,8 @@ use Statamic\Forms\Form;
  * the same context an email notification uses, so the tags reach the answers +
  * form config exactly as they will in production.
  *
- * @covers \UAMSWeb\FormSettings\Tags\Quiz
- * @covers \UAMSWeb\FormSettings\Tags\Survey
+ * @covers \UAMSWeb\Aether\Forms\Settings\Tags\Quiz
+ * @covers \UAMSWeb\Aether\Forms\Settings\Tags\Survey
  *
  * @command  vendor/bin/pest tests/Integration/Forms/QuizSurveyConfirmationRenderTest.php
  */

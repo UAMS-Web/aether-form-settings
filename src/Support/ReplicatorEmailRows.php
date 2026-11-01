@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Support;
+namespace UAMSWeb\Aether\Forms\Settings\Support;
 
 /**
  * Turns a replicator's submitted rows into labelled set blocks for notification emails (UAMS-Web/uams-statamic-archive#2055).

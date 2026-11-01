@@ -7,12 +7,12 @@ use Statamic\Contracts\Forms\Submission;
 use Statamic\Facades\Form as FormFacade;
 use Statamic\Fields\FieldtypeRepository;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\Contracts\FormSettingsSection;
-use UAMSWeb\FormSettings\Contracts\SubmissionContext;
-use UAMSWeb\FormSettings\CpForms\FormConfigurationBlueprintCustomizer;
-use UAMSWeb\FormSettings\Fieldtypes\FormSettingsSubsection;
-use UAMSWeb\FormSettings\Rules\SubfieldsAny;
-use UAMSWeb\FormSettings\Support\NullSubmissionContext;
+use UAMSWeb\Aether\Forms\Settings\Contracts\FormSettingsSection;
+use UAMSWeb\Aether\Forms\Settings\Contracts\SubmissionContext;
+use UAMSWeb\Aether\Forms\Settings\CpForms\FormConfigurationBlueprintCustomizer;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\FormSettingsSubsection;
+use UAMSWeb\Aether\Forms\Settings\Rules\SubfieldsAny;
+use UAMSWeb\Aether\Forms\Settings\Support\NullSubmissionContext;
 
 /**
  * The seams a host or another package uses: the submission context binding,

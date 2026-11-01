@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Fieldtypes;
+namespace UAMSWeb\Aether\Forms\Settings\Fieldtypes;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Statamic\Fields\Fieldtype;
 use Statamic\Fields\FieldtypeRepository;
-use UAMSWeb\FormSettings\Fieldtypes\Traits\RandomizesOptions;
-use UAMSWeb\FormSettings\Rules\QuizAnswerValidation;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\Traits\RandomizesOptions;
+use UAMSWeb\Aether\Forms\Settings\Rules\QuizAnswerValidation;
 
 /**
  * Custom Quiz fieldtype
@@ -187,7 +187,7 @@ class Quiz extends Fieldtype
             foreach ($answers as $answer) {
                 // Fail on a non-string or unoffered answer
                 if (! \in_array($answer, $labels, true)) {
-                    $fail(__('statamic-form-settings::validation.quiz_answer.not_an_option'));
+                    $fail(__('aether-form-settings::validation.quiz_answer.not_an_option'));
 
                     return;
                 }

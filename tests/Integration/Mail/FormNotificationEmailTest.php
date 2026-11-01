@@ -9,15 +9,15 @@ use Statamic\Facades\Site;
 use Statamic\Fields\Field;
 use Statamic\Fields\Value;
 use Statamic\Sites\Site as StatamicSite;
-use UAMSWeb\FormSettings\Mail\FormNotificationEmail;
-use UAMSWeb\FormSettings\Support\ReplicatorEmailRows;
+use UAMSWeb\Aether\Forms\Settings\Mail\FormNotificationEmail;
+use UAMSWeb\Aether\Forms\Settings\Support\ReplicatorEmailRows;
 
 uses(MockeryPHPUnitIntegration::class);
 
 covers(FormNotificationEmail::class);
 
 /**
- * Unit coverage for UAMSWeb\FormSettings\Mail\FormNotificationEmail's protected hooks.
+ * Unit coverage for UAMSWeb\Aether\Forms\Settings\Mail\FormNotificationEmail's protected hooks.
  *
  * The end-to-end sends live in FormEmailAttachToEmailTest and FormEmailFromNameTest. These
  * call the hooks directly on a mailable built over a submission double, so each branch is

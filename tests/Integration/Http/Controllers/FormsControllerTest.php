@@ -14,9 +14,9 @@ use Statamic\Fields\Blueprint;
 use Statamic\Fields\Fields;
 use Statamic\Forms\Form;
 use Statamic\Http\Controllers\CP\CpController;
-use UAMSWeb\FormSettings\CpForms\FormConfigurationBlueprintCustomizer;
-use UAMSWeb\FormSettings\CpForms\FormConfigurationValuesFilter;
-use UAMSWeb\FormSettings\Http\Controllers\FormsController;
+use UAMSWeb\Aether\Forms\Settings\CpForms\FormConfigurationBlueprintCustomizer;
+use UAMSWeb\Aether\Forms\Settings\CpForms\FormConfigurationValuesFilter;
+use UAMSWeb\Aether\Forms\Settings\Http\Controllers\FormsController;
 
 /**
  * FormsController form-configuration CP coverage (locale mismatch + save filter).

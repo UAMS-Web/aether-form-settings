@@ -12,13 +12,13 @@ use Statamic\Facades\Form as FormFacade;
 use Statamic\Forms\Form;
 use Statamic\Forms\SendEmail;
 use Statamic\Http\Controllers\CP\Forms\FormsController as BaseFormsController;
-use UAMSWeb\FormSettings\Features;
-use UAMSWeb\FormSettings\Http\Controllers\FormsController;
-use UAMSWeb\FormSettings\Http\Middleware\ApplyFormConfirmation;
-use UAMSWeb\FormSettings\Jobs\SendFormNotification;
-use UAMSWeb\FormSettings\Listeners\EnforceFormRestrictions;
-use UAMSWeb\FormSettings\Tags\FormRestriction;
-use UAMSWeb\FormSettings\Tests\TestCase;
+use UAMSWeb\Aether\Forms\Settings\Features;
+use UAMSWeb\Aether\Forms\Settings\Http\Controllers\FormsController;
+use UAMSWeb\Aether\Forms\Settings\Http\Middleware\ApplyFormConfirmation;
+use UAMSWeb\Aether\Forms\Settings\Jobs\SendFormNotification;
+use UAMSWeb\Aether\Forms\Settings\Listeners\EnforceFormRestrictions;
+use UAMSWeb\Aether\Forms\Settings\Tags\FormRestriction;
+use UAMSWeb\Aether\Forms\Settings\Tests\TestCase;
 
 /**
  * Each feature switch turns its own feature off and leaves the other three
@@ -40,7 +40,7 @@ function bootWithFeaturesOff(TestCase $test, string ...$features): void
 {
     $config = [];
     foreach ($features as $feature) {
-        $config['statamic-form-settings.features.'.$feature] = false;
+        $config['aether-form-settings.features.'.$feature] = false;
     }
 
     $test->rebootWithConfig($config);
@@ -182,8 +182,8 @@ it('keeps a notification job the host set itself', function (): void {
 
 it('reads a switch set to 0 or 1, as an env value or a published config may be, as off or on', function (): void {
     config([
-        'statamic-form-settings.features.'.Features::RESTRICTIONS => 0,
-        'statamic-form-settings.features.'.Features::CONFIRMATIONS => '1',
+        'aether-form-settings.features.'.Features::RESTRICTIONS => 0,
+        'aether-form-settings.features.'.Features::CONFIRMATIONS => '1',
     ]);
 
     expect(Features::enabled(Features::RESTRICTIONS))->toBeFalse()

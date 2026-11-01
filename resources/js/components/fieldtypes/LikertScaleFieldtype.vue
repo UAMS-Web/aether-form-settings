@@ -7,7 +7,7 @@
  *
  * All display logic (scale type, point count, order, reverse mapping, the
  * zero-point option and its label) is resolved server-side in
- * UAMSWeb\FormSettings\Fieldtypes\LikertScale::preload(); this component only renders `meta.options`,
+ * UAMSWeb\Aether\Forms\Settings\Fieldtypes\LikertScale::preload(); this component only renders `meta.options`,
  * through the helpers in likert-scale.js.
  *
  * Value shapes:

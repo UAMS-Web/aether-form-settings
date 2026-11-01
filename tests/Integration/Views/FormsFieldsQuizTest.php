@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\File;
 use Statamic\Facades\Antlers;
 use Statamic\Fields\Field;
-use UAMSWeb\FormSettings\Fieldtypes\Quiz;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\Quiz;
 
 /**
  * Tests the public-form quiz template (UAMS-Web/uams-statamic-archive#816). `quiz.antlers.html` renders the
@@ -13,7 +13,7 @@ use UAMSWeb\FormSettings\Fieldtypes\Quiz;
  * to the shared `radio` / `checkboxes` / `select` partials.
  *
  * The template is driven through the REAL sanitizer: renderQuizField() builds an
- * `UAMSWeb\FormSettings\Fieldtypes\Quiz` with a full scoring grid (`is_correct` / `weighted_score`
+ * `UAMSWeb\Aether\Forms\Settings\Fieldtypes\Quiz` with a full scoring grid (`is_correct` / `weighted_score`
  * / `answer_explanation`) and feeds `extraRenderableFieldData()` into the
  * template exactly as `RendersForms::getRenderableField()` merges it (last, over
  * `$field->toArray()`). So these tests exercise the sanitizer end-to-end: if the

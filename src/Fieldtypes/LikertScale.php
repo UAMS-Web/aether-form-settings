@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Fieldtypes;
+namespace UAMSWeb\Aether\Forms\Settings\Fieldtypes;
 
 use Illuminate\Support\Collection;
 use Statamic\Fields\Fieldtype;
-use UAMSWeb\FormSettings\Rules\LikertRatingOnScale;
-use UAMSWeb\FormSettings\Scoring\SurveyScorer;
+use UAMSWeb\Aether\Forms\Settings\Rules\LikertRatingOnScale;
+use UAMSWeb\Aether\Forms\Settings\Scoring\SurveyScorer;
 
 /**
  * Statamic fieldtype offering preset Likert-scale answer sets (grouped by scale type and
@@ -719,7 +719,7 @@ class LikertScale extends Fieldtype
                                     foreach ($value as $item) {
                                         $label = \is_scalar($item) ? (string) $item : '';
                                         if (in_array(\trim($label), ['', '0'], true)) {
-                                            $fail(__('statamic-form-settings::validation.likert_scale.row_label_required'));
+                                            $fail(__('aether-form-settings::validation.likert_scale.row_label_required'));
 
                                             return;
                                         }

@@ -10,8 +10,8 @@ use Statamic\Facades\Form as FormFacade;
 use Statamic\Fields\Blueprint;
 use Statamic\Fields\Fields;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\CpForms\FormConfigurationBlueprintCustomizer;
-use UAMSWeb\FormSettings\Http\Controllers\FormsController;
+use UAMSWeb\Aether\Forms\Settings\CpForms\FormConfigurationBlueprintCustomizer;
+use UAMSWeb\Aether\Forms\Settings\Http\Controllers\FormsController;
 
 uses(MockeryPHPUnitIntegration::class);
 

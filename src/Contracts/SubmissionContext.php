@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Contracts;
+namespace UAMSWeb\Aether\Forms\Settings\Contracts;
 
 use Statamic\Contracts\Forms\Submission;
-use UAMSWeb\FormSettings\Support\NullSubmissionContext;
+use UAMSWeb\Aether\Forms\Settings\Support\NullSubmissionContext;
 
 /**
  * Carries the submitter's request context across the queue boundary for a

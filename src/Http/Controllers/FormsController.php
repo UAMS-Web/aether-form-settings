@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Http\Controllers;
+namespace UAMSWeb\Aether\Forms\Settings\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -12,8 +12,8 @@ use Statamic\Fields\Blueprint;
 use Statamic\Fields\Fields;
 use Statamic\Forms\Form;
 use Statamic\Http\Controllers\CP\Forms\FormsController as BaseFormsController;
-use UAMSWeb\FormSettings\CpForms\FormConfigurationBlueprintCustomizer;
-use UAMSWeb\FormSettings\CpForms\FormConfigurationValuesFilter;
+use UAMSWeb\Aether\Forms\Settings\CpForms\FormConfigurationBlueprintCustomizer;
+use UAMSWeb\Aether\Forms\Settings\CpForms\FormConfigurationValuesFilter;
 
 /**
  * Control panel extension of Statamic's form controller, bound in place of the vendor class by

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Statamic\Fields\Field;
-use UAMSWeb\FormSettings\Fieldtypes\LikertScale;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\LikertScale;
 
 covers(LikertScale::class);
 
@@ -139,7 +139,7 @@ it('normalizes matrix row labels: strips brackets, trims, drops blanks, de-dupli
 });
 
 it('normalizes row labels identically via the shared static normalizer', function (): void {
-    // Single source of truth shared with UAMSWeb\FormSettings\Scoring\SurveyScorer.
+    // Single source of truth shared with UAMSWeb\Aether\Forms\Settings\Scoring\SurveyScorer.
     expect(LikertScale::normalizeRowLabels(['A]B', 'A]B', '', 'C']))->toBe(['AB', 'C']);
     expect(LikertScale::normalizeRowLabels('not-an-array'))->toBe([]);
 });

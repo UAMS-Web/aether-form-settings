@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use UAMSWeb\FormSettings\Scoring\Quiz\QuizQuestionResult;
-use UAMSWeb\FormSettings\Scoring\Quiz\QuizResults;
+use UAMSWeb\Aether\Forms\Settings\Scoring\Quiz\QuizQuestionResult;
+use UAMSWeb\Aether\Forms\Settings\Scoring\Quiz\QuizResults;
 
 covers(QuizResults::class, QuizQuestionResult::class);
 

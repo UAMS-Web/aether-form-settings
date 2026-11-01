@@ -1,6 +1,6 @@
 Written against v0.1.0.
 
-The add-on has one switch per feature, all in `features` of `config/statamic-form-settings.php`. Each defaults to `true`, so installing the add-on changes nothing until a form is configured. Publish the file with `php artisan vendor:publish --tag=statamic-form-settings-config`.
+The add-on has one switch per feature, all in `features` of `config/aether-form-settings.php`. Each defaults to `true`, so installing the add-on changes nothing until a form is configured. Publish the file with `php artisan vendor:publish --tag=aether-form-settings-config`.
 
 | Key | Environment variable | Default | Effect when `false` |
 | --- | --- | --- | --- |
@@ -12,7 +12,7 @@ The add-on has one switch per feature, all in `features` of `config/statamic-for
 ## Example
 
 ```php
-// config/statamic-form-settings.php
+// config/aether-form-settings.php
 return [
     'features' => [
         'control_panel' => true,

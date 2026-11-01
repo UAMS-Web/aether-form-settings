@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Statamic\Facades\Addon;
-use UAMSWeb\FormSettings\ServiceProvider;
+use UAMSWeb\Aether\Forms\Settings\ServiceProvider;
 
 /**
  * The add-on boots inside a minimal Statamic.
@@ -12,14 +12,14 @@ use UAMSWeb\FormSettings\ServiceProvider;
  */
 it('is discovered by Statamic as an add-on', function (): void {
     // Expect the add-on among those Statamic booted
-    expect(Addon::all()->map->package()->all())->toContain('uams-web/statamic-form-settings');
+    expect(Addon::all()->map->package()->all())->toContain('uams-web/aether-form-settings');
 });
 
 it('publishes its config file under the tag the README names', function (): void {
     // Read the paths published under the config tag
-    $paths = ServiceProvider::pathsToPublish(null, 'statamic-form-settings-config');
+    $paths = ServiceProvider::pathsToPublish(null, 'aether-form-settings-config');
 
     // Expect the package config to publish to the app's config directory
-    expect(array_map(realpath(...), array_keys($paths)))->toBe([realpath(__DIR__.'/../../config/statamic-form-settings.php')])
-        ->and(array_values($paths))->toBe([config_path('statamic-form-settings.php')]);
+    expect(array_map(realpath(...), array_keys($paths)))->toBe([realpath(__DIR__.'/../../config/aether-form-settings.php')])
+        ->and(array_values($paths))->toBe([config_path('aether-form-settings.php')]);
 });

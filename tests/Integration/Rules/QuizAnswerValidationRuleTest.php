@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Validator;
-use UAMSWeb\FormSettings\Rules\QuizAnswerValidation;
+use UAMSWeb\Aether\Forms\Settings\Rules\QuizAnswerValidation;
 
 covers(QuizAnswerValidation::class);
 
 /**
- * Behavior of the quiz answer rule (UAMSWeb\FormSettings\Rules\QuizAnswerValidation): it skips when
+ * Behavior of the quiz answer rule (UAMSWeb\Aether\Forms\Settings\Rules\QuizAnswerValidation): it skips when
  * the question has no fieldtype, rejects a value that is not a list of options,
  * and requires exactly one option marked correct for a radio or select question
  * and at least one for a checkbox or any other question. Only an `is_correct` of
@@ -57,7 +57,7 @@ it('skips validation when the question has no fieldtype', function (array $data)
 ]);
 
 it('rejects a value that is not a list of options', function (mixed $value): void {
-    expect(quizAnswerMessages(['question_fieldtype' => 'radio'], $value))->toBe([__('statamic-form-settings::validation.quiz_answer.array')]);
+    expect(quizAnswerMessages(['question_fieldtype' => 'radio'], $value))->toBe([__('aether-form-settings::validation.quiz_answer.array')]);
 })->with([
     'string' => ['answer'],
     'null' => [null],
@@ -65,7 +65,7 @@ it('rejects a value that is not a list of options', function (mixed $value): voi
 ]);
 
 it('requires exactly one correct option for a single-answer question', function (string $fieldtype, array $flags, bool $passes): void {
-    $expected = $passes ? [] : [__('statamic-form-settings::validation.quiz_answer.marked_correct.exactly_one')];
+    $expected = $passes ? [] : [__('aether-form-settings::validation.quiz_answer.marked_correct.exactly_one')];
 
     expect(quizAnswerMessages(['question_fieldtype' => $fieldtype], quizAnswerOptions(array_values($flags))))->toBe($expected);
 })->with([
@@ -78,7 +78,7 @@ it('requires exactly one correct option for a single-answer question', function 
 ]);
 
 it('requires at least one correct option for any other question', function (string $fieldtype, array $flags, bool $passes): void {
-    $expected = $passes ? [] : [__('statamic-form-settings::validation.quiz_answer.marked_correct.at_least_one')];
+    $expected = $passes ? [] : [__('aether-form-settings::validation.quiz_answer.marked_correct.at_least_one')];
 
     expect(quizAnswerMessages(['question_fieldtype' => $fieldtype], quizAnswerOptions(array_values($flags))))->toBe($expected);
 })->with([
@@ -91,7 +91,7 @@ it('requires at least one correct option for any other question', function (stri
 ]);
 
 it('counts only an is_correct of boolean true as marked', function (array $options): void {
-    expect(quizAnswerMessages(['question_fieldtype' => 'checkboxes'], $options))->toBe([__('statamic-form-settings::validation.quiz_answer.marked_correct.at_least_one')]);
+    expect(quizAnswerMessages(['question_fieldtype' => 'checkboxes'], $options))->toBe([__('aether-form-settings::validation.quiz_answer.marked_correct.at_least_one')]);
 })->with([
     'string true' => [quizAnswerOptions(['true'])],
     'string one' => [quizAnswerOptions(['1'])],
@@ -118,7 +118,7 @@ it('runs on an empty grid through the validator, since the rule is implicit', fu
         ['options' => [new QuizAnswerValidation]]
     );
 
-    expect($validator->errors()->get('options'))->toBe([__('statamic-form-settings::validation.quiz_answer.marked_correct.exactly_one')]);
+    expect($validator->errors()->get('options'))->toBe([__('aether-form-settings::validation.quiz_answer.marked_correct.exactly_one')]);
 });
 
 it('returns the same instance from setData for chaining', function (): void {

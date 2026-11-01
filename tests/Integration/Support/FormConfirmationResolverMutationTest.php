@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\Support\ConditionalLogicEvaluator;
-use UAMSWeb\FormSettings\Support\FormConfirmationResolver;
+use UAMSWeb\Aether\Forms\Settings\Support\ConditionalLogicEvaluator;
+use UAMSWeb\Aether\Forms\Settings\Support\FormConfirmationResolver;
 
 uses(MockeryPHPUnitIntegration::class);
 

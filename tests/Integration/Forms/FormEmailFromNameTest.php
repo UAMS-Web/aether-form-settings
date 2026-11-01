@@ -23,8 +23,8 @@ use Symfony\Component\Mime\Email;
  * Symfony message. Two branches are covered: `from_name` set (display name resolved
  * and attached) and `from_name` empty (bare-email fallback, today's behavior).
  *
- * Mutation: 100% on UAMSWeb\FormSettings\Mail\FormNotificationEmail (16 mutants) and
- * UAMSWeb\FormSettings\Jobs\SendFormNotification (3 mutants), both --covered-only.
+ * Mutation: 100% on UAMSWeb\Aether\Forms\Settings\Mail\FormNotificationEmail (16 mutants) and
+ * UAMSWeb\Aether\Forms\Settings\Jobs\SendFormNotification (3 mutants), both --covered-only.
  *
  * @command  vendor/bin/pest tests/Integration/Forms/FormEmailFromNameTest.php
  */

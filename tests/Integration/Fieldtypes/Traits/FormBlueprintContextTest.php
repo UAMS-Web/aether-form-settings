@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Http\Request;
 use Statamic\Fields\Field;
 use Statamic\Fields\Fieldtype;
-use UAMSWeb\FormSettings\Fieldtypes\Traits\FormBlueprintContext;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\Traits\FormBlueprintContext;
 
 /**
  * Behavior of the {@see FormBlueprintContext} trait: deciding whether a fieldtype is

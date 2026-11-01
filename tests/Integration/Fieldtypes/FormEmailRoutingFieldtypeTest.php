@@ -6,7 +6,7 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Statamic\Facades\Form as FormFacade;
 use Statamic\Fields\Field;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\Fieldtypes\FormEmailRouting;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\FormEmailRouting;
 
 uses(MockeryPHPUnitIntegration::class);
 
