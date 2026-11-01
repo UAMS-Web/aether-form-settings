@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Support;
+namespace UAMSWeb\Aether\Forms\Settings\Support;
 
 use Statamic\Contracts\Forms\Submission;
-use UAMSWeb\FormSettings\Contracts\SubmissionContext;
+use UAMSWeb\Aether\Forms\Settings\Contracts\SubmissionContext;
 
 /**
  * The add-on's default submission context: it captures nothing, so a

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Scoring\Survey;
+namespace UAMSWeb\Aether\Forms\Settings\Scoring\Survey;
 
 /**
  * The aggregate result of scoring a Gravity-Forms-style survey submission (UAMS-Web/uams-statamic-archive#210).

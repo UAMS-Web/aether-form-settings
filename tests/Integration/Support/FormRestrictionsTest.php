@@ -6,7 +6,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
 use Statamic\Forms\Form;
 use Statamic\Forms\Submission;
-use UAMSWeb\FormSettings\Support\FormRestrictions;
+use UAMSWeb\Aether\Forms\Settings\Support\FormRestrictions;
 
 /**
  * Behavior of {@see FormRestrictions}: require-login, schedule window, and entry-limit

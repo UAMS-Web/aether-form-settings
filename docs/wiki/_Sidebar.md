@@ -2,7 +2,7 @@
 
 **Getting started**
 
-- [Installation (README)](https://github.com/UAMS-Web/statamic-form-settings#installation)
+- [Installation (README)](https://github.com/UAMS-Web/aether-form-settings#installation)
 - [Your first form settings](Your-first-form-settings.md)
 
 **Guides**
@@ -18,10 +18,10 @@
 
 - [Configuration](Configuration.md)
 - [Restriction states](Restriction-states.md)
-- [README](https://github.com/UAMS-Web/statamic-form-settings#readme)
+- [README](https://github.com/UAMS-Web/aether-form-settings#readme)
 
 **Project**
 
 - [Development](Development.md)
-- [Report a problem](https://github.com/UAMS-Web/statamic-form-settings/issues)
-- [Releases](https://github.com/UAMS-Web/statamic-form-settings/releases)
+- [Report a problem](https://github.com/UAMS-Web/aether-form-settings/issues)
+- [Releases](https://github.com/UAMS-Web/aether-form-settings/releases)

@@ -21,8 +21,8 @@ use Symfony\Component\Mime\Email;
  * passing and unconditional notifications send, while the failing one is suppressed. This
  * proves notifications are gated independently against the same submission.
  *
- * @covers \UAMSWeb\FormSettings\Support\ConditionalLogicEvaluator
- * @covers \UAMSWeb\FormSettings\Jobs\SendFormNotification
+ * @covers \UAMSWeb\Aether\Forms\Settings\Support\ConditionalLogicEvaluator
+ * @covers \UAMSWeb\Aether\Forms\Settings\Jobs\SendFormNotification
  *
  * @command  vendor/bin/pest tests/Integration/Forms/FormEmailConditionalGatingTest.php
  */

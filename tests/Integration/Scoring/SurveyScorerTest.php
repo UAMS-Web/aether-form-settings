@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\File;
 use Statamic\Facades\Blueprint;
 use Statamic\Fields\BlueprintRepository;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\Scoring\SurveyScorer;
+use UAMSWeb\Aether\Forms\Settings\Scoring\SurveyScorer;
 
 /**
  * Proves the survey scoring engine (UAMS-Web/uams-statamic-archive#210) sums the numeric Likert points a
@@ -16,7 +16,7 @@ use UAMSWeb\FormSettings\Scoring\SurveyScorer;
  * multi-row Likert matrix sums its per-row points, and `not_applicable` scores
  * zero (but counts as answered).
  *
- * @covers \UAMSWeb\FormSettings\Scoring\SurveyScorer
+ * @covers \UAMSWeb\Aether\Forms\Settings\Scoring\SurveyScorer
  *
  * @command  vendor/bin/pest tests/Integration/Scoring/SurveyScorerTest.php
  */

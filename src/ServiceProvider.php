@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings;
+namespace UAMSWeb\Aether\Forms\Settings;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Routing\Router;
@@ -12,12 +12,12 @@ use Statamic\Events\FormSubmitted;
 use Statamic\Forms\SendEmail;
 use Statamic\Http\Controllers\CP\Forms\FormsController as BaseFormsController;
 use Statamic\Providers\AddonServiceProvider;
-use UAMSWeb\FormSettings\Contracts\SubmissionContext;
-use UAMSWeb\FormSettings\Http\Controllers\FormsController;
-use UAMSWeb\FormSettings\Http\Middleware\ApplyFormConfirmation;
-use UAMSWeb\FormSettings\Jobs\SendFormNotification;
-use UAMSWeb\FormSettings\Listeners\EnforceFormRestrictions;
-use UAMSWeb\FormSettings\Support\NullSubmissionContext;
+use UAMSWeb\Aether\Forms\Settings\Contracts\SubmissionContext;
+use UAMSWeb\Aether\Forms\Settings\Http\Controllers\FormsController;
+use UAMSWeb\Aether\Forms\Settings\Http\Middleware\ApplyFormConfirmation;
+use UAMSWeb\Aether\Forms\Settings\Jobs\SendFormNotification;
+use UAMSWeb\Aether\Forms\Settings\Listeners\EnforceFormRestrictions;
+use UAMSWeb\Aether\Forms\Settings\Support\NullSubmissionContext;
 
 /**
  * Service provider for the form settings add-on.
@@ -99,7 +99,7 @@ class ServiceProvider extends AddonServiceProvider
         // Let the quiz and survey tags resolve in confirmation messages and emails, unless the host opts out.
         // The add-on's config always supplies the key, so its fallback is never read.
         // @pest-mutate-ignore: TrueToFalse
-        if (Features::quizScoring() && config('statamic-form-settings.quiz_tags_in_user_content', true)) {
+        if (Features::quizScoring() && config('aether-form-settings.quiz_tags_in_user_content', true)) {
             $this->allowScoringTagsInUserContent();
         }
 

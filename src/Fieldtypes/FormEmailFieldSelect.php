@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Fieldtypes;
+namespace UAMSWeb\Aether\Forms\Settings\Fieldtypes;
 
 use Statamic\Facades\Form as FormFacade;
 use Statamic\Fields\Field;

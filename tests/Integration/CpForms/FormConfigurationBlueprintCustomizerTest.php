@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\App;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\CpForms\FieldDefinitions;
-use UAMSWeb\FormSettings\CpForms\FormConfigurationBlueprintCustomizer;
-use UAMSWeb\FormSettings\CpForms\FormConfigurationTabsInjector;
+use UAMSWeb\Aether\Forms\Settings\CpForms\FieldDefinitions;
+use UAMSWeb\Aether\Forms\Settings\CpForms\FormConfigurationBlueprintCustomizer;
+use UAMSWeb\Aether\Forms\Settings\CpForms\FormConfigurationTabsInjector;
 
 uses(MockeryPHPUnitIntegration::class);
 
@@ -18,7 +18,7 @@ covers(FormConfigurationBlueprintCustomizer::class, FieldDefinitions::class, For
  * Feature tests for FormConfigurationBlueprintCustomizer (UAMS email-grid and
  * tab customization of Statamic CP form-configuration blueprints).
  *
- * Mutation: 100% on UAMSWeb\FormSettings\CpForms\FormConfigurationBlueprintCustomizer (3 mutants, --covered-only).
+ * Mutation: 100% on UAMSWeb\Aether\Forms\Settings\CpForms\FormConfigurationBlueprintCustomizer (3 mutants, --covered-only).
  *
  * @command  vendor/bin/pest tests/Integration/CpForms/FormConfigurationBlueprintCustomizerTest.php
  */
@@ -195,7 +195,7 @@ it('exposes the letter-grade grid with text+value rows QuizScorer reads (UAMS-We
 });
 
 it('leaves out the Quiz Settings section when quiz scoring is off', function (): void {
-    config(['statamic-form-settings.quiz_scoring' => false]);
+    config(['aether-form-settings.quiz_scoring' => false]);
 
     $out = app(FormConfigurationBlueprintCustomizer::class)->customizeBlueprintContents(
         formConfigurationBlueprintCustomizerMinimalEmailTabContents(),
@@ -211,7 +211,7 @@ it('adds no host-specific Bard button or site URL to the article and URL fields 
     expect($buttons())->not->toContain('bts_attributes')
         ->and(json_encode(FieldDefinitions::url()))->not->toContain('uams.edu');
 
-    config(['statamic-form-settings.article_bard_extra_buttons' => ['bts_attributes']]);
+    config(['aether-form-settings.article_bard_extra_buttons' => ['bts_attributes']]);
 
     expect($buttons())->toContain('bts_attributes')
         ->and(array_search('bts_attributes', $buttons(), true))->toBe(array_search('h6', $buttons(), true) + 1);
@@ -230,21 +230,21 @@ function articleBardButtons(): array
 }
 
 it('adds the Quiz Settings section when the quiz scoring setting is missing, as a copy of the config from before the switch had it', function (): void {
-    $all = config('statamic-form-settings');
+    $all = config('aether-form-settings');
     $remaining = is_array($all) ? array_diff_key($all, ['quiz_scoring' => true]) : [];
-    config(['statamic-form-settings' => $remaining]);
+    config(['aether-form-settings' => $remaining]);
 
     $out = app(FormConfigurationBlueprintCustomizer::class)->customizeBlueprintContents(
         formConfigurationBlueprintCustomizerMinimalEmailTabContents(),
         formConfigurationBlueprintCustomizerMockForm('quiz-form')
     );
 
-    expect(config('statamic-form-settings.quiz_scoring'))->toBeNull()
+    expect(config('aether-form-settings.quiz_scoring'))->toBeNull()
         ->and(json_encode($out))->toContain('quiz_grading')->toContain('quiz_pass_percent');
 });
 
 it('keeps only the string buttons of a configured list, as a list', function (): void {
-    config(['statamic-form-settings.article_bard_extra_buttons' => ['first' => 'custom_one', 'skip' => 42, 'second' => 'custom_two']]);
+    config(['aether-form-settings.article_bard_extra_buttons' => ['first' => 'custom_one', 'skip' => 42, 'second' => 'custom_two']]);
 
     $buttons = articleBardButtons();
 
@@ -255,7 +255,7 @@ it('keeps only the string buttons of a configured list, as a list', function ():
 
 it('adds no Bard button when the extra buttons setting is missing or not a list', function (mixed $value): void {
     $baseline = articleBardButtons();
-    config(['statamic-form-settings.article_bard_extra_buttons' => $value]);
+    config(['aether-form-settings.article_bard_extra_buttons' => $value]);
 
     expect(articleBardButtons())->toBe($baseline)
         ->and(array_slice($baseline, 5, 1))->toBe(['bold']);

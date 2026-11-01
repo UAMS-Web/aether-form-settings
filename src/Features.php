@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings;
+namespace UAMSWeb\Aether\Forms\Settings;
 
 /**
- * Reads the per-feature switches in `config/statamic-form-settings.php`.
+ * Reads the per-feature switches in `config/aether-form-settings.php`.
  *
  * A switch that is missing from the config counts as on, matching the file's
  * defaults, so a host that publishes an older copy of the config, or none at
@@ -41,7 +41,7 @@ final class Features
      */
     public static function enabled(string $feature): bool
     {
-        return (bool) config("statamic-form-settings.features.{$feature}", true);
+        return (bool) config("aether-form-settings.features.{$feature}", true);
     }
 
     /**
@@ -55,6 +55,6 @@ final class Features
      */
     public static function quizScoring(): bool
     {
-        return (bool) config('statamic-form-settings.quiz_scoring', true);
+        return (bool) config('aether-form-settings.quiz_scoring', true);
     }
 }

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Support;
+namespace UAMSWeb\Aether\Forms\Settings\Support;
 
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Carbon\Exceptions\InvalidFormatException;
 use Statamic\Contracts\Forms\Submission;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\Listeners\EnforceFormRestrictions;
+use UAMSWeb\Aether\Forms\Settings\Listeners\EnforceFormRestrictions;
 
 /**
  * Evaluates a form's custom restrictions (entry limit, schedule window, and require-login)

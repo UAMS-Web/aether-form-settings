@@ -6,13 +6,13 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Statamic\Facades\Antlers;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\Tags\FormRestriction;
+use UAMSWeb\Aether\Forms\Settings\Tags\FormRestriction;
 
 /**
  * Proves the {{ form_restriction }} tag reports a form's render-time restriction state (UAMS-Web/uams-statamic-archive#205),
  * sharing the FormRestrictions source of truth with the submit-time gate.
  *
- * @covers \UAMSWeb\FormSettings\Tags\FormRestriction
+ * @covers \UAMSWeb\Aether\Forms\Settings\Tags\FormRestriction
  *
  * @command  vendor/bin/pest tests/Integration/Forms/FormRestrictionTagTest.php
  */

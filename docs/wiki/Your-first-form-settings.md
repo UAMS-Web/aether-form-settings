@@ -2,7 +2,7 @@ Written against v0.1.0.
 
 By the end of this page one form will show a custom confirmation message after a submission and will stop accepting entries after a set number.
 
-It assumes the add-on is installed (see [Installation (README)](https://github.com/UAMS-Web/statamic-form-settings#installation)) on Statamic 6.35 or later, and that a form already exists.
+It assumes the add-on is installed (see [Installation (README)](https://github.com/UAMS-Web/aether-form-settings#installation)) on Statamic 6.35 or later, and that a form already exists.
 
 ## 1. Open the form's settings
 

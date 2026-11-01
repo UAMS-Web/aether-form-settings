@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\CpForms;
+namespace UAMSWeb\Aether\Forms\Settings\CpForms;
 
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\Contracts\FormSettingsSection;
-use UAMSWeb\FormSettings\Features;
-use UAMSWeb\FormSettings\Rules\SubfieldsAny;
+use UAMSWeb\Aether\Forms\Settings\Contracts\FormSettingsSection;
+use UAMSWeb\Aether\Forms\Settings\Features;
+use UAMSWeb\Aether\Forms\Settings\Rules\SubfieldsAny;
 
 /**
  * Injects the add-on's blueprint sections into the Statamic CP form-configuration

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use UAMSWeb\FormSettings\CpForms\ConfirmationSettingsValuesFilter;
+use UAMSWeb\Aether\Forms\Settings\CpForms\ConfirmationSettingsValuesFilter;
 
 covers(ConfirmationSettingsValuesFilter::class);
 

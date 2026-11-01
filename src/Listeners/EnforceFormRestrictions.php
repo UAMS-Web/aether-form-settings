@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Listeners;
+namespace UAMSWeb\Aether\Forms\Settings\Listeners;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Statamic\Events\FormSubmitted;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\Features;
-use UAMSWeb\FormSettings\Support\FormRestrictions;
+use UAMSWeb\Aether\Forms\Settings\Features;
+use UAMSWeb\Aether\Forms\Settings\Support\FormRestrictions;
 
 /**
  * Rejects a form submission server-side when the form's restrictions block it (UAMS-Web/uams-statamic-archive#205).

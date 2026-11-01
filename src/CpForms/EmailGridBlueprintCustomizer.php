@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\CpForms;
+namespace UAMSWeb\Aether\Forms\Settings\CpForms;
 
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\Features;
+use UAMSWeb\Aether\Forms\Settings\Features;
 
 /**
  * Augments the Statamic CP email-grid blueprint for the add-on's form configuration.

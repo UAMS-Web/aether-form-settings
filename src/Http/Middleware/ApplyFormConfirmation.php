@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Http\Middleware;
+namespace UAMSWeb\Aether\Forms\Settings\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\JsonResponse;
@@ -13,8 +13,8 @@ use Statamic\Facades\Entry;
 use Statamic\Facades\URL;
 use Statamic\Forms\Submission;
 use Symfony\Component\HttpFoundation\Response;
-use UAMSWeb\FormSettings\Support\EmailMessageBody;
-use UAMSWeb\FormSettings\Support\FormConfirmationResolver;
+use UAMSWeb\Aether\Forms\Settings\Support\EmailMessageBody;
+use UAMSWeb\Aether\Forms\Settings\Support\FormConfirmationResolver;
 
 /**
  * Applies a form's configured confirmation to the post-submit response (UAMS-Web/uams-statamic-archive#203).

@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 use Statamic\Assets\Asset;
 use Statamic\Fields\LabeledValue;
 use Statamic\Fields\Value;
-use UAMSWeb\FormSettings\Support\SubmittedFieldDisplay;
+use UAMSWeb\Aether\Forms\Settings\Support\SubmittedFieldDisplay;
 
 /**
  * Behavior of SubmittedFieldDisplay (src/Support/SubmittedFieldDisplay.php): one submitted

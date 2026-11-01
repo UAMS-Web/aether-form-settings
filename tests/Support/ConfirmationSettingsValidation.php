@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Tests\Support;
+namespace UAMSWeb\Aether\Forms\Settings\Tests\Support;
 
 use Illuminate\Validation\Validator;
 use Statamic\Facades\Blueprint;
@@ -10,7 +10,7 @@ use Statamic\Facades\Form as FormFacade;
 use Statamic\Fields\Fields;
 use Statamic\Fields\Validator as FieldsValidator;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\CpForms\FormConfigurationBlueprintCustomizer;
+use UAMSWeb\Aether\Forms\Settings\CpForms\FormConfigurationBlueprintCustomizer;
 
 /**
  * Validates a form-settings save against the nested Control Panel blueprint (UAMS-Web/uams-statamic-archive#3162).

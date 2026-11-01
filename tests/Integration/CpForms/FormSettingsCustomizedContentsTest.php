@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Log;
 use Statamic\Facades\Form as FormFacade;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\CpForms\FormConfigurationBlueprintCustomizer;
+use UAMSWeb\Aether\Forms\Settings\CpForms\FormConfigurationBlueprintCustomizer;
 
 /**
  * The complete CP form settings tree the app's customization produces (UAMS-Web/uams-statamic-archive#3089).

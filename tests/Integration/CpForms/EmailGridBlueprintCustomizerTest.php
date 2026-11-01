@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Statamic\Facades\Form as FormFacade;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\CpForms\EmailGridBlueprintCustomizer;
+use UAMSWeb\Aether\Forms\Settings\CpForms\EmailGridBlueprintCustomizer;
 
 covers(EmailGridBlueprintCustomizer::class);
 

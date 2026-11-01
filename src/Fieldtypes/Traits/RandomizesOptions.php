@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Fieldtypes\Traits;
+namespace UAMSWeb\Aether\Forms\Settings\Fieldtypes\Traits;
 
 /*
 * Trait to randomize the order of options for select-like fieldtypes.

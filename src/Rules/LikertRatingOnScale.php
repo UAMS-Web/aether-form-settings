@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Rules;
+namespace UAMSWeb\Aether\Forms\Settings\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -50,7 +50,7 @@ class LikertRatingOnScale implements ValidationRule
 
         // Fail a matrix rating that does not arrive as a row map
         if (! \is_array($ratings)) {
-            $fail(__('statamic-form-settings::validation.likert_scale.not_on_scale'));
+            $fail(__('aether-form-settings::validation.likert_scale.not_on_scale'));
 
             return;
         }
@@ -58,7 +58,7 @@ class LikertRatingOnScale implements ValidationRule
         foreach ($ratings as $row => $rating) {
             // Fail on a row key the matrix does not list
             if ($this->rows !== [] && ! \in_array((string) $row, $this->rows, true)) {
-                $fail(__('statamic-form-settings::validation.likert_scale.unknown_row'));
+                $fail(__('aether-form-settings::validation.likert_scale.unknown_row'));
 
                 return;
             }
@@ -74,7 +74,7 @@ class LikertRatingOnScale implements ValidationRule
 
             // Fail on a value off the scale
             if (! \is_scalar($rating) || ! \in_array((string) $rating, $this->scale, true)) {
-                $fail(__('statamic-form-settings::validation.likert_scale.not_on_scale'));
+                $fail(__('aether-form-settings::validation.likert_scale.not_on_scale'));
 
                 return;
             }

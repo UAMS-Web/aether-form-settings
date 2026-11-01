@@ -1138,7 +1138,7 @@
                                 },
                                 "validate": [
                                     "exclude_unless:schedule_form_query,true",
-                                    "object:UAMSWeb\\FormSettings\\Rules\\SubfieldsAny"
+                                    "object:UAMSWeb\\Aether\\Forms\\Settings\\Rules\\SubfieldsAny"
                                 ],
                                 "fields": {
                                     "start_datetime": {

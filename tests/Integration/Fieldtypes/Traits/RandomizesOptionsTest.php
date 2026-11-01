@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use Statamic\Fields\Field;
-use UAMSWeb\FormSettings\Fieldtypes\Traits\RandomizesOptions;
-use UAMSWeb\FormSettings\Tests\Support\Doubles\RandomizesOptionsHarness;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\Traits\RandomizesOptions;
+use UAMSWeb\Aether\Forms\Settings\Tests\Support\Doubles\RandomizesOptionsHarness;
 
 covers(RandomizesOptions::class);
 

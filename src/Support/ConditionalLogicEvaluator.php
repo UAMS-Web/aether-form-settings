@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Support;
+namespace UAMSWeb\Aether\Forms\Settings\Support;
 
-use UAMSWeb\FormSettings\Fieldtypes\FormConditionalLogic;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\FormConditionalLogic;
 
 /**
  * Evaluates a stored form conditional-logic configuration against submitted values.

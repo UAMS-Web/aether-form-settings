@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use UAMSWeb\FormSettings\CpForms\EmailGridValuesFilter;
+use UAMSWeb\Aether\Forms\Settings\CpForms\EmailGridValuesFilter;
 
 covers(EmailGridValuesFilter::class);
 

@@ -5,15 +5,15 @@ declare(strict_types=1);
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Statamic\Fields\Field;
 use Statamic\Fields\Fields;
-use UAMSWeb\FormSettings\CpForms\ConfirmationSettingsValuesFilter;
-use UAMSWeb\FormSettings\CpForms\FormConfigurationValuesFilter;
+use UAMSWeb\Aether\Forms\Settings\CpForms\ConfirmationSettingsValuesFilter;
+use UAMSWeb\Aether\Forms\Settings\CpForms\FormConfigurationValuesFilter;
 
 uses(MockeryPHPUnitIntegration::class);
 
 /**
  * Unit tests for CP form configuration value filtering by field conditions.
  *
- * Mutation: 100% on UAMSWeb\FormSettings\CpForms\FormConfigurationValuesFilter (15 mutants, --covered-only).
+ * Mutation: 100% on UAMSWeb\Aether\Forms\Settings\CpForms\FormConfigurationValuesFilter (15 mutants, --covered-only).
  *
  * @command  vendor/bin/pest tests/Integration/CpForms/FormConfigurationValuesFilterTest.php
  */

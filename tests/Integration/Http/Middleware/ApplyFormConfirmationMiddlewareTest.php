@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Statamic\Forms\Submission;
 use Symfony\Component\HttpFoundation\Response;
-use UAMSWeb\FormSettings\Http\Middleware\ApplyFormConfirmation;
+use UAMSWeb\Aether\Forms\Settings\Http\Middleware\ApplyFormConfirmation;
 
 /**
  * Drives {@see ApplyFormConfirmation} directly with a hand-built request, session and downstream
@@ -25,7 +25,7 @@ use UAMSWeb\FormSettings\Http\Middleware\ApplyFormConfirmation;
  * id cast, and the `''` URL fallbacks the internal-URL guard refuses in any non-URL form. Two
  * `=== ''` shortcuts that later code already made redundant were deleted.
  *
- * @covers \UAMSWeb\FormSettings\Http\Middleware\ApplyFormConfirmation
+ * @covers \UAMSWeb\Aether\Forms\Settings\Http\Middleware\ApplyFormConfirmation
  *
  * @command  vendor/bin/pest tests/Integration/Http/Middleware/ApplyFormConfirmationMiddlewareTest.php
  */

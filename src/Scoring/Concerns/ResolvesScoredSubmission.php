@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Scoring\Concerns;
+namespace UAMSWeb\Aether\Forms\Settings\Scoring\Concerns;
 
 use Statamic\Fields\Blueprint;
 use Statamic\Fields\Value;
 use Statamic\Forms\Form;
 use Statamic\Tags\Context;
 use Statamic\Tags\Parameters;
-use UAMSWeb\FormSettings\Support\TagParam;
-use UAMSWeb\FormSettings\Tags\Quiz;
-use UAMSWeb\FormSettings\Tags\Survey;
+use UAMSWeb\Aether\Forms\Settings\Support\TagParam;
+use UAMSWeb\Aether\Forms\Settings\Tags\Quiz;
+use UAMSWeb\Aether\Forms\Settings\Tags\Survey;
 
 /**
  * Shared plumbing for the {@see Quiz} and {@see Survey}

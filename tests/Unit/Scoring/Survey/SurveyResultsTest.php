@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use UAMSWeb\FormSettings\Scoring\Survey\SurveyQuestionResult;
-use UAMSWeb\FormSettings\Scoring\Survey\SurveyResults;
+use UAMSWeb\Aether\Forms\Settings\Scoring\Survey\SurveyQuestionResult;
+use UAMSWeb\Aether\Forms\Settings\Scoring\Survey\SurveyResults;
 
 covers(SurveyResults::class, SurveyQuestionResult::class);
 

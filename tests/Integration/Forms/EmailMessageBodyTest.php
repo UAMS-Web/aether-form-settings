@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use UAMSWeb\FormSettings\Support\EmailMessageBody;
+use UAMSWeb\Aether\Forms\Settings\Support\EmailMessageBody;
 
 /**
  * Behavior of EmailMessageBody (src/Support/EmailMessageBody.php): an email row's Bard

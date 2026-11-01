@@ -17,7 +17,7 @@ use Statamic\Forms\Form;
 use Symfony\Component\Mailer\SentMessage;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Part\DataPart;
-use UAMSWeb\FormSettings\Mail\FormNotificationEmail;
+use UAMSWeb\Aether\Forms\Settings\Mail\FormNotificationEmail;
 
 /**
  * Proves the custom Assets fieldtype's per-field `attach_to_email` toggle is the single
@@ -25,7 +25,7 @@ use UAMSWeb\FormSettings\Mail\FormNotificationEmail;
  * notification whose `attachments` gate is on, only Assets fields flagged `attach_to_email`
  * attach, and a flagged field never double-attaches.
  *
- * @covers \UAMSWeb\FormSettings\Mail\FormNotificationEmail
+ * @covers \UAMSWeb\Aether\Forms\Settings\Mail\FormNotificationEmail
  *
  * @command  vendor/bin/pest tests/Integration/Forms/FormEmailAttachToEmailTest.php
  */

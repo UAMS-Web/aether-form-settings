@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Jobs;
+namespace UAMSWeb\Aether\Forms\Settings\Jobs;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Statamic\Contracts\Forms\Submission;
 use Statamic\Forms\SendEmail;
 use Statamic\Sites\Site;
-use UAMSWeb\FormSettings\Contracts\SubmissionContext;
-use UAMSWeb\FormSettings\Features;
-use UAMSWeb\FormSettings\Mail\FormNotificationEmail;
-use UAMSWeb\FormSettings\Support\ConditionalLogicEvaluator;
-use UAMSWeb\FormSettings\Support\RecipientResolver;
+use UAMSWeb\Aether\Forms\Settings\Contracts\SubmissionContext;
+use UAMSWeb\Aether\Forms\Settings\Features;
+use UAMSWeb\Aether\Forms\Settings\Mail\FormNotificationEmail;
+use UAMSWeb\Aether\Forms\Settings\Support\ConditionalLogicEvaluator;
+use UAMSWeb\Aether\Forms\Settings\Support\RecipientResolver;
 
 /**
  * Form send-email job that dispatches the project's `from_name`-aware mailable and

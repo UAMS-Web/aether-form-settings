@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use UAMSWeb\FormSettings\Support\RecipientResolver;
+use UAMSWeb\Aether\Forms\Settings\Support\RecipientResolver;
 
 /**
  * Behavior of {@see RecipientResolver}, which resolves a form notification's

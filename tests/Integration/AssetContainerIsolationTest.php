@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Statamic\Facades\AssetContainer;
-use UAMSWeb\FormSettings\Tests\TestCase;
+use UAMSWeb\Aether\Forms\Settings\Tests\TestCase;
 
 /**
  * A parallel worker's asset containers stay in a directory of its own (#19).

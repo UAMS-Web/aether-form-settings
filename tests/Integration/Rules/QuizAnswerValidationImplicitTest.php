@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Validator;
-use UAMSWeb\FormSettings\Rules\QuizAnswerValidation;
+use UAMSWeb\Aether\Forms\Settings\Rules\QuizAnswerValidation;
 
 /**
  * The quiz answer rule is implicit: Laravel runs a non-implicit rule only on a value that is present
@@ -20,6 +20,6 @@ it('runs on a missing answer grid, or one submitted as an empty string', functio
     expect($validator->fails())->toBeTrue()
         ->and($validator->errors()->first('options'))->toBe(__($message));
 })->with([
-    'an empty string' => [['question_fieldtype' => 'radio', 'options' => ''], 'statamic-form-settings::validation.quiz_answer.array'],
-    'no grid at all' => [['question_fieldtype' => 'radio'], 'statamic-form-settings::validation.quiz_answer.array'],
+    'an empty string' => [['question_fieldtype' => 'radio', 'options' => ''], 'aether-form-settings::validation.quiz_answer.array'],
+    'no grid at all' => [['question_fieldtype' => 'radio'], 'aether-form-settings::validation.quiz_answer.array'],
 ]);

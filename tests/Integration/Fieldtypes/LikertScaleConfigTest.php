@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use UAMSWeb\FormSettings\Fieldtypes\LikertScale;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\LikertScale;
 
 /**
  * Pins the LikertScale fieldtype's blueprint config fields, its row-label

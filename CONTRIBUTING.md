@@ -1,4 +1,4 @@
-# Contributing to statamic-form-settings
+# Contributing to aether-form-settings
 
 <!-- uams-claude-skills:begin -->
 ## Branches and environments

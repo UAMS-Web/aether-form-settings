@@ -1,8 +1,8 @@
-Form Settings is a Statamic add-on that extends the Control Panel's form settings screen and what a form does after a submission: notification emails with recipient routing and conditions, a confirmation message or redirect, and restrictions on who can submit and when. This wiki holds the walkthrough, the task guides, the reference and troubleshooting. The [README](https://github.com/UAMS-Web/statamic-form-settings#readme) keeps the overview, the requirements and installation.
+Form Settings is a Statamic add-on that extends the Control Panel's form settings screen and what a form does after a submission: notification emails with recipient routing and conditions, a confirmation message or redirect, and restrictions on who can submit and when. This wiki holds the walkthrough, the task guides, the reference and troubleshooting. The [README](https://github.com/UAMS-Web/aether-form-settings#readme) keeps the overview, the requirements and installation.
 
 ## Getting started
 
-- [Installation (README)](https://github.com/UAMS-Web/statamic-form-settings#installation): add the package to a Statamic install.
+- [Installation (README)](https://github.com/UAMS-Web/aether-form-settings#installation): add the package to a Statamic install.
 - [Your first form settings](Your-first-form-settings.md): give one form a confirmation message and an entry limit.
 
 ## Guides
@@ -18,10 +18,10 @@ Form Settings is a Statamic add-on that extends the Control Panel's form setting
 
 - [Configuration](Configuration.md): the four feature switches and their environment variables.
 - [Restriction states](Restriction-states.md): what the `form_restriction` tag reports.
-- [README](https://github.com/UAMS-Web/statamic-form-settings#readme): the overview, the requirements, the feature switches and the extension points.
+- [README](https://github.com/UAMS-Web/aether-form-settings#readme): the overview, the requirements, the feature switches and the extension points.
 
 ## Project
 
 - [Development](Development.md): where the add-on is developed and how to run it against a host.
-- [Report a problem](https://github.com/UAMS-Web/statamic-form-settings/issues): open an issue.
-- [Releases](https://github.com/UAMS-Web/statamic-form-settings/releases): what changed in each version.
+- [Report a problem](https://github.com/UAMS-Web/aether-form-settings/issues): open an issue.
+- [Releases](https://github.com/UAMS-Web/aether-form-settings/releases): what changed in each version.

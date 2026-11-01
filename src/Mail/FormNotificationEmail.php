@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Mail;
+namespace UAMSWeb\Aether\Forms\Settings\Mail;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
@@ -11,9 +11,9 @@ use Statamic\Fields\Value;
 use Statamic\Forms\Email;
 use Statamic\Forms\Submission;
 use Statamic\Support\Arr;
-use UAMSWeb\FormSettings\Support\EmailMessageBody;
-use UAMSWeb\FormSettings\Support\ReplicatorEmailRows;
-use UAMSWeb\FormSettings\Support\SubmittedFieldDisplay;
+use UAMSWeb\Aether\Forms\Settings\Support\EmailMessageBody;
+use UAMSWeb\Aether\Forms\Settings\Support\ReplicatorEmailRows;
+use UAMSWeb\Aether\Forms\Settings\Support\SubmittedFieldDisplay;
 
 /**
  * Form-notification mailable that honors the email config's `from_name` field.
@@ -45,7 +45,7 @@ use UAMSWeb\FormSettings\Support\SubmittedFieldDisplay;
  * the row's Bard message with the submission's merge tags into the HTML part and a plain-text
  * part, and keeps Statamic's field list only when the message is empty.
  *
- * Swapped in for the base mailable by UAMSWeb\FormSettings\Jobs\SendFormNotification, which
+ * Swapped in for the base mailable by UAMSWeb\Aether\Forms\Settings\Jobs\SendFormNotification, which
  * the `statamic.forms.send_email_job` config points at. Settles issues UAMS-Web/uams-statamic-archive#213, UAMS-Web/uams-statamic-archive#196.
  */
 final class FormNotificationEmail extends Email

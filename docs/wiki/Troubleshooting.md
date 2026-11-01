@@ -29,7 +29,7 @@ The Confirmations and Restrictions sections do not appear on a form's settings s
 
 **Cause:** the `control_panel` switch is off, which returns Statamic's own screen, or the add-on is not installed in the application that serves the Control Panel.
 
-**Fix:** set `features.control_panel` to `true`, then check that `composer show uams-web/statamic-form-settings` lists the package and clear the configuration cache.
+**Fix:** set `features.control_panel` to `true`, then check that `composer show uams-web/aether-form-settings` lists the package and clear the configuration cache.
 
 ## Fixed
 

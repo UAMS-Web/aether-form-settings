@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Tests\Fixtures\Host;
+namespace UAMSWeb\Aether\Forms\Settings\Tests\Fixtures\Host;
 
 use Illuminate\Validation\ValidationException;
 use Statamic\Events\FormSubmitted;

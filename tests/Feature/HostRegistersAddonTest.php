@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Tests\Feature;
+namespace UAMSWeb\Aether\Forms\Settings\Tests\Feature;
 
 use Statamic\Facades\Addon;
 use Tests\TestCase;
-use UAMSWeb\FormSettings\ServiceProvider;
+use UAMSWeb\Aether\Forms\Settings\ServiceProvider;
 
 /**
  * Host-bound smoke test: the add-on is discovered and booted by a real Statamic
@@ -18,7 +18,7 @@ use UAMSWeb\FormSettings\ServiceProvider;
  * from the root of the host described in `docs/DEVELOPMENT.md`, with the add-on
  * installed through a path repository.
  *
- * @command  php artisan test vendor/uams-web/statamic-form-settings/tests/Feature/HostRegistersAddonTest.php
+ * @command  php artisan test vendor/uams-web/aether-form-settings/tests/Feature/HostRegistersAddonTest.php
  */
 final class HostRegistersAddonTest extends TestCase
 {
@@ -32,7 +32,7 @@ final class HostRegistersAddonTest extends TestCase
         $packages = Addon::all()->map->package()->all();
 
         // Expect this add-on among them
-        $this->assertContains('uams-web/statamic-form-settings', $packages);
+        $this->assertContains('uams-web/aether-form-settings', $packages);
     }
 
     /** The add-on's service provider was registered and booted by the host. */

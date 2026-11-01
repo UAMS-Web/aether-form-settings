@@ -88,7 +88,7 @@ it('accepts a configured quiz answer', function (string $type): void {
 
 it('rejects a quiz answer the question does not offer', function (string $type, mixed $value): void {
     expect(answerValidationErrors(validationQuizField($type), $value))
-        ->toBe([__('statamic-form-settings::validation.quiz_answer.not_an_option')]);
+        ->toBe([__('aether-form-settings::validation.quiz_answer.not_an_option')]);
 })->with(['radio', 'select'])->with([
     'an unknown label' => 'Madrid',
     'a label in the wrong case' => 'paris',
@@ -105,7 +105,7 @@ it('accepts any set of configured checkbox answers', function (array $value): vo
 
 it('rejects a checkbox answer set carrying an unknown answer', function (array $value): void {
     expect(answerValidationErrors(validationQuizField('checkboxes'), $value))
-        ->toBe([__('statamic-form-settings::validation.quiz_answer.not_an_option')]);
+        ->toBe([__('aether-form-settings::validation.quiz_answer.not_an_option')]);
 })->with([
     'unknown first' => [['Madrid', 'Paris']],
     'unknown last' => [['Paris', 'Madrid']],
@@ -118,7 +118,7 @@ it('accepts a single-row rating on the scale', function (mixed $value): void {
 
 it('rejects a single-row rating off the scale', function (mixed $value): void {
     expect(answerValidationErrors(validationLikertField(), $value))
-        ->toBe([__('statamic-form-settings::validation.likert_scale.not_on_scale')]);
+        ->toBe([__('aether-form-settings::validation.likert_scale.not_on_scale')]);
 })->with([
     'past the top' => '6',
     'zero' => '0',
@@ -139,7 +139,7 @@ it('accepts a matrix rating on the scale for listed rows', function (array $valu
 
 it('rejects a matrix rating off the scale', function (array $value): void {
     expect(answerValidationErrors(validationLikertField(rows: ['Staff', 'Value']), $value))
-        ->toBe([__('statamic-form-settings::validation.likert_scale.not_on_scale')]);
+        ->toBe([__('aether-form-settings::validation.likert_scale.not_on_scale')]);
 })->with([
     'first row' => [['Staff' => '9', 'Value' => '2']],
     'last row' => [['Staff' => '4', 'Value' => '9']],
@@ -157,7 +157,7 @@ it('rejects a matrix rating for a row the question does not list', function (arr
     /** @var list<string> $rows */
     // Only the unknown-row error is raised, even when that row's value is also off the scale
     expect(answerValidationErrors(validationLikertField(rows: $rows), $value))
-        ->toBe([__('statamic-form-settings::validation.likert_scale.unknown_row')]);
+        ->toBe([__('aether-form-settings::validation.likert_scale.unknown_row')]);
 })->with([
     'an unlisted label' => [['Staff', 'Value'], ['Staff' => '4', 'Parking' => '2']],
     'an unlisted label with an off-scale value' => [['Staff', 'Value'], ['Parking' => '9']],
@@ -166,5 +166,5 @@ it('rejects a matrix rating for a row the question does not list', function (arr
 
 it('rejects a matrix rating that is not a row map', function (): void {
     expect(answerValidationErrors(validationLikertField(rows: ['Staff', 'Value']), '4'))
-        ->toBe([__('statamic-form-settings::validation.likert_scale.not_on_scale')]);
+        ->toBe([__('aether-form-settings::validation.likert_scale.not_on_scale')]);
 });

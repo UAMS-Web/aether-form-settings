@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use UAMSWeb\FormSettings\CpForms\ConfirmationSettingsFieldBuilder;
-use UAMSWeb\FormSettings\Tests\Support\ConfirmationSettingsValidation as Confirmation;
+use UAMSWeb\Aether\Forms\Settings\CpForms\ConfirmationSettingsFieldBuilder;
+use UAMSWeb\Aether\Forms\Settings\Tests\Support\ConfirmationSettingsValidation as Confirmation;
 
 /*
  * Guards the conditional rule on the confirmation query-string field (UAMS-Web/uams-statamic-archive#3101,

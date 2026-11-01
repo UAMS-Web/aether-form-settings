@@ -1,5 +1,5 @@
 {
-    "name": "statamic-form-settings",
+    "name": "aether-form-settings",
     "private": true,
     "type": "module",
     "engines": {

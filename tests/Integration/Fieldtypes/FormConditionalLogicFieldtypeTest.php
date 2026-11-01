@@ -6,7 +6,7 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Statamic\Facades\Form as FormFacade;
 use Statamic\Fields\Field;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\Fieldtypes\FormConditionalLogic;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\FormConditionalLogic;
 
 uses(MockeryPHPUnitIntegration::class);
 

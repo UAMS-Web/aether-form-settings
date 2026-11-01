@@ -18,8 +18,8 @@ use Statamic\Stache\Stores\Store;
  * Each test uses a unique form handle so the entry-limit gate (which reads the live submission
  * count) never sees submissions cached by a sibling test in the shared form-submissions store.
  *
- * @covers \UAMSWeb\FormSettings\Listeners\EnforceFormRestrictions
- * @covers \UAMSWeb\FormSettings\Support\FormRestrictions
+ * @covers \UAMSWeb\Aether\Forms\Settings\Listeners\EnforceFormRestrictions
+ * @covers \UAMSWeb\Aether\Forms\Settings\Support\FormRestrictions
  *
  * @command  vendor/bin/pest tests/Integration/Forms/FormRestrictionsEnforcementTest.php
  */

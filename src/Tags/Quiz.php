@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Tags;
+namespace UAMSWeb\Aether\Forms\Settings\Tags;
 
 use Statamic\Forms\Form;
 use Statamic\Tags\Tags;
-use UAMSWeb\FormSettings\Features;
-use UAMSWeb\FormSettings\Scoring\Concerns\ResolvesScoredSubmission;
-use UAMSWeb\FormSettings\Scoring\Quiz\QuizQuestionResult;
-use UAMSWeb\FormSettings\Scoring\Quiz\QuizResults;
-use UAMSWeb\FormSettings\Scoring\QuizScorer;
+use UAMSWeb\Aether\Forms\Settings\Features;
+use UAMSWeb\Aether\Forms\Settings\Scoring\Concerns\ResolvesScoredSubmission;
+use UAMSWeb\Aether\Forms\Settings\Scoring\Quiz\QuizQuestionResult;
+use UAMSWeb\Aether\Forms\Settings\Scoring\Quiz\QuizResults;
+use UAMSWeb\Aether\Forms\Settings\Scoring\QuizScorer;
 
 /**
  * Emulates the Gravity Forms quiz merge tags (UAMS-Web/uams-statamic-archive#209).

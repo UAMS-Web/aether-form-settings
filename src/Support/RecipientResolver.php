@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Support;
+namespace UAMSWeb\Aether\Forms\Settings\Support;
 
-use UAMSWeb\FormSettings\CpForms\EmailGridBlueprintCustomizer;
+use UAMSWeb\Aether\Forms\Settings\CpForms\EmailGridBlueprintCustomizer;
 
 /**
  * Resolves a form email notification's TO / CC / BCC / Reply-To recipients from the

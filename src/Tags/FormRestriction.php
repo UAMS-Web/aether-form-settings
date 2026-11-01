@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace UAMSWeb\FormSettings\Tags;
+namespace UAMSWeb\Aether\Forms\Settings\Tags;
 
 use Illuminate\Support\Facades\Auth;
 use Statamic\Facades\Form;
 use Statamic\Forms\Form as FormInstance;
 use Statamic\Tags\Parameters;
 use Statamic\Tags\Tags;
-use UAMSWeb\FormSettings\Features;
-use UAMSWeb\FormSettings\Listeners\EnforceFormRestrictions;
-use UAMSWeb\FormSettings\Support\FormRestrictions;
+use UAMSWeb\Aether\Forms\Settings\Features;
+use UAMSWeb\Aether\Forms\Settings\Listeners\EnforceFormRestrictions;
+use UAMSWeb\Aether\Forms\Settings\Support\FormRestrictions;
 
 /**
  * Exposes a form's current restriction state to templates so the rendered page can show the

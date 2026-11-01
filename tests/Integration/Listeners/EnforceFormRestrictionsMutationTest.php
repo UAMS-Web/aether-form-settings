@@ -8,14 +8,14 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Statamic\Contracts\Forms\Submission;
 use Statamic\Events\FormSubmitted;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\Listeners\EnforceFormRestrictions;
+use UAMSWeb\Aether\Forms\Settings\Listeners\EnforceFormRestrictions;
 
 covers(EnforceFormRestrictions::class);
 
 uses(MockeryPHPUnitIntegration::class);
 
 /**
- * Narrow mutate coverage for UAMSWeb\FormSettings\Listeners\EnforceFormRestrictions.
+ * Narrow mutate coverage for UAMSWeb\Aether\Forms\Settings\Listeners\EnforceFormRestrictions.
  *
  * Collaborators are mocked so mutant children never touch the form-submissions store.
  *

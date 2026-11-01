@@ -5,7 +5,7 @@ declare(strict_types=1);
 use PHPUnit\Framework\Assert;
 use Statamic\Facades\Form as FormFacade;
 use Statamic\Forms\Form;
-use UAMSWeb\FormSettings\CpForms\EmailGridBlueprintCustomizer;
+use UAMSWeb\Aether\Forms\Settings\CpForms\EmailGridBlueprintCustomizer;
 
 /**
  * Pins the recipient guidance the Control Panel shows on a form's Email tab
@@ -77,7 +77,7 @@ it('no longer forbids an individual address in To, CC or BCC', function (): void
 });
 
 it('lists the quiz and survey merge tags only when quiz scoring is on', function (bool $on): void {
-    config(['statamic-form-settings.quiz_scoring' => $on]);
+    config(['aether-form-settings.quiz_scoring' => $on]);
 
     $instructions = emailTabRecipientInstructions();
 
@@ -88,11 +88,11 @@ it('lists the quiz and survey merge tags only when quiz scoring is on', function
 })->with([true, false]);
 
 it('treats a missing quiz scoring setting as on', function (): void {
-    $all = config('statamic-form-settings');
+    $all = config('aether-form-settings');
     $remaining = is_array($all) ? array_diff_key($all, ['quiz_scoring' => true]) : [];
-    config(['statamic-form-settings' => $remaining]);
+    config(['aether-form-settings' => $remaining]);
 
-    expect(config('statamic-form-settings.quiz_scoring'))->toBeNull()
+    expect(config('aether-form-settings.quiz_scoring'))->toBeNull()
         ->and(emailTabRecipientInstructions())->toContain('{{ today format=')->toContain('quiz:grade')->toContain('survey:score');
 });
 
@@ -102,9 +102,9 @@ it('adds nothing but the quiz and survey lines when quiz scoring is on', functio
         static fn (string $line): bool => ! str_contains($line, 'quiz') && ! str_contains($line, 'survey'),
     ));
 
-    config(['statamic-form-settings.quiz_scoring' => true]);
+    config(['aether-form-settings.quiz_scoring' => true]);
     $on = emailTabRecipientInstructions();
-    config(['statamic-form-settings.quiz_scoring' => false]);
+    config(['aether-form-settings.quiz_scoring' => false]);
     $off = emailTabRecipientInstructions();
 
     expect($off)->not->toBe($on)

@@ -8,7 +8,7 @@ use Statamic\Facades\Antlers;
 use Statamic\Facades\Blueprint;
 use Statamic\Fields\BlueprintRepository;
 use Statamic\Forms\Submission;
-use UAMSWeb\FormSettings\ServiceProvider;
+use UAMSWeb\Aether\Forms\Settings\ServiceProvider;
 
 /**
  * While quiz scoring is on, the add-on adds the `quiz` and `survey` tags to Antlers' user-content
@@ -102,10 +102,10 @@ it("leaves the host's allowlist as it is when the host opts out, or scoring is o
     expect(config('statamic.antlers.allowedContentTags'))->toBe(['@default', 'partial:*']);
 
     // Scoring itself stays on for the opt-out, so the empty render is the sandbox refusing the tag
-    if (config('statamic-form-settings.quiz_scoring')) {
+    if (config('aether-form-settings.quiz_scoring')) {
         expect(quizTagsInUserContentScore())->toBe('');
     }
 })->with([
-    'opted out' => ['statamic-form-settings.quiz_tags_in_user_content'],
-    'scoring off' => ['statamic-form-settings.quiz_scoring'],
+    'opted out' => ['aether-form-settings.quiz_tags_in_user_content'],
+    'scoring off' => ['aether-form-settings.quiz_scoring'],
 ]);

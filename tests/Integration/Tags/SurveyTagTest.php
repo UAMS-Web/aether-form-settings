@@ -9,8 +9,8 @@ use Statamic\Fields\BlueprintRepository;
 use Statamic\Fields\Field;
 use Statamic\Forms\Form;
 use Statamic\Forms\Submission;
-use UAMSWeb\FormSettings\Fieldtypes\LikertScale;
-use UAMSWeb\FormSettings\Tags\Survey;
+use UAMSWeb\Aether\Forms\Settings\Fieldtypes\LikertScale;
+use UAMSWeb\Aether\Forms\Settings\Tags\Survey;
 
 /**
  * Proves the {{ survey }} tag (UAMS-Web/uams-statamic-archive#210) renders a scored submission the way a form
@@ -19,7 +19,7 @@ use UAMSWeb\FormSettings\Tags\Survey;
  * the total score and the per-question answer breakdown, while a non-survey
  * form yields nothing.
  *
- * @covers \UAMSWeb\FormSettings\Tags\Survey
+ * @covers \UAMSWeb\Aether\Forms\Settings\Tags\Survey
  *
  * @command  vendor/bin/pest tests/Integration/Tags/SurveyTagTest.php
  */

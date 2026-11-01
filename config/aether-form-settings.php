@@ -8,11 +8,11 @@ declare(strict_types=1);
 |--------------------------------------------------------------------------
 |
 | Statamic merges this file into the application's config under the add-on's
-| handle (the package name without its vendor: `statamic-form-settings`), so
-| `config('statamic-form-settings.features.notifications')` reads it. The host
+| handle (the package name without its vendor: `aether-form-settings`), so
+| `config('aether-form-settings.features.notifications')` reads it. The host
 | publishes it to its own `config/` directory with:
 |
-|     php artisan vendor:publish --tag=statamic-form-settings-config
+|     php artisan vendor:publish --tag=aether-form-settings-config
 |
 */
 
