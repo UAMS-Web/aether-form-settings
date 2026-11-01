@@ -137,9 +137,10 @@ it('keeps the quiz and likert scale form views with scoring and every feature sw
     ]);
 
     // Both resolve to this add-on's own field views
-    $fieldViews = realpath(dirname(__DIR__, 3).'/resources/field-views/forms/fields');
-    expect(realpath(view()->getFinder()->find('statamic::forms.fields.quiz')))->toBe($fieldViews.'/quiz.antlers.html')
-        ->and(realpath(view()->getFinder()->find('statamic::forms.fields.likert_scale')))->toBe($fieldViews.'/likert_scale.antlers.html');
+    // (each expected path goes through realpath() too, so both sides use the platform's separator)
+    $fieldViews = dirname(__DIR__, 3).'/resources/field-views/forms/fields';
+    expect(realpath(view()->getFinder()->find('statamic::forms.fields.quiz')))->toBe(realpath($fieldViews.'/quiz.antlers.html'))
+        ->and(realpath(view()->getFinder()->find('statamic::forms.fields.likert_scale')))->toBe(realpath($fieldViews.'/likert_scale.antlers.html'));
 });
 
 it("names the view Statamic renders the question's control with", function (mixed $questionFieldtype, string $control): void {
