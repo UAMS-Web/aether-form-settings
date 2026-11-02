@@ -222,3 +222,41 @@ it("puts the add-on's email view after a host's own copy and before Statamic's",
         rmdir($hostViews);
     }
 });
+
+it("keeps a host's own copy ahead of the add-on's email view when the host view path is a symlink", function (): void {
+    // A host view directory, reached through a symlink as a deployment's current/ release is
+    $base = (realpath(sys_get_temp_dir()) ?: sys_get_temp_dir()).'/form-settings-host-link-'.str_replace('.', '', uniqid('', true));
+    mkdir($base.'/real/vendor/statamic', 0777, true);
+
+    try {
+        // Skip where the platform cannot make a symlink, as Windows may refuse without the privilege
+        if (! @symlink($base.'/real', $base.'/link')) {
+            $this->markTestSkipped('This platform cannot create a symlink');
+        }
+
+        mustBe(TestCase::class, $this, 'test case')->rebootWithConfig(['view.paths' => [$base.'/link']]);
+
+        $hints = mustBeArray(mustBe(FileViewFinder::class, View::getFinder(), 'view finder')->getHints()['statamic'] ?? [], 'view hints');
+        $paths = array_values(array_map(static fn (mixed $path): string|false => realpath(mustBeString($path, 'view hint')), $hints));
+
+        $own = array_search(realpath(dirname(__DIR__, 2).'/resources/views'), $paths, true);
+        $host = array_keys($paths, realpath($base.'/real/vendor/statamic'), true);
+
+        expect($own)->toBeInt()
+            ->and($host)->not->toBeEmpty();
+
+        if (! is_int($own) || $host === []) {
+            $this->fail('A view path is missing from the statamic namespace');
+        }
+
+        expect(max($host))->toBeLessThan($own);
+    } finally {
+        if (is_link($base.'/link')) {
+            unlink($base.'/link');
+        }
+        rmdir($base.'/real/vendor/statamic');
+        rmdir($base.'/real/vendor');
+        rmdir($base.'/real');
+        rmdir($base);
+    }
+});
