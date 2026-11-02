@@ -34,6 +34,13 @@ final class Features
     public const string RESTRICTIONS = 'restrictions';
 
     /**
+     * The `_*` metadata saved with each submission and the submitter's request context for emails.
+     *
+     * Unlike the other switches this one is off unless the config turns it on.
+     */
+    public const string SUBMISSION_DATA = 'submission_data';
+
+    /**
      * Whether a feature is switched on.
      *
      * @param  self::*  $feature  One of this class's constants.
@@ -42,6 +49,19 @@ final class Features
     public static function enabled(string $feature): bool
     {
         return (bool) config("aether-form-settings.features.{$feature}", true);
+    }
+
+    /**
+     * Whether the submission data feature is switched on.
+     *
+     * Read apart from {@see self::enabled()} because it is opt-in: a missing key counts as off, so
+     * a host on a copy of the config from before the switch existed saves submissions as it always did.
+     *
+     * @return bool True only when the config switches the feature on.
+     */
+    public static function submissionData(): bool
+    {
+        return (bool) config('aether-form-settings.features.'.self::SUBMISSION_DATA, false);
     }
 
     /**
