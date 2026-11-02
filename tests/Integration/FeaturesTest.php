@@ -254,6 +254,7 @@ it("keeps a host's own copy ahead of the add-on's email view when the host view 
         if (is_link($base.'/link')) {
             unlink($base.'/link');
         }
+
         rmdir($base.'/real/vendor/statamic');
         rmdir($base.'/real/vendor');
         rmdir($base.'/real');
