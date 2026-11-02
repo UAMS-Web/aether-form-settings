@@ -204,12 +204,14 @@ class ServiceProvider extends AddonServiceProvider
         // @pest-mutate-ignore: InstanceOfToTrue
         $hints = $finder instanceof FileViewFinder ? $finder->getHints()['statamic'] ?? [] : [];
 
-        // The override directories Laravel looks for under each of the host's view paths
+        // The override directories Laravel looks for under each of the host's view paths, resolved
+        // as the finder resolves a hint: since Laravel v13.39 a hint is stored through realpath(), so
+        // a view path that goes through a symlink would otherwise never match its own hint (#37)
         $viewPaths = config('view.paths');
         $overrides = array_map(
             // A view path that is not a string names no directory, so any text in its place matches no hint.
             // @pest-mutate-ignore: EmptyStringToNotEmpty
-            static fn (mixed $viewPath): string => (\is_string($viewPath) ? $viewPath : '').'/vendor/statamic',
+            static fn (mixed $viewPath): string => self::resolveViewPath((\is_string($viewPath) ? $viewPath : '').'/vendor/statamic'),
             \is_array($viewPaths) ? $viewPaths : [],
         );
 
@@ -217,9 +219,12 @@ class ServiceProvider extends AddonServiceProvider
         $first = [];
         $rest = [];
         foreach ($hints as $hint) {
+            // Resolve the hint too, for a Laravel release that stores hints as given
+            $resolved = \is_string($hint) ? self::resolveViewPath($hint) : $hint;
+
             // Hints and overrides are both directory paths, which compare the same loosely or strictly.
             // @pest-mutate-ignore: TrueToFalse
-            if (\in_array($hint, $overrides, true)) {
+            if (\in_array($resolved, $overrides, true)) {
                 $first[] = $hint;
             } else {
                 $rest[] = $hint;
@@ -227,5 +232,16 @@ class ServiceProvider extends AddonServiceProvider
         }
 
         View::replaceNamespace('statamic', [...$first, $path, ...$rest]);
+    }
+
+    /**
+     * Resolve a view directory the way Laravel's view finder resolves a namespace hint.
+     *
+     * @param  string  $path  The directory as configured.
+     * @return string The directory with its symlinks resolved, or as given when it does not exist.
+     */
+    private static function resolveViewPath(string $path): string
+    {
+        return realpath($path) ?: $path;
     }
 }
