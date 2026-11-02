@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace UAMSWeb\Aether\Forms\Settings;
 
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Queue\Events\JobQueued;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\View;
 use Illuminate\View\FileViewFinder;
-use Illuminate\Queue\Events\JobQueued;
 use Statamic\Events\FormSubmitted;
 use Statamic\Events\SubmissionCreating;
 use Statamic\Forms\SendEmail;

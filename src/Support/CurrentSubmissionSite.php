@@ -26,6 +26,10 @@ final class CurrentSubmissionSite implements SubmissionSite
     #[\Override]
     public function forSubmission(?Submission $submission = null): StatamicSite
     {
-        return Site::current();
+        // The facade's accessor is untyped; Statamic's manager returns a site object
+        /** @var StatamicSite $site */
+        $site = Site::current();
+
+        return $site;
     }
 }

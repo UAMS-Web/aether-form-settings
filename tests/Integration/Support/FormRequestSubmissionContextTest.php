@@ -65,6 +65,7 @@ it('hands the context to each notification job of a submission', function (): vo
     $form = makeForm('form_request_submission_context_probe');
     $submission = $form->makeSubmission();
     $submission->data(['name' => 'Pat']);
+
     $id = $submission->id();
     FormRequestContext::stash(is_scalar($id) ? (string) $id : '', new FormRequestContext('203.0.113.8', '', [], 'default'));
 

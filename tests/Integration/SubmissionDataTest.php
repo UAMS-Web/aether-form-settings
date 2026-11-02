@@ -141,7 +141,7 @@ it('registers each listener once when it is on', function (): void {
         ->and($counts[CaptureFormRequestContext::class] ?? 0)->toBe(1);
 });
 
-it('runs the capture after a host listener that refuses the submission', function () use (&$submissionDataHandle): void {
+it('runs the capture after a host listener that refuses the submission', function (): void {
     $this->rebootWithConfig(['aether-form-settings.features.submission_data' => true]);
     $this->rebootWithHostProviders([HostEventServiceProvider::class]);
 
@@ -151,12 +151,12 @@ it('runs the capture after a host listener that refuses the submission', functio
 
     expect($host)->toBeInt()
         ->and($capture)->toBeInt()
-        ->and($capture)->toBeGreaterThan($host);
+        ->and($capture > $host)->toBeTrue();
 });
 
 it('names the current site unless the host binds one', function (): void {
     expect(app(SubmissionSite::class))->toBeInstanceOf(CurrentSubmissionSite::class);
 
-    app()->bind(SubmissionSite::class, fn () => new CurrentSubmissionSite);
+    app()->bind(SubmissionSite::class, fn (): CurrentSubmissionSite => new CurrentSubmissionSite);
     expect(app(SubmissionSite::class)->forSubmission()->handle())->toBe('default');
 });

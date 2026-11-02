@@ -78,7 +78,7 @@ function warnFormEmailJobQueuedEvent(object $job, string $connection): JobQueued
  *
  * @command  vendor/bin/pest tests/Integration/Listeners/WarnWhenFormEmailQueuedTest.php
  */
-it('warns when the form send-email job is queued async without captured context', function () {
+it('warns when the form send-email job is queued async without captured context', function (): void {
     // Capture log calls without suppressing other behavior.
     $log = Log::spy();
 
@@ -95,10 +95,10 @@ it('warns when the form send-email job is queued async without captured context'
     // The guard should have logged a single, descriptive warning.
     $log->shouldHaveReceived('warning')
         ->once()
-        ->withArgs(fn ($message) => \is_string($message) && str_contains($message, 'request-context merge tags'));
+        ->withArgs(fn ($message): bool => \is_string($message) && str_contains($message, 'request-context merge tags'));
 });
 
-it('does not warn when the queued send-email job carries captured request context', function () {
+it('does not warn when the queued send-email job carries captured request context', function (): void {
     // Capture log calls without suppressing other behavior.
     $log = Log::spy();
 
@@ -115,7 +115,7 @@ it('does not warn when the queued send-email job carries captured request contex
     $log->shouldNotHaveReceived('warning');
 });
 
-it('does not warn for unrelated queued jobs', function () {
+it('does not warn for unrelated queued jobs', function (): void {
     // Capture log calls without suppressing other behavior.
     $log = Log::spy();
 
@@ -126,7 +126,7 @@ it('does not warn for unrelated queued jobs', function () {
     $log->shouldNotHaveReceived('warning');
 });
 
-it('logs the full warning with the connection, queue and job', function () {
+it('logs the full warning with the connection, queue and job', function (): void {
     $log = Log::spy();
 
     $job = warnFormEmailMakeSendEmailJob();
