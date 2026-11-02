@@ -8,15 +8,23 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\View;
 use Illuminate\View\FileViewFinder;
+use Illuminate\Queue\Events\JobQueued;
 use Statamic\Events\FormSubmitted;
+use Statamic\Events\SubmissionCreating;
 use Statamic\Forms\SendEmail;
 use Statamic\Http\Controllers\CP\Forms\FormsController as BaseFormsController;
 use Statamic\Providers\AddonServiceProvider;
 use UAMSWeb\Aether\Forms\Settings\Contracts\SubmissionContext;
+use UAMSWeb\Aether\Forms\Settings\Contracts\SubmissionSite;
 use UAMSWeb\Aether\Forms\Settings\Http\Controllers\FormsController;
 use UAMSWeb\Aether\Forms\Settings\Http\Middleware\ApplyFormConfirmation;
 use UAMSWeb\Aether\Forms\Settings\Jobs\SendFormNotification;
+use UAMSWeb\Aether\Forms\Settings\Listeners\AppendSubmissionMetadata;
+use UAMSWeb\Aether\Forms\Settings\Listeners\CaptureFormRequestContext;
 use UAMSWeb\Aether\Forms\Settings\Listeners\EnforceFormRestrictions;
+use UAMSWeb\Aether\Forms\Settings\Listeners\WarnWhenFormEmailQueued;
+use UAMSWeb\Aether\Forms\Settings\Support\CurrentSubmissionSite;
+use UAMSWeb\Aether\Forms\Settings\Support\FormRequestSubmissionContext;
 use UAMSWeb\Aether\Forms\Settings\Support\NullSubmissionContext;
 
 /**
@@ -69,6 +77,9 @@ class ServiceProvider extends AddonServiceProvider
         // Capture nothing unless the host binds a context of its own
         $this->app->bindIf(SubmissionContext::class, NullSubmissionContext::class);
 
+        // Name the current site as a submission's site unless the host binds one that knows better
+        $this->app->bindIf(SubmissionSite::class, CurrentSubmissionSite::class);
+
         // Refuse a restricted submission before the host's own listeners see it
         $this->app->make(Dispatcher::class)->listen(FormSubmitted::class, EnforceFormRestrictions::class);
     }
@@ -76,9 +87,11 @@ class ServiceProvider extends AddonServiceProvider
     /**
      * Register no listeners from Statamic's discovery of `src/Listeners`.
      *
-     * The add-on's one listener is registered in {@see register()}, so that it
+     * The restrictions listener is registered in {@see register()}, so that it
      * runs ahead of the host's; discovering it as well would register it twice.
-     * A listener added to `src/Listeners` is registered in {@see register()} too.
+     * The submission data listeners are registered in {@see registerSubmissionData()},
+     * and only while that feature is on. A listener added to `src/Listeners` is
+     * registered by one of the two.
      */
     #[\Override]
     public function bootEvents(): static
@@ -122,6 +135,30 @@ class ServiceProvider extends AddonServiceProvider
         if (Features::enabled(Features::CONFIRMATIONS)) {
             $this->app->make(Router::class)->pushMiddlewareToGroup('web', ApplyFormConfirmation::class);
         }
+
+        // Save the `_*` metadata and carry the request context to queued emails
+        if (Features::submissionData()) {
+            $this->registerSubmissionData();
+        }
+    }
+
+    /**
+     * Register the submission data listeners and the context that carries a request to a queue worker.
+     *
+     * This runs in {@see bootAddon()}, after the host's own providers have registered their
+     * listeners, so the listeners here run after a host's check on the same events, such as a
+     * limit on how many submissions a choice may take. A submission that check refuses is then
+     * never given metadata.
+     */
+    private function registerSubmissionData(): void
+    {
+        // Hand the captured request context to the notification job instead of capturing nothing
+        $this->app->bind(SubmissionContext::class, FormRequestSubmissionContext::class);
+
+        $events = $this->app->make(Dispatcher::class);
+        $events->listen(SubmissionCreating::class, AppendSubmissionMetadata::class);
+        $events->listen(FormSubmitted::class, CaptureFormRequestContext::class);
+        $events->listen(JobQueued::class, WarnWhenFormEmailQueued::class);
     }
 
     /**

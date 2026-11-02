@@ -99,3 +99,13 @@ Oldest first, one entry per closed decision, so **a new entry is appended to the
 **Rejected.** A `features.quiz_scoring` switch: the key already existed and gates the same section. Keeping the default off: the site would lose its grading section and results on upgrade unless it set an environment variable. Registering the fieldtypes only when scoring is on: a stored quiz form would stop rendering. Leaving the allowlist to each host: every confirmation and email using the tags breaks silently in a host that misses the step.
 
 **Companion.** `UAMS-Web/uams-statamic#264`, `UAMS-Web/uams-statamic#262`.
+
+## 2026-11-01: Submission metadata and request context move into this add-on behind submission_data (UAMS-Web/uams-statamic#265)
+
+**Decision.** The listeners that save the `_*` submission metadata (`AppendSubmissionMetadata`), capture the submitter's request context (`CaptureFormRequestContext`) and warn about a form email queued without it (`WarnWhenFormEmailQueued`) move here from `UAMS-Web/uams-statamic`, with `FormRequestContext` and `FormRequestSubmissionContext`. They are switched by `features.submission_data`, which defaults to off, and are registered in `bootAddon()` only while it is on. The site that names a submission's site through the multisite forms add-on is reached through a new `SubmissionSite` contract with a plain default, `CurrentSubmissionSite`, that a host rebinds. No package is added.
+
+**Why.** The metadata and the context are one feature that reads the same request, and the notification job already carries a `requestContext` that only this feature fills. The multisite add-on supplies the one dependency the listeners had, the site of the page a form was on; a contract with the same shape as `SubmissionContext` keeps this add-on free of that package. Registration in `bootAddon()` runs after a host's own listeners are registered, so the metadata and the capture follow a host check such as per-choice submission limits, which stay in the site.
+
+**Rejected.** Defaulting the switch to on: the site would have gained listeners it already registers itself. Requiring the multisite forms add-on: it is a hard dependency for a feature that only needs a site name. Registering the listeners in `register()`: they would run ahead of a host's refusal and save metadata for a submission the host then rejects.
+
+**Companion.** `UAMS-Web/uams-statamic#265`.

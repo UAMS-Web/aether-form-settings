@@ -10,7 +10,10 @@ use Statamic\Facades\Blueprint;
 use Statamic\Facades\Stache;
 use Statamic\Fields\BlueprintRepository;
 use Statamic\Stache\Stores\Store;
+use UAMSWeb\Aether\Forms\Settings\Listeners\AppendSubmissionMetadata;
+use UAMSWeb\Aether\Forms\Settings\Listeners\CaptureFormRequestContext;
 use UAMSWeb\Aether\Forms\Settings\Listeners\EnforceFormRestrictions;
+use UAMSWeb\Aether\Forms\Settings\Listeners\WarnWhenFormEmailQueued;
 use UAMSWeb\Aether\Forms\Settings\Tests\Fixtures\Host\HostEventServiceProvider;
 use UAMSWeb\Aether\Forms\Settings\Tests\Fixtures\Host\RefuseEverySubmission;
 
@@ -95,18 +98,45 @@ it('registers the restrictions listener once', function (): void {
     expect(array_count_values(array_filter($listeners, is_string(...)))[EnforceFormRestrictions::class] ?? 0)->toBe(1);
 });
 
+/**
+ * The listener classes in `src/Listeners`, the ones Statamic's discovery would have registered.
+ *
+ * @return list<string> Fully qualified class names.
+ */
+function listenerClasses(): array
+{
+    return array_values(array_map(
+        static fn (SplFileInfo $file): string => 'UAMSWeb\\Aether\\Forms\\Settings\\Listeners\\'.$file->getBasename('.php'),
+        File::files(__DIR__.'/../../../src/Listeners'),
+    ));
+}
+
 it('registers every listener in src/Listeners, since the provider skips their discovery', function (): void {
+    // The submission data listeners wait for their own switch, which is off here
+    $submissionData = [AppendSubmissionMetadata::class, CaptureFormRequestContext::class, WarnWhenFormEmailQueued::class];
+    $classes = array_values(array_diff(listenerClasses(), $submissionData));
+
     // Every class the dispatcher was given, for any event
     $registered = registeredListeners(null);
 
-    // The classes Statamic's discovery would have registered
-    $classes = array_map(
-        static fn (SplFileInfo $file): string => 'UAMSWeb\\Aether\\Forms\\Settings\\Listeners\\'.$file->getBasename('.php'),
-        File::files(__DIR__.'/../../../src/Listeners'),
-    );
-
     expect($classes)->not->toBeEmpty();
     foreach ($classes as $class) {
+        expect($registered)->toContain($class);
+    }
+
+    // With the switch off, none of the submission data listeners is registered
+    foreach ($submissionData as $class) {
+        expect($registered)->not->toContain($class);
+    }
+});
+
+it('registers every listener in src/Listeners once the submission data switch is on', function (): void {
+    $this->rebootWithConfig(['aether-form-settings.features.submission_data' => true]);
+    $this->rebootWithHostProviders([HostEventServiceProvider::class]);
+
+    $registered = registeredListeners(null);
+
+    foreach (listenerClasses() as $class) {
         expect($registered)->toContain($class);
     }
 });

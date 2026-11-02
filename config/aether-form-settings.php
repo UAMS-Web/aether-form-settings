@@ -44,6 +44,12 @@ return [
     |                submit and in the `form_restriction` tag. Off, no
     |                submission is refused and the tag reports every form open.
     |
+    | submission_data  Opt-in, off by default. Saves `_*` metadata with each
+    |                submission (form, page, site, user agent, IP, referrer,
+    |                time) and carries the submitter's request context to
+    |                queued notification emails. A host that serves several
+    |                sites binds `SubmissionSite` to name the page's site.
+    |
     | Each takes true or false, and reads the environment variable named
     | beside it.
     |
@@ -54,6 +60,7 @@ return [
         'notifications' => (bool) env('FORM_SETTINGS_NOTIFICATIONS', true),
         'confirmations' => (bool) env('FORM_SETTINGS_CONFIRMATIONS', true),
         'restrictions' => (bool) env('FORM_SETTINGS_RESTRICTIONS', true),
+        'submission_data' => (bool) env('FORM_SETTINGS_SUBMISSION_DATA', false),
     ],
 
     /*

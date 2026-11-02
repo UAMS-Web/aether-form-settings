@@ -20,7 +20,7 @@ php artisan vendor:publish --tag=aether-form-settings-config
 
 ## Features
 
-Each feature has its own switch in `config/aether-form-settings.php`, and all are on by default. Turning one off disables that feature alone; the others keep working. Stored form settings are kept either way, so turning a feature back on restores it as it was.
+Each feature has its own switch in `config/aether-form-settings.php`, and all are on by default except `submission_data`. Turning one off disables that feature alone; the others keep working. Stored form settings are kept either way, so turning a feature back on restores it as it was.
 
 | Switch | Environment variable | What it covers |
 | --- | --- | --- |
@@ -28,6 +28,9 @@ Each feature has its own switch in `config/aether-form-settings.php`, and all ar
 | `notifications` | `FORM_SETTINGS_NOTIFICATIONS` | The notification job: the Active toggle, conditional notifications, recipient routing, the sender name and the email body view. |
 | `confirmations` | `FORM_SETTINGS_CONFIRMATIONS` | The message or redirect a visitor sees after submitting. |
 | `restrictions` | `FORM_SETTINGS_RESTRICTIONS` | Entry limits, the form schedule and required login, on submit and in the `form_restriction` tag. |
+| `submission_data` | `FORM_SETTINGS_SUBMISSION_DATA` | Off by default. The `_*` metadata saved with each submission and the submitter's request context for queued notification emails. |
+
+With `submission_data` on, every submission is saved with `_form_handle`, `_form_title`, `_submitted_url`, `_submitted_path`, `_site_handle`, `_site_name`, `_site_url`, `_user_agent`, `_ip`, `_referrer` and `_submitted_at`, and an editor field of the same name is never overwritten. The submitter's IP, referrer, query parameters and site are also captured when the form is submitted and carried to the notification job, so tags that read the request render the submitter's values from a queue worker. A warning is logged when a form email is queued on a non-sync connection without that context. Off, a submission is saved with none of this and no error. The add-on names the site with the current site; a host that serves several sites binds its own `UAMSWeb\Aether\Forms\Settings\Contracts\SubmissionSite` (see Extending).
 
 With `notifications` on, the add-on points `statamic.forms.send_email_job` at its own job. A host that has set that option to a job of its own keeps it.
 
@@ -57,7 +60,8 @@ The `quiz` and `survey` tags show a scored submission in a confirmation message 
 
 ## Extending
 
-- **Submission context.** A notification sent from a queue worker cannot see the submitter's request. A host that keeps that context binds its own implementation of `UAMSWeb\Aether\Forms\Settings\Contracts\SubmissionContext`: the job calls it to capture the context when the form is submitted, and again to make that context active while the email is sent. The add-on's default captures nothing.
+- **Submission context.** A notification sent from a queue worker cannot see the submitter's request. A host that keeps that context binds its own implementation of `UAMSWeb\Aether\Forms\Settings\Contracts\SubmissionContext`: the job calls it to capture the context when the form is submitted, and again to make that context active while the email is sent. The add-on's default captures nothing, and the `submission_data` feature binds one that carries the request context.
+- **Submission site.** The `submission_data` feature asks `UAMSWeb\Aether\Forms\Settings\Contracts\SubmissionSite` which site a submission was made from, both for the `_site_*` metadata and for the captured request context. The default answers with the current site. A host whose form endpoint sits under one site's prefix binds an implementation that names the site of the submitting page.
 - **More settings sections.** Another package adds a section to the form settings screen by tagging an implementation of `UAMSWeb\Aether\Forms\Settings\Contracts\FormSettingsSection` with `FormSettingsSection::TAG` in its service provider's `register()`.
 
 ## Upgrading from `statamic-form-settings`
