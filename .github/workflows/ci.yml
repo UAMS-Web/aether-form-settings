@@ -49,6 +49,9 @@ jobs:
     uses: UAMS-Web/uams-ci-workflows/.github/workflows/ci.yml@v0.2.0
     with:
       linux-only: true
+      # Off until a push mutates only changed files: on a push the chain's `mutate` job mutates
+      # all of `src/`, which outruns its 45-minute limit here. #61 turns it back on.
+      mutate: false
       mutate-paths: src
 
   # Not in the chain: the repository's decision log has an order a person can break by hand.
