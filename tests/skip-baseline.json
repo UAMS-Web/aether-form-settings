@@ -11,6 +11,10 @@
         "once you know why the new skip is correct, and say so in the PR."
     ],
     "bands": {
+        "suite": {
+            "expected": 0,
+            "why": "No test skips. The reusable workflow reads the band `suite`; every test in the Unit and Integration suites runs."
+        },
         "parallel": {
             "expected": 0,
             "why": "No test skips. Every test in the Unit and Integration suites runs."
