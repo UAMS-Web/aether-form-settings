@@ -66,7 +66,9 @@ dataset('declared defaults', [
 ]);
 
 it('declares exactly the expected property defaults', function (string $class, array $expected): void {
-    assert(class_exists($class));
+    if (! class_exists($class)) {
+        throw new RuntimeException("Dataset names {$class}, which does not exist.");
+    }
 
     $defaults = new ReflectionClass($class)->getDefaultProperties();
 
