@@ -65,6 +65,10 @@ dataset('declared defaults', [
     'SubfieldsAny' => [SubfieldsAny::class, ['implicit' => true]],
 ]);
 
+/**
+ * @param  class-string  $class
+ * @param  array<string, mixed>  $expected
+ */
 it('declares exactly the expected property defaults', function (string $class, array $expected): void {
     $defaults = (new ReflectionClass($class))->getDefaultProperties();
 
@@ -77,7 +81,7 @@ it('declares exactly the expected property defaults', function (string $class, a
 it('declares the notification email defaults', function (): void {
     $class = new ReflectionClass(FormNotificationEmail::class);
 
-    expect($class->getReflectionConstant('UNPARSED_CONFIG_KEYS')->getValue())->toBe(['message'])
+    expect($class->getConstant('UNPARSED_CONFIG_KEYS'))->toBe(['message'])
         ->and($class->getDefaultProperties()['messageText'])->toBe('');
 });
 

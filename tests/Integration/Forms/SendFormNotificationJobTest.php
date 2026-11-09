@@ -17,6 +17,7 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 use UAMSWeb\Aether\Forms\Settings\Contracts\SubmissionContext;
 use UAMSWeb\Aether\Forms\Settings\Jobs\SendFormNotification;
+use UAMSWeb\Aether\Forms\Settings\Mail\FormNotificationEmail;
 use UAMSWeb\Aether\Forms\Settings\Support\NullSubmissionContext;
 
 /**
@@ -261,5 +262,5 @@ it("sends Statamic's own mailable once, and only that one, when notifications ar
     runSendJob(['to' => 'ada@example.test']);
 
     Mail::assertSent(Statamic\Forms\Email::class, 1);
-    Mail::assertNotSent(UAMSWeb\Aether\Forms\Settings\Mail\FormNotificationEmail::class);
+    Mail::assertNotSent(FormNotificationEmail::class);
 });

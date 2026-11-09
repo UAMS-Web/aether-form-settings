@@ -28,7 +28,7 @@ it('publishes its config file under the tag the README names', function (): void
 });
 
 it('registers its field views in the statamic namespace after the host overrides', function (): void {
-    $hints = View::getFinder()->getHints()['statamic'] ?? [];
+    $hints = mustBe(FileViewFinder::class, View::getFinder(), 'view finder')->getHints()['statamic'] ?? [];
 
     // Expect the add-on's directory, exactly as the finder stores it, among the namespace paths
     expect($hints)->toContain(realpath(__DIR__.'/../../resources/field-views'));
@@ -53,7 +53,7 @@ it('keeps a host override first and the add-on views before the rest, whichever 
         // A finder that keeps hints exactly as given, which is how Laravel releases before v13.39 stored them.
         View::setFinder(new class(new Filesystem, [$root]) extends FileViewFinder
         {
-            #[\Override]
+            #[Override]
             public function replaceNamespace($namespace, $hints): void
             {
                 $this->hints[$namespace] = (array) $hints;
@@ -64,7 +64,7 @@ it('keeps a host override first and the add-on views before the rest, whichever 
         $method = new ReflectionMethod(ServiceProvider::class, 'addStatamicViewsAfterHostOverrides');
         $method->invoke(app()->getProvider(ServiceProvider::class), '/addon');
 
-        expect(View::getFinder()->getHints()['statamic'])->toBe([$spelled, '/addon', '/elsewhere', '/after']);
+        expect(mustBe(FileViewFinder::class, View::getFinder(), 'view finder')->getHints()['statamic'])->toBe([$spelled, '/addon', '/elsewhere', '/after']);
     } finally {
         config(['view.paths' => $paths]);
         View::setFinder($originalFinder);

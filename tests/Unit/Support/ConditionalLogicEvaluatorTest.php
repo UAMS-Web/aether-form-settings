@@ -577,7 +577,7 @@ it('pins the declared key, operator and alias tables', function (): void {
     // on these tables are annotated in the class and the exact entries are asserted here.
     $class = new ReflectionClass(ConditionalLogicEvaluator::class);
 
-    expect($class->getReflectionConstant('KEYS')->getValue())->toBe([
+    expect($class->getConstant('KEYS'))->toBe([
         'if' => [false, true],
         'if_any' => [true, true],
         'show_when' => [false, true],
@@ -586,10 +586,10 @@ it('pins the declared key, operator and alias tables', function (): void {
         'unless_any' => [true, false],
         'hide_when' => [false, false],
         'hide_when_any' => [true, false],
-    ])->and($class->getReflectionConstant('OPERATORS_AND_ALIASES')->getValue())->toBe([
+    ])->and($class->getConstant('OPERATORS_AND_ALIASES'))->toBe([
         'equals', 'not', 'contains', 'contains_any', 'includes_any', '===', '!==', '>', '>=', '<', '<=', 'custom',
         'is', '==', 'isnt', '!=', 'includes',
-    ])->and($class->getReflectionConstant('ALIASES')->getValue())->toBe([
+    ])->and($class->getConstant('ALIASES'))->toBe([
         'isnt' => 'not',
         '!=' => 'not',
         '!==' => 'not',
