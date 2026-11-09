@@ -31,7 +31,7 @@ it('registers its field views in the statamic namespace after the host overrides
     $hints = mustBe(FileViewFinder::class, View::getFinder(), 'view finder')->getHints()['statamic'] ?? [];
 
     // Expect the add-on's directory, exactly as the finder stores it, among the namespace paths
-    expect(array_map(realpath(...), $hints))->toContain(realpath(__DIR__.'/../../resources/field-views'));
+    expect(array_map(static fn (mixed $hint): string|false => realpath(mustBeString($hint, 'view hint')), $hints))->toContain(realpath(__DIR__.'/../../resources/field-views'));
 });
 
 it('keeps a host override first and the add-on views before the rest, whichever way a hint is stored', function (): void {
