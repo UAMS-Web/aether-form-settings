@@ -50,6 +50,9 @@ use UAMSWeb\Aether\Forms\Settings\Support\SubmittedFieldDisplay;
  */
 final class FormNotificationEmail extends Email
 {
+    // A constant's initializer has no executable line for the coverage driver, so its mutants can never be covered.
+    // The exact entries are pinned by tests/Unit/Fieldtypes/DeclaredDefaultsTest.php through reflection instead.
+    // @pest-mutate-ignore: RemoveArrayItem
     /**
      * Config keys left out of the parent's Antlers pass.
      *
@@ -67,6 +70,9 @@ final class FormNotificationEmail extends Email
      */
     private ?string $messageHtml = null;
 
+    // A property default has no executable line for the coverage driver, so its mutants can never be covered.
+    // The declared value is pinned by tests/Unit/Fieldtypes/DeclaredDefaultsTest.php through reflection instead.
+    // @pest-mutate-ignore: EmptyStringToNotEmpty
     /**
      * The plain-text form of the rendered `message`, sent as the text part beside it.
      *
@@ -355,6 +361,9 @@ final class FormNotificationEmail extends Email
         // @pest-mutate-ignore: InstanceOfToTrue
         $augmented = $submission instanceof Submission ? $submission->toAugmentedArray() : null;
 
+        // The guard above leaves a null only for a submission that is not a Submission, which the constructor refuses,
+        // so this return cannot be reached from a test.
+        // @pest-mutate-ignore: RemoveEarlyReturn
         if (! is_array($augmented)) {
             return $viewData;
         }

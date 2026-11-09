@@ -458,3 +458,12 @@ it('maps an option key to its label for every option fieldtype', function (strin
 
     expect($rows[0]['pairs'][0])->toBe(['label' => 'Choice', 'text' => 'Red']);
 })->with(['select', 'radio', 'button_group', 'checkboxes']);
+
+it('pins the option fieldtype list and the internal row keys', function (): void {
+    $class = new ReflectionClass(ReplicatorEmailRows::class);
+
+    expect($class->getReflectionConstant('OPTION_FIELDTYPES')->getValue())
+        ->toBe(['select', 'radio', 'button_group', 'checkboxes'])
+        ->and($class->getReflectionConstant('INTERNAL_KEYS')->getValue())
+        ->toBe(['id', '_id', 'type', 'enabled']);
+});

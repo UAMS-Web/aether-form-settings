@@ -253,3 +253,13 @@ it('reads a numeric Active toggle by its truthiness', function (int $enabled, in
     'zero' => [0, 0],
     'one' => [1, 1],
 ]);
+
+it("sends Statamic's own mailable once, and only that one, when notifications are switched off", function (): void {
+    Mail::fake();
+    Config::set('aether-form-settings.features.notifications', false);
+
+    runSendJob(['to' => 'ada@example.test']);
+
+    Mail::assertSent(Statamic\Forms\Email::class, 1);
+    Mail::assertNotSent(UAMSWeb\Aether\Forms\Settings\Mail\FormNotificationEmail::class);
+});

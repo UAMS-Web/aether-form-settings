@@ -26,6 +26,9 @@ namespace UAMSWeb\Aether\Forms\Settings\Support;
  */
 final class ReplicatorEmailRows
 {
+    // A constant's initializer has no executable line for the coverage driver, so no test is ever "covered" for it.
+    // The exact list is pinned by ReplicatorEmailRowsTest through reflection instead.
+    // @pest-mutate-ignore: RemoveArrayItem
     /**
      * Field types whose submitted value is an option key that must be mapped to its label.
      *
@@ -33,6 +36,9 @@ final class ReplicatorEmailRows
      */
     private const array OPTION_FIELDTYPES = ['select', 'radio', 'button_group', 'checkboxes'];
 
+    // A constant's initializer has no executable line for the coverage driver, so no test is ever "covered" for it.
+    // The exact list is pinned by ReplicatorEmailRowsTest through reflection instead.
+    // @pest-mutate-ignore: RemoveArrayItem
     /**
      * Row keys Statamic uses internally, which must never reach a recipient.
      *

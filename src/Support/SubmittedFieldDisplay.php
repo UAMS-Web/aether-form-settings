@@ -47,6 +47,9 @@ final class SubmittedFieldDisplay
         $fieldtype = $field['fieldtype'] ?? $field['type'] ?? null;
         $config = is_array($field['config'] ?? null) ? $field['config'] : [];
 
+        // A multi-line match has no line of its own for the coverage driver, so this mutant can never be covered.
+        // Every arm is asserted by SubmittedFieldDisplay's tests, and `match (false)` would fail all of them.
+        // @pest-mutate-ignore: TrueToFalse
         return match (true) {
             $fieldtype === 'assets' => self::assets($value),
             $fieldtype === 'replicator' => self::replicator($field),
