@@ -65,12 +65,10 @@ dataset('declared defaults', [
     'SubfieldsAny' => [SubfieldsAny::class, ['implicit' => true]],
 ]);
 
-/**
- * @param  class-string  $class
- * @param  array<string, mixed>  $expected
- */
 it('declares exactly the expected property defaults', function (string $class, array $expected): void {
-    $defaults = (new ReflectionClass($class))->getDefaultProperties();
+    assert(class_exists($class));
+
+    $defaults = new ReflectionClass($class)->getDefaultProperties();
 
     foreach ($expected as $property => $value) {
         expect($defaults)->toHaveKey($property)
@@ -86,7 +84,7 @@ it('declares the notification email defaults', function (): void {
 });
 
 it('declares the Vite build the Control Panel assets come from', function (): void {
-    expect((new ReflectionClass(ServiceProvider::class))->getDefaultProperties()['vite'])->toBe([
+    expect(new ReflectionClass(ServiceProvider::class)->getDefaultProperties()['vite'])->toBe([
         'input' => [
             'resources/js/cp.js',
             'resources/css/cp.css',
