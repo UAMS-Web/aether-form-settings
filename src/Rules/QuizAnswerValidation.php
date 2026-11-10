@@ -17,6 +17,9 @@ use Illuminate\Contracts\Validation\ValidationRule;
  */
 class QuizAnswerValidation implements DataAwareRule, ValidationRule
 {
+    // A property default has no executable line for the coverage driver, so its mutants can never be covered.
+    // The declared value is pinned by tests/Unit/Fieldtypes/DeclaredDefaultsTest.php through reflection instead.
+    // @pest-mutate-ignore: TrueToFalse
     /**
      * Fire on a missing or empty-string grid, so it still fails the rule's
      * checks rather than passing unvalidated.

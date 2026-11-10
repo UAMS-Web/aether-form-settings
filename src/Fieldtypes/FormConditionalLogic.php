@@ -22,6 +22,9 @@ use Statamic\Forms\Form;
  */
 class FormConditionalLogic extends Fieldtype
 {
+    // A property default has no executable line for the coverage driver, so its mutants can never be covered.
+    // The declared value is pinned by tests/Unit/Fieldtypes/DeclaredDefaultsTest.php through reflection instead.
+    // @pest-mutate-ignore: RemoveArrayItem
     /**
      * The categories this fieldtype belongs to in the Statamic fieldtype selector.
      *
@@ -32,6 +35,9 @@ class FormConditionalLogic extends Fieldtype
         'special',
     ];
 
+    // A property default has no executable line for the coverage driver, so its mutants can never be covered.
+    // The declared value is pinned by tests/Unit/Fieldtypes/DeclaredDefaultsTest.php through reflection instead.
+    // @pest-mutate-ignore: FalseToTrue
     /**
      * Indicates whether the fieldtype is selectable in collection blueprints.
      *
@@ -39,6 +45,9 @@ class FormConditionalLogic extends Fieldtype
      */
     protected $selectable = false;
 
+    // A property default has no executable line for the coverage driver, so its mutants can never be covered.
+    // The declared value is pinned by tests/Unit/Fieldtypes/DeclaredDefaultsTest.php through reflection instead.
+    // @pest-mutate-ignore: FalseToTrue
     /**
      * Indicates whether the fieldtype is selectable in form blueprints.
      *
@@ -46,6 +55,9 @@ class FormConditionalLogic extends Fieldtype
      */
     protected $selectableInForms = false;
 
+    // A property default has no executable line for the coverage driver, so its mutants can never be covered.
+    // The declared value is pinned by tests/Unit/Fieldtypes/DeclaredDefaultsTest.php through reflection instead.
+    // @pest-mutate-ignore: FalseToTrue
     /**
      * Indicates whether the fieldtype's value can be localized.
      *

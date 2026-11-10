@@ -41,6 +41,9 @@ use UAMSWeb\Aether\Forms\Settings\Support\NullSubmissionContext;
  */
 class ServiceProvider extends AddonServiceProvider
 {
+    // A property default has no executable line for the coverage driver, so its mutants can never be covered.
+    // The declared value is pinned by tests/Unit/Fieldtypes/DeclaredDefaultsTest.php through reflection instead.
+    // @pest-mutate-ignore: RemoveArrayItem
     /**
      * The Vite build of the Control Panel assets. `input` and `publicDirectory`
      * must match `vite.config.js`; the built files are committed under

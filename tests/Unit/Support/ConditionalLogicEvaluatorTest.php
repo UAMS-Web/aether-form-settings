@@ -571,3 +571,32 @@ it('reads the imported or-equal routing words as their operators', function (str
     'greater_than_or_equal' => ['greater_than_or_equal', 6],
     'less_than_or_equal' => ['less_than_or_equal', 4],
 ]);
+
+it('pins the declared key, operator and alias tables', function (): void {
+    // A constant's initializer has no executable line for the coverage driver, so the mutants
+    // on these tables are annotated in the class and the exact entries are asserted here.
+    $class = new ReflectionClass(ConditionalLogicEvaluator::class);
+
+    expect($class->getConstant('KEYS'))->toBe([
+        'if' => [false, true],
+        'if_any' => [true, true],
+        'show_when' => [false, true],
+        'show_when_any' => [true, true],
+        'unless' => [false, false],
+        'unless_any' => [true, false],
+        'hide_when' => [false, false],
+        'hide_when_any' => [true, false],
+    ])->and($class->getConstant('OPERATORS_AND_ALIASES'))->toBe([
+        'equals', 'not', 'contains', 'contains_any', 'includes_any', '===', '!==', '>', '>=', '<', '<=', 'custom',
+        'is', '==', 'isnt', '!=', 'includes',
+    ])->and($class->getConstant('ALIASES'))->toBe([
+        'isnt' => 'not',
+        '!=' => 'not',
+        '!==' => 'not',
+        'includes' => 'contains',
+        'greater_than' => '>',
+        'less_than' => '<',
+        'greater_than_or_equal' => '>=',
+        'less_than_or_equal' => '<=',
+    ]);
+});

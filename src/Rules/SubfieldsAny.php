@@ -18,6 +18,9 @@ use Closure;
  */
 class SubfieldsAny extends BaseSubfieldsRule
 {
+    // A property default has no executable line for the coverage driver, so its mutants can never be covered.
+    // The declared value is pinned by tests/Unit/Fieldtypes/DeclaredDefaultsTest.php through reflection instead.
+    // @pest-mutate-ignore: TrueToFalse
     /**
      * Fire on empty values so a group with all-blank subfields still fails.
      *

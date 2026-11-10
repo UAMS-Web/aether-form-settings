@@ -43,6 +43,11 @@ use UAMSWeb\Aether\Forms\Settings\Fieldtypes\FormConditionalLogic;
  */
 final class ConditionalLogicEvaluator
 {
+    // A constant's initializer has no executable line for the coverage driver, so its mutants can never be covered.
+    // The exact entries are pinned by ConditionalLogicEvaluatorTest through reflection instead.
+    // @pest-mutate-ignore: RemoveArrayItem
+    // @pest-mutate-ignore: FalseToTrue
+    // @pest-mutate-ignore: TrueToFalse
     /**
      * Recognized condition keys mapped to [passOnAny, showOnPass].
      *
@@ -62,6 +67,9 @@ final class ConditionalLogicEvaluator
         'hide_when_any' => [true, false],
     ];
 
+    // A constant's initializer has no executable line for the coverage driver, so its mutants can never be covered.
+    // The exact entries are pinned by ConditionalLogicEvaluatorTest through reflection instead.
+    // @pest-mutate-ignore: RemoveArrayItem
     /**
      * Operators and aliases in the detection order Statamic's Converter uses
      * (OPERATORS first, then ALIASES keys). The space-delimited regex disambiguates
@@ -74,6 +82,9 @@ final class ConditionalLogicEvaluator
         'is', '==', 'isnt', '!=', 'includes',
     ];
 
+    // A constant's initializer has no executable line for the coverage driver, so its mutants can never be covered.
+    // The exact entries are pinned by ConditionalLogicEvaluatorTest through reflection instead.
+    // @pest-mutate-ignore: RemoveArrayItem
     /**
      * Operator aliases normalized to their canonical operator (mirrors Statamic ALIASES
      * + prepareOperator collapsing).
@@ -428,6 +439,9 @@ final class ConditionalLogicEvaluator
             return \array_any($lhs, static fn ($item): bool => \is_scalar($item) && \in_array((string) $item, $options, true));
         }
 
+        // A multi-line match has no line of its own for the coverage driver, so the `true` arm can never be covered.
+        // The `true` to 'true' reading is asserted by the includes_any cases in ConditionalLogicEvaluatorTest.
+        // @pest-mutate-ignore: TrueToFalse
         $needle = match (true) {
             $lhs === null, $lhs === false, $lhs === 0, $lhs === 0.0 => '',
             $lhs === true => 'true',

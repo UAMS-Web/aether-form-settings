@@ -31,6 +31,9 @@ class Quiz extends Fieldtype
      */
     use RandomizesOptions;
 
+    // A property default has no executable line for the coverage driver, so its mutants can never be covered.
+    // The declared value is pinned by tests/Unit/Fieldtypes/DeclaredDefaultsTest.php through reflection instead.
+    // @pest-mutate-ignore: RemoveArrayItem
     /**
      * The categories this fieldtype belongs to in the Statamic fieldtype selector.
      *
@@ -40,6 +43,9 @@ class Quiz extends Fieldtype
         'controls',
     ];
 
+    // A property default has no executable line for the coverage driver, so its mutants can never be covered.
+    // The declared value is pinned by tests/Unit/Fieldtypes/DeclaredDefaultsTest.php through reflection instead.
+    // @pest-mutate-ignore: TrueToFalse
     /**
      * Indicates whether the fieldtype is selectable in collection blueprints.
      *
@@ -47,6 +53,9 @@ class Quiz extends Fieldtype
      */
     protected $selectable = true;
 
+    // A property default has no executable line for the coverage driver, so its mutants can never be covered.
+    // The declared value is pinned by tests/Unit/Fieldtypes/DeclaredDefaultsTest.php through reflection instead.
+    // @pest-mutate-ignore: TrueToFalse
     /**
      * Indicates whether the fieldtype is selectable in form blueprints.
      *
@@ -54,6 +63,9 @@ class Quiz extends Fieldtype
      */
     protected $selectableInForms = true;
 
+    // A property default has no executable line for the coverage driver, so its mutants can never be covered.
+    // The declared value is pinned by tests/Unit/Fieldtypes/DeclaredDefaultsTest.php through reflection instead.
+    // @pest-mutate-ignore: FalseToTrue
     /**
      * Indicates whether the fieldtype can have a default value.
      *

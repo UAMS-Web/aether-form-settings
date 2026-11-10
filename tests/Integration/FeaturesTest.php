@@ -261,3 +261,16 @@ it("keeps a host's own copy ahead of the add-on's email view when the host view 
         rmdir($base);
     }
 });
+
+it('reads the submission data switch as a boolean whatever type the config holds', function (mixed $stored, bool $expected): void {
+    config(['aether-form-settings.features.'.Features::SUBMISSION_DATA => $stored]);
+
+    expect(Features::submissionData())->toBe($expected);
+})->with([
+    'string one' => ['1', true],
+    'string zero' => ['0', false],
+    'integer one' => [1, true],
+    'integer zero' => [0, false],
+    'true' => [true, true],
+    'false' => [false, false],
+]);
