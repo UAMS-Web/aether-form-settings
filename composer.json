@@ -64,6 +64,12 @@
         "rector/rector": "^2.7",
         "uams-web/patches-pest-plugin-mutate": "^1.0"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/UAMS-Web/patches-pest-plugin-mutate.git"
+        }
+    ],
     "config": {
         "sort-packages": true,
         "platform": {
