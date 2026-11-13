@@ -44,8 +44,8 @@ abstract class TestCase extends AddonTestCase
      * The add-on reads its feature switches, and whether the host has set its
      * own notification job, while booting, so a test of either has to set them
      * first. This tears the booted application down and boots another, and
-     * calls this class's own setUp() rather than the generated test class's, so
-     * a file's beforeEach hooks do not run a second time.
+     * calls this class's setUp() rather than the generated test class's, so a
+     * file's beforeEach hooks do not run a second time.
      *
      * @param  array<string, mixed>  $config  Values keyed by their dot-notation config key.
      */
@@ -91,32 +91,6 @@ abstract class TestCase extends AddonTestCase
     protected function getPackageProviders($app): array
     {
         return [...parent::getPackageProviders($app), ...$this->hostProviders];
-    }
-
-    /**
-     * Give each parallel worker its own service manifest before the application
-     * boots.
-     *
-     * Every worker boots the same Testbench skeleton, whose
-     * `bootstrap/cache/services.php` each one rewrites when it is missing or
-     * stale. On Windows, replacing a file another process has open fails with
-     * "Access is denied", failing whichever test was booting (#88). Testbench
-     * already names the package manifest per worker
-     * (`test_{token}_packages.php`); this does the same for the service
-     * manifest. The path is relative, so it resolves against the skeleton:
-     * Laravel treats a Windows drive path as relative too.
-     */
-    protected function setUp(): void
-    {
-        // Read the parallel worker token, if this is a parallel run
-        $token = $_SERVER['TEST_TOKEN'] ?? null;
-        // Name a service manifest for this worker when there is a token
-        if (is_string($token) || is_int($token)) {
-            $_SERVER['APP_SERVICES_CACHE'] = $_ENV['APP_SERVICES_CACHE'] = "bootstrap/cache/test_{$token}_services.php";
-        }
-
-        // Boot the application
-        parent::setUp();
     }
 
     /**
