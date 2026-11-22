@@ -249,3 +249,47 @@ it('names the site with the submission site the host binds, given the submission
         ->and($submission->get('_site_url'))->toBe('https://health.test')
         ->and($seen)->toBe($submission);
 });
+
+/**
+ * Run the listener against a submission whose site is the given one, and return what it stored.
+ *
+ * @return array<string, mixed> The submission data after the listener ran.
+ */
+function submissionMetadataHandleForSite(StatamicSite $site): array
+{
+    app()->instance(SubmissionSite::class, new readonly class($site) implements SubmissionSite
+    {
+        public function __construct(private StatamicSite $site) {}
+
+        #[Override]
+        public function forSubmission(?Submission $submission = null): StatamicSite
+        {
+            return $this->site;
+        }
+    });
+
+    return submissionMetadataHandleWith(Request::create('https://uams.test/!/forms/'.SUBMISSION_METADATA_FORM_HANDLE, 'POST'));
+}
+
+it('stores the resolved name and URL of a site whose name and URL are config expressions', function (): void {
+    // Statamic's default resources/sites.yaml holds exactly these two expressions
+    Config::set('app.name', 'Probe Clinic');
+    Config::set('app.url', 'https://probe.test');
+
+    $site = new StatamicSite('default', ['name' => '{{ config:app.name }}', 'locale' => 'en_US', 'url' => '{{ config:app.url }}']);
+
+    $data = submissionMetadataHandleForSite($site);
+
+    expect($data['_site_name'])->toBe('Probe Clinic')
+        ->and($data['_site_url'])->toBe('https://probe.test');
+});
+
+it('stores the resolved name of a site whose name still carries Antlers after the config values are in', function (): void {
+    Config::set('app.name', 'Probe Clinic');
+
+    $site = new StatamicSite('default', ['name' => '{{ config:app.name }} {{ 2 + 3 }}', 'locale' => 'en_US', 'url' => 'https://probe.test']);
+
+    $data = submissionMetadataHandleForSite($site);
+
+    expect($data['_site_name'])->toBe('Probe Clinic 5');
+});
