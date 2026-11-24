@@ -237,6 +237,94 @@ it('update with locale mismatch', function (): void {
     $method->invoke($controller, $mockForm, $mockRequest);
 });
 
+it('saves without touching the form email when the blueprint has no email field', function (): void {
+    App::setLocale('en');
+
+    $mockRequest = Mockery::mock(Request::class);
+    $mockRequest->shouldReceive('all')
+        ->andReturn([
+            'title' => 'Test Form',
+            'honeypot' => 'honeypot_field',
+            'store' => true,
+        ]);
+
+    $mockForm = Mockery::mock(Form::class);
+    $mockForm->shouldReceive('handle')
+        ->andReturn('test-form');
+    $mockForm->shouldReceive('title')
+        ->once()
+        ->with('Test Form')
+        ->andReturnSelf();
+    $mockForm->shouldReceive('honeypot')
+        ->once()
+        ->with('honeypot_field')
+        ->andReturnSelf();
+    $mockForm->shouldReceive('store')
+        ->once()
+        ->with(true)
+        ->andReturnSelf();
+    // Statamic 6.44 keeps notification rows in connections.email, outside this screen
+    $mockForm->shouldNotReceive('email');
+    $mockForm->shouldReceive('merge')
+        ->once()
+        ->andReturnSelf();
+    $mockForm->shouldReceive('save')
+        ->once()
+        ->andReturn(true);
+
+    $mockBlueprint = Mockery::mock(Blueprint::class);
+    $mockFields = Mockery::mock(Fields::class);
+    $mockValues = Mockery::mock();
+    $valuesArray = [
+        'title' => 'Test Form',
+        'honeypot' => 'honeypot_field',
+        'store' => true,
+    ];
+    $mockValues->shouldReceive('all')
+        ->andReturn($valuesArray);
+    $mockProcessedFields = Mockery::mock();
+    $mockProcessedFields->shouldReceive('values')
+        ->andReturn($mockValues);
+    $mockFields->shouldReceive('addValues')
+        ->andReturnSelf();
+    $mockFields->shouldReceive('validate')
+        ->once()
+        ->andReturn([]);
+    $mockFields->shouldReceive('process')
+        ->andReturn($mockProcessedFields);
+    $mockFields->shouldReceive('get')
+        ->andReturn(null);
+    $mockBlueprint->shouldReceive('fields')
+        ->andReturn($mockFields);
+
+    $customizer = app(FormConfigurationBlueprintCustomizer::class);
+    $valuesFilter = app(FormConfigurationValuesFilter::class);
+
+    $controller = Mockery::mock(FormsController::class, [
+        $mockRequest,
+        $customizer,
+        $valuesFilter,
+    ])
+        ->makePartial()
+        ->shouldAllowMockingProtectedMethods();
+    $controller->shouldReceive('authorize')
+        ->once()
+        ->with('edit', $mockForm)
+        ->andReturn(true);
+    $controller->shouldReceive('editFormBlueprint')
+        ->once()
+        ->with($mockForm)
+        ->andReturn($mockBlueprint);
+    $controller->shouldReceive('success')
+        ->once()
+        ->with('Saved')
+        ->andReturn(null);
+
+    $reflection = new ReflectionClass($controller);
+    $method = $reflection->getMethod('update');
+    $method->invoke($controller, $mockForm, $mockRequest);
+});
+
 it('custom field injection with different locales', function (): void {
     $mockRequest = Mockery::mock(Request::class);
 
