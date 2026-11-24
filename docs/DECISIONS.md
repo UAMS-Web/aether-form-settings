@@ -109,3 +109,13 @@ Oldest first, one entry per closed decision, so **a new entry is appended to the
 **Rejected.** Defaulting the switch to on: the site would have gained listeners it already registers itself. Requiring the multisite forms add-on: it is a hard dependency for a feature that only needs a site name. Registering the listeners in `register()`: they would run ahead of a host's refusal and save metadata for a submission the host then rejects.
 
 **Companion.** `UAMS-Web/uams-statamic#265`.
+
+## 2026-11-24: Core `enabled` and `conditions` decide whether a notification row sends on Statamic 6.44 (#117)
+
+**Decision.** Where Statamic 6.44 evaluates a connection row (`enabled` and `conditions`, through `ConnectionLogic::passes`, before the send job exists), that is the authoritative gate. The add-on's `conditional_logic` is read only from a stored row that already carries it, and the add-on settings save no longer writes `connections.email`.
+
+**Why.** Core's gate runs earlier and has the 6.44 authoring screen, while the add-on's grid that authored `conditional_logic` no longer exists there. A row authored on 6.44 therefore carries `conditions` only, and a row saved before carries `conditional_logic` only, so one system decides each row in practice.
+
+**Rejected.** Making `conditional_logic` authoritative: nothing on 6.44 can author it. Mapping `conditional_logic` to `conditions` in this change: the operator sets are not confirmed to correspond, so the mapping and the retirement of the add-on evaluator wait for the follow-up.
+
+**Companion.** `UAMS-Web/aether-form-settings#117`, `UAMS-Web/aether-form-settings#123`.

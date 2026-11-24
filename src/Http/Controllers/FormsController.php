@@ -149,7 +149,14 @@ class FormsController extends BaseFormsController
         $form->title($filteredValues['title']);
         $form->honeypot($filteredValues['honeypot']);
         $form->store($filteredValues['store']);
-        $form->email($filteredValues['email']);
+
+        // Statamic 6.44 moved notification rows to the connections screen, so its settings blueprint
+        // carries no `email` field and `connections.email` is left as stored; earlier releases
+        // still save the grid here.
+        if (array_key_exists('email', $filteredValues)) {
+            $form->email($filteredValues['email']);
+        }
+
         $form->merge($data);
 
         // Persist the updated form definition to Statamic storage
