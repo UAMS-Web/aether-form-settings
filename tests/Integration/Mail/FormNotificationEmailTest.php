@@ -232,7 +232,7 @@ function formNotificationSubmissionValue(?string $type, ?array $config, bool $ha
     return $value;
 }
 
-it('drops only the Assets fields not flagged to attach', function (): void {
+it('drops only the Assets and form_upload fields not flagged to attach', function (): void {
     $data = [
         'id' => 'not a value',
         'date' => formNotificationSubmissionValue(null, null, false),
@@ -243,10 +243,13 @@ it('drops only the Assets fields not flagged to attach', function (): void {
         'flagged_text' => formNotificationSubmissionValue('assets', ['attach_to_email' => 'true']),
         'unflagged' => formNotificationSubmissionValue('assets', ['attach_to_email' => false]),
         'unset' => formNotificationSubmissionValue('assets', []),
+        'upload_flagged' => formNotificationSubmissionValue('form_upload', ['attach_to_email' => true]),
+        'upload_unflagged' => formNotificationSubmissionValue('form_upload', ['attach_to_email' => false]),
+        'upload_unset' => formNotificationSubmissionValue('form_upload', []),
     ];
 
     /** @var array<string, mixed> $kept */
     $kept = (fn (): array => $this->withoutUnflaggedAssetFields($data))->call(formNotificationEmail());
 
-    expect(array_keys($kept))->toBe(['id', 'date', 'orphan', 'name', 'files', 'flagged', 'flagged_text']);
+    expect(array_keys($kept))->toBe(['id', 'date', 'orphan', 'name', 'files', 'flagged', 'flagged_text', 'upload_flagged']);
 });
