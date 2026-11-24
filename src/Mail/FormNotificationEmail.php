@@ -161,7 +161,7 @@ final class FormNotificationEmail extends Email
      * @return Collection<string, mixed>
      */
     #[\Override]
-    protected function parseConfig(array $config)
+    protected function parseConfig(array $config): Collection
     {
         // Render only the string-valued entries, then overlay them back onto the original so
         // the non-string control keys survive unchanged.
@@ -227,10 +227,11 @@ final class FormNotificationEmail extends Email
     }
 
     /**
-     * Remove Assets fields whose `attach_to_email` toggle is off from a submission-data map.
+     * Remove Assets and `form_upload` fields whose `attach_to_email` toggle is off from a submission-data map.
      *
-     * `files` fields and every non-Assets entry are left untouched; only an Assets field
-     * with a falsy `attach_to_email` config is dropped, so the parent never attaches it.
+     * `files` fields and every other entry are left untouched; only an Assets or `form_upload`
+     * field with a falsy `attach_to_email` config is dropped, so the parent never attaches it.
+     * Statamic 6.44 attaches `form_upload` fields too, which is why they share the opt-in.
      *
      * @param  array<array-key, mixed>  $data  The augmented submission data, keyed by handle.
      * @return array<array-key, mixed>
@@ -246,8 +247,8 @@ final class FormNotificationEmail extends Email
 
             $field = $value->field();
 
-            // Only Assets fields are subject to the per-field opt-in; leave the rest.
-            if (! $field instanceof Field || $field->type() !== 'assets') {
+            // Only Assets and Forms 2 upload fields are subject to the per-field opt-in; leave the rest.
+            if (! $field instanceof Field || ! in_array($field->type(), ['assets', 'form_upload'], true)) {
                 return false;
             }
 

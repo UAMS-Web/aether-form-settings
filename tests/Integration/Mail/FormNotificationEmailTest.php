@@ -121,18 +121,19 @@ it('passes a replicator value that is not a Value through to the row builder as-
 });
 
 it('keeps non-string config entries verbatim while parsing the string ones', function (): void {
-    $config = ['subject' => '{{ "hello" | upper }}', 'enabled' => true, 'conditional_logic' => ['rules' => [1]], 'to' => 'a@example.test'];
+    $config = ['from_name' => '{{ "hello" | upper }}', 'enabled' => true, 'conditional_logic' => ['rules' => [1]], 'to' => 'a@example.test'];
 
     /** @var Collection<string, mixed> $parsed */
-    $parsed = (function () use ($config) {
+    $parsed = (function () use ($config): Collection {
         // The parent renders against the submission data, which build() normally sets.
         $this->submissionData = [];
 
         return $this->parseConfig($config);
     })->call(formNotificationEmail());
 
-    // The Antlers subject shows the string entries were rendered, not just copied.
-    expect($parsed->all())->toBe(['subject' => 'HELLO', 'enabled' => true, 'conditional_logic' => ['rules' => [1]], 'to' => 'a@example.test']);
+    // The Antlers `from_name` shows the string entries were rendered, not just copied. (The subject is not
+    // used for this: statamic/cms 6.44 renders it after parseConfig(), so it passes through here untouched.)
+    expect($parsed->all())->toBe(['from_name' => 'HELLO', 'enabled' => true, 'conditional_logic' => ['rules' => [1]], 'to' => 'a@example.test']);
 });
 
 it('returns itself and leaves submission data that is not an array alone', function (): void {
