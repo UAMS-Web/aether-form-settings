@@ -101,10 +101,13 @@ it('saves a submission with none of the added metadata and no error when it is o
 
     $this->post('/!/forms/'.$submissionDataHandle, ['name' => 'Pat'])->assertRedirect();
 
-    $data = mustBe(Submission::class, $form->submissions()->last(), 'submission')->data()->all();
+    $data = submissionFileData($form->submissions()->last());
+
+    // Core's own lifecycle keys (`_site` on 6.44) are not the add-on's, so only its metadata keys are checked
+    $metadataKeys = ['_form_handle', '_form_title', '_submitted_url', '_submitted_path', '_site_handle', '_site_name', '_site_url', '_user_agent', '_ip', '_referrer', '_submitted_at'];
 
     expect($data['name'])->toBe('Pat')
-        ->and(array_filter(array_keys($data), static fn (string|int $key): bool => str_starts_with((string) $key, '_')))->toBe([]);
+        ->and(array_intersect(array_keys($data), $metadataKeys))->toBe([]);
 });
 
 it('saves the metadata when it is on', function () use (&$submissionDataHandle): void {
@@ -116,7 +119,7 @@ it('saves the metadata when it is on', function () use (&$submissionDataHandle):
 
     $this->post('/!/forms/'.$submissionDataHandle, ['name' => 'Pat'])->assertRedirect();
 
-    $data = mustBe(Submission::class, $form->submissions()->last(), 'submission')->data()->all();
+    $data = submissionFileData($form->submissions()->last());
 
     expect($data['_form_handle'])->toBe($submissionDataHandle);
 });
