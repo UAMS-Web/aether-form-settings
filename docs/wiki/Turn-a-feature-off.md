@@ -1,6 +1,6 @@
-Written against v0.1.0.
+Written against v0.5.3.
 
-One of the add-on's four features should stop, without removing the add-on and without losing what editors already saved.
+One of the add-on's features should stop, without removing the add-on and without losing what editors already saved.
 
 ## Steps
 
@@ -13,7 +13,7 @@ php artisan vendor:publish --tag=aether-form-settings-config
 2. In `config/aether-form-settings.php`, set the feature's switch to `false`, or set its environment variable, for example `FORM_SETTINGS_RESTRICTIONS=false` in `.env`.
 3. Clear the configuration cache if the application caches it: `php artisan config:clear`.
 
-The other features keep working. Stored form settings are kept either way, so setting the switch back to `true` restores the feature as it was.
+Quiz and survey scoring is a separate switch, `quiz_scoring` (`FORM_SETTINGS_QUIZ_SCORING`), set the same way at the top level of the file. The other features keep working. Stored form settings are kept either way, so setting the switch back to `true` restores the feature as it was.
 
 ## Reference
 

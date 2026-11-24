@@ -1,4 +1,4 @@
-Written against v0.1.0.
+Written against v0.5.3.
 
 The `form_restriction` tag reports whether a form is open, so a page can show a closed message instead of the form. A submission is refused on the same rules, in the order below, and the first one a form violates decides the state.
 
@@ -27,4 +27,4 @@ The tag takes a form `handle` and exposes `open` (true or false), `state` (one o
 {{ /form_restriction }}
 ```
 
-With the `restrictions` switch off (see [Configuration](Configuration.md)), nothing is refused and the tag reports every form open.
+The fields are listed on [Form settings screen](Form-settings-screen.md). With the `restrictions` switch off (see [Configuration](Configuration.md)), nothing is refused and the tag reports every form open.

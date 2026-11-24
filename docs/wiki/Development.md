@@ -1,4 +1,4 @@
-Written against v0.1.0.
+Written against v0.5.3.
 
 The add-on is developed in [UAMS-Web/aether-form-settings](https://github.com/UAMS-Web/aether-form-settings). The gate is `composer ci`, which runs the same checks as the repository's pull-request workflow.
 
