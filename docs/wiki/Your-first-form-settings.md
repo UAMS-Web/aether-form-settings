@@ -1,4 +1,4 @@
-Written against v0.1.0.
+Written against v0.5.3.
 
 By the end of this page one form will show a custom confirmation message after a submission and will stop accepting entries after a set number.
 
@@ -6,7 +6,7 @@ It assumes the add-on is installed (see [Installation (README)](https://github.c
 
 ## 1. Open the form's settings
 
-In the Control Panel, open the form and then its settings screen. With the add-on installed and the `control_panel` switch on, the screen gains a **Confirmations** section and a **Restrictions** section beside Statamic's own.
+In the Control Panel, open the form and then its settings screen. With the add-on installed and the `control_panel` switch on, the screen gains **Heading and Description**, **Submit**, **Confirmations**, **Restrictions** and **Quiz Settings** sections beside Statamic's own. [Form settings screen](Form-settings-screen.md) lists them all.
 
 ## 2. Set a confirmation message
 
@@ -14,7 +14,7 @@ In **Confirmations**, under **Default Confirmation**, set **Confirmation Type** 
 
 Submit the form on the site. The visitor sees the message instead of Statamic's default response.
 
-**Note:** the other confirmation types send the visitor to an external URL, to a page entry, or replace the form with a page entry's content. They are chosen in the same place.
+**Note:** the other confirmation types redirect the visitor to a URL on your site or to a page entry. They are chosen in the same place: see [Choose what visitors see after submitting](Choose-a-confirmation.md).
 
 ## 3. Limit the entries
 
@@ -26,3 +26,4 @@ Once the form has that many entries for the chosen period, a submission is refus
 
 - [Close a form on a date](Close-a-form-on-a-date.md): schedule a form and show a closed message on the page.
 - [Restriction states](Restriction-states.md): the states a restricted form can report.
+- [Send notifications](Send-notifications.md): email on a submission, to recipients chosen from it.

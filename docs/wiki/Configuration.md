@@ -1,6 +1,6 @@
-Written against v0.1.0.
+Written against v0.5.3.
 
-The add-on has one switch per feature, all in `features` of `config/aether-form-settings.php`. Each defaults to `true` except `submission_data`, so installing the add-on changes nothing until a form is configured. Publish the file with `php artisan vendor:publish --tag=aether-form-settings-config`.
+The add-on has five feature switches, all in `features` of `config/aether-form-settings.php`. Each defaults to `true` except `submission_data`, so installing the add-on changes nothing until a form is configured. Publish the file with `php artisan vendor:publish --tag=aether-form-settings-config`.
 
 | Key | Environment variable | Default | Effect when `false` |
 | --- | --- | --- | --- |
@@ -8,7 +8,7 @@ The add-on has one switch per feature, all in `features` of `config/aether-form-
 | `features.notifications` | `FORM_SETTINGS_NOTIFICATIONS` | `true` | Notifications send the way Statamic's own job sends them: no Active toggle, conditional notifications, recipient routing, sender name or email body view. |
 | `features.confirmations` | `FORM_SETTINGS_CONFIRMATIONS` | `true` | Statamic's own response after a submission returns. |
 | `features.restrictions` | `FORM_SETTINGS_RESTRICTIONS` | `true` | No submission is refused, and the `form_restriction` tag reports every form open. |
-| `features.submission_data` | `FORM_SETTINGS_SUBMISSION_DATA` | `false` | Opt-in. Off, a submission is saved without the `_*` metadata (form, page, site, user agent, IP, referrer, time) and queued notification emails get no captured request context. On, both are added. |
+| `features.submission_data` | `FORM_SETTINGS_SUBMISSION_DATA` | `false` | Opt-in. Off, a submission is saved without the `_*` metadata (form, page, site, user agent, IP, referrer, time) and queued notification emails get no captured request context. On, both are added: see [Save submission data](Save-submission-data.md). |
 
 ## Example
 
@@ -28,7 +28,7 @@ With `notifications` on, the add-on points `statamic.forms.send_email_job` at it
 
 ## Control Panel options
 
-Four more keys, at the top level of the same file, adapt the add-on to a host.
+Four more keys, at the top level of the same file, adapt the add-on to a host. See [Score a quiz](Score-a-quiz.md) and [Quiz and survey tags](Quiz-and-survey-tags.md) for the two that switch scoring.
 
 | Key | Environment variable | Default | Effect |
 | --- | --- | --- | --- |
