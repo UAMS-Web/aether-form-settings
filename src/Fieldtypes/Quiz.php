@@ -188,12 +188,13 @@ class Quiz extends Fieldtype
      */
     private function viewFor(Fieldtype $control): ?string
     {
-        $configured = config('statamic.templates.language', 'antlers');
-        $language = \is_string($configured) ? $configured : 'antlers';
-        $handle = $control->handle();
-        $forms2 = \is_string($handle)
-            ? ['radio' => 'multi_choice', 'select' => 'dropdown', 'checkboxes' => 'checkboxes'][$handle] ?? null
-            : null;
+        $language = config()->string('statamic.templates.language', 'antlers');
+        $forms2 = match ($control->handle()) {
+            'radio' => 'multi_choice',
+            'select' => 'dropdown',
+            'checkboxes' => 'checkboxes',
+            default => null,
+        };
 
         if ($forms2 !== null) {
             foreach (["statamic::forms.fields.{$forms2}", "statamic::forms.{$language}.fields.{$forms2}"] as $candidate) {

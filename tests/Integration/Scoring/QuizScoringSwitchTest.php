@@ -169,3 +169,31 @@ it("names the view Statamic renders the question's control with", function (mixe
     // Matched strictly: a loose match would take `true` for either of the two other controls
     'a non-string value falls back to radio' => [true, 'radio'],
 ]);
+
+it('names the Forms 2 view for each control when the host provides it, a published copy first', function (string $questionFieldtype, string $forms2): void {
+    // Stand in for Statamic 6.44's Forms 2 views, whatever release this suite runs on
+    $views = storage_path('framework/testing/quiz-views-'.uniqid('', true));
+    File::ensureDirectoryExists($views.'/forms/antlers/fields');
+    File::ensureDirectoryExists($views.'/forms/fields');
+    File::put($views.'/forms/antlers/fields/'.$forms2.'.antlers.html', 'stub');
+    view()->addNamespace('statamic', $views);
+
+    $quiz = new Quiz;
+    $quiz->setField(new Field('q', [
+        'type' => 'quiz',
+        'question_fieldtype' => $questionFieldtype,
+        'options' => [['label' => 'Yes', 'is_correct' => true]],
+    ]));
+
+    expect($quiz->extraRenderableFieldData()['question_view'])->toBe('statamic::forms.antlers.fields.'.$forms2);
+
+    // A published copy under the host's own forms views wins
+    File::put($views.'/forms/fields/'.$forms2.'.antlers.html', 'published');
+    expect($quiz->extraRenderableFieldData()['question_view'])->toBe('statamic::forms.fields.'.$forms2);
+
+    File::deleteDirectory($views);
+})->with([
+    'radio' => ['radio', 'multi_choice'],
+    'select' => ['select', 'dropdown'],
+    'checkboxes' => ['checkboxes', 'checkboxes'],
+]);
