@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Statamic\Facades\Form as FormFacade;
 use Statamic\Forms\Form;
+use Statamic\Forms\Submission as StatamicFormSubmission;
 
 /**
  * Control-flow type narrowing for the test suite (UAMS-Web/uams-statamic-archive#1865).
@@ -195,5 +196,24 @@ if (! function_exists('makeForm')) {
     function makeForm(string $handle): Form
     {
         return mustBe(Form::class, FormFacade::make($handle), sprintf('form "%s"', $handle));
+    }
+}
+
+if (! function_exists('submissionFileData')) {
+    /**
+     * Read a submission's stored map: its field values and its `_` keys together.
+     *
+     * Statamic 6.44 keeps `_` keys out of `data()` and writes them with the values, so `fileData()`
+     * is the one read that holds the same keys on the locked release and on 6.44. The contract
+     * does not declare it, so the concrete submission is asserted first.
+     *
+     * @param  mixed  $submission  The submission to read.
+     * @return array<string, mixed> The stored map.
+     */
+    function submissionFileData(mixed $submission): array
+    {
+        $concrete = mustBe(StatamicFormSubmission::class, $submission, 'submission');
+
+        return mustBeStringKeyed($concrete->fileData(), 'file data');
     }
 }

@@ -87,7 +87,7 @@ it('appends the system metadata fields to a stored submission', function (): voi
         ->assertRedirect();
 
     $submission = mustBe(Submission::class, $form->submissions()->last(), 'submission');
-    $data = $submission->data()->all();
+    $data = submissionFileData($submission);
 
     // Which form.
     expect($data['_form_handle'])->toBe(SUBMISSION_METADATA_FORM_HANDLE);
@@ -120,7 +120,7 @@ it('does not overwrite a pre-existing key that collides with a metadata field', 
     $submission->save();
 
     $stored = mustBe(Submission::class, $form->submissions()->last(), 'stored');
-    $data = $stored->data()->all();
+    $data = submissionFileData($stored);
 
     // The collision guard preserved the existing value, but other metadata still appended.
     expect($data['_ip'])->toBe('preset-sentinel');
@@ -136,7 +136,7 @@ it('falls back to the request URL/path when no Referer is present', function ():
     $this->post('/!/forms/'.SUBMISSION_METADATA_FORM_HANDLE, ['name' => 'Pat'])->assertRedirect();
 
     $submission = mustBe(Submission::class, $form->submissions()->last(), 'submission');
-    $data = $submission->data()->all();
+    $data = submissionFileData($submission);
 
     expect($data['_submitted_url'])->toContain('/!/forms/'.SUBMISSION_METADATA_FORM_HANDLE);
     expect($data['_submitted_path'])->toBe('/!/forms/'.SUBMISSION_METADATA_FORM_HANDLE);
@@ -153,7 +153,7 @@ it('ignores a malformed Referer, falling back to a safe URL and path', function 
     $this->post('/!/forms/'.SUBMISSION_METADATA_FORM_HANDLE, ['name' => 'Pat'])->assertRedirect();
 
     $submission = mustBe(Submission::class, $form->submissions()->last(), 'submission');
-    $data = $submission->data()->all();
+    $data = submissionFileData($submission);
 
     expect($data['_submitted_url'])->toContain('/!/forms/'.SUBMISSION_METADATA_FORM_HANDLE);
     expect($data['_submitted_path'])->toBe('/!/forms/'.SUBMISSION_METADATA_FORM_HANDLE);
@@ -176,7 +176,7 @@ function submissionMetadataHandleWith(Request $request): array
     (new AppendSubmissionMetadata)->handle(new SubmissionCreating($submission));
 
     /** @var array<string, mixed> */
-    return $submission->data()->all();
+    return submissionFileData($submission);
 }
 
 it('ignores an event whose submission is not a submission', function (): void {
@@ -292,4 +292,27 @@ it('stores the resolved name of a site whose name still carries Antlers after th
     $data = submissionMetadataHandleForSite($site);
 
     expect($data['_site_name'])->toBe('Probe Clinic 5');
+});
+
+it('reads the metadata back from a submission stored before the change', function () use (&$submissionMetadataSubsDir): void {
+    $form = makeForm(SUBMISSION_METADATA_FORM_HANDLE);
+    $form->store(true);
+    $form->save();
+
+    // A stored file in the shape the add-on has always written: field values and `_` keys flat in one map
+    $directory = $submissionMetadataSubsDir.'/'.SUBMISSION_METADATA_FORM_HANDLE;
+    File::ensureDirectoryExists($directory);
+    File::put($directory.'/1700000000.yaml', implode("\n", [
+        'name: Pat',
+        '_form_handle: '.SUBMISSION_METADATA_FORM_HANDLE,
+        "_submitted_url: 'https://uams.test/clinic/contact'",
+        '',
+    ]));
+
+    $stored = mustBe(Submission::class, $form->submissions()->last(), 'stored');
+
+    // Both the accessor and the persisted shape expose the stored metadata
+    expect($stored->get('_form_handle'))->toBe(SUBMISSION_METADATA_FORM_HANDLE)
+        ->and($stored->get('_submitted_url'))->toBe('https://uams.test/clinic/contact')
+        ->and(submissionFileData($stored)['_form_handle'] ?? null)->toBe(SUBMISSION_METADATA_FORM_HANDLE);
 });
