@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Statamic\Facades\Blueprint;
 use Statamic\Fields\BlueprintRepository;
+use Statamic\Forms\Connectors\ConnectionLogic;
 use Statamic\Forms\Form;
 use UAMSWeb\Aether\Forms\Settings\Scoring\SurveyScorer;
 
@@ -267,7 +268,8 @@ it('falls back to the field handle when the display label is empty', function ()
 
     // A missing display is filled by Statamic from the handle; an empty one reaches the fallback
     expect(app(SurveyScorer::class)->score($missing, [])->question('q1')?->label)->toBe('Q1')
-        ->and(app(SurveyScorer::class)->score($empty, [])->question('q1')?->label)->toBe('q1')
+        // Statamic 6.44 drops an empty `display` when it builds the blueprint, so there the empty one is filled too
+        ->and(app(SurveyScorer::class)->score($empty, [])->question('q1')?->label)->toBe(class_exists(ConnectionLogic::class) ? 'Q1' : 'q1')
         ->and(app(SurveyScorer::class)->score(makeSurveyForm(['q1' => likertField()]), [])->question('q1')?->label)
         ->toBe('How satisfied are you?');
 });

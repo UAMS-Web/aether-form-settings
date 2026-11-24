@@ -160,7 +160,7 @@ class Quiz extends Fieldtype
         // The repository returns a fieldtype for each of the three core handles; the check
         // narrows the type.
         // @pest-mutate-ignore: InstanceOfToTrue
-        $questionView = $controlFieldtype instanceof Fieldtype ? $controlFieldtype->view() : null;
+        $questionView = $controlFieldtype instanceof Fieldtype ? $this->viewFor($controlFieldtype) : null;
 
         // Reduce the (possibly randomized) answer options to a value => label map
         return [
@@ -170,6 +170,42 @@ class Quiz extends Fieldtype
             'question_fieldtype' => $questionFieldtype,
             'question_view' => $questionView,
         ];
+    }
+
+    /**
+     * The view Statamic renders a choice control with.
+     *
+     * Statamic 6.44 renders a `radio`, `select` or `checkboxes` field through its Forms 2 views
+     * (`multi_choice`, `dropdown`, `checkboxes`). The raw fieldtype's own `view()` skips them and
+     * answers the generic `default` input, which would render every answer as one text box, and
+     * `Fallback::view()` picks the first Forms 2 type that wraps `radio`, which is `yes_no`, not
+     * the multi-choice list a quiz needs. So the Forms 2 view is named here, where a host's
+     * published copy still wins over Statamic's own. Earlier releases have none of these views,
+     * and the fieldtype's own `view()` is the one Statamic uses there.
+     *
+     * @param  Fieldtype  $control  The `radio`, `checkboxes` or `select` fieldtype.
+     * @return string|null The view name, or null when none exists.
+     */
+    private function viewFor(Fieldtype $control): ?string
+    {
+        $configured = config('statamic.templates.language', 'antlers');
+        $language = \is_string($configured) ? $configured : 'antlers';
+        $handle = $control->handle();
+        $forms2 = \is_string($handle)
+            ? ['radio' => 'multi_choice', 'select' => 'dropdown', 'checkboxes' => 'checkboxes'][$handle] ?? null
+            : null;
+
+        if ($forms2 !== null) {
+            foreach (["statamic::forms.fields.{$forms2}", "statamic::forms.{$language}.fields.{$forms2}"] as $candidate) {
+                if (view()->exists($candidate)) {
+                    return $candidate;
+                }
+            }
+        }
+
+        $view = $control->view();
+
+        return is_string($view) ? $view : null;
     }
 
     /**

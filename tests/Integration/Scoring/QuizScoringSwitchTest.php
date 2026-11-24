@@ -8,6 +8,7 @@ use Statamic\Facades\Antlers;
 use Statamic\Facades\Blueprint;
 use Statamic\Fields\BlueprintRepository;
 use Statamic\Fields\Field;
+use Statamic\Forms\Connectors\ConnectionLogic;
 use Statamic\Forms\Submission;
 use UAMSWeb\Aether\Forms\Settings\Features;
 use UAMSWeb\Aether\Forms\Settings\Fieldtypes\Quiz;
@@ -153,7 +154,12 @@ it("names the view Statamic renders the question's control with", function (mixe
     ]));
     $data = $quiz->extraRenderableFieldData();
 
-    expect($data['question_view'])->toBe('statamic::forms.antlers.fields.'.$control);
+    // Statamic 6.44 renders each control with its Forms 2 equivalent's view; earlier releases use the control's own
+    $viewName = class_exists(ConnectionLogic::class)
+        ? ['radio' => 'multi_choice', 'select' => 'dropdown', 'checkboxes' => 'checkboxes'][$control]
+        : $control;
+
+    expect($data['question_view'])->toBe('statamic::forms.antlers.fields.'.$viewName);
 })->with([
     'radio' => ['radio', 'radio'],
     'checkboxes' => ['checkboxes', 'checkboxes'],

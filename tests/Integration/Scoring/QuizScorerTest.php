@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Statamic\Facades\Blueprint;
 use Statamic\Fields\BlueprintRepository;
+use Statamic\Forms\Connectors\ConnectionLogic;
 use Statamic\Forms\Form;
 use UAMSWeb\Aether\Forms\Settings\Scoring\QuizScorer;
 
@@ -694,7 +695,10 @@ it('reports no explanation when the enabled explanation is empty or not text', f
 it('falls back to the field handle when the display label is empty', function (): void {
     $form = makeQuizForm(['q1' => [...radioQuizField(), 'display' => '']]);
 
-    expect(app(QuizScorer::class)->score($form, [])->question('q1')?->label)->toBe('q1');
+    // Statamic 6.44 drops an empty `display` when it builds the blueprint, so the field answers its humanized handle
+    $expected = class_exists(ConnectionLogic::class) ? 'Q1' : 'q1';
+
+    expect(app(QuizScorer::class)->score($form, [])->question('q1')?->label)->toBe($expected);
 });
 
 it('reports no questions for a form without a blueprint', function (): void {
@@ -707,3 +711,16 @@ it('reports no questions for a form without a blueprint', function (): void {
     expect($results->hasQuestions())->toBeFalse()
         ->and($results->maxScore)->toBe(0.0);
 });
+
+it('scores a quiz form that also carries a Forms 2 file upload field', function (): void {
+    $form = makeQuizForm([
+        'q1' => radioQuizField(),
+        'resume' => ['type' => 'form_upload', 'display' => 'Resume'],
+    ]);
+
+    $result = app(QuizScorer::class)->score($form, ['q1' => 'Paris', 'resume' => 'resume.pdf']);
+
+    // Only the quiz question is scored; the upload field is neither a question nor an error
+    expect($result->question('q1')?->label)->toBe('Capital of France?')
+        ->and($result->question('resume'))->toBeNull();
+})->skip(! class_exists(ConnectionLogic::class), 'The form_upload fieldtype needs statamic/cms 6.44');
