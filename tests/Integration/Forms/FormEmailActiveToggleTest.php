@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Statamic\Facades\Blueprint;
 use Statamic\Fields\BlueprintRepository;
+use Statamic\Forms\Connectors\ConnectionLogic;
 use Statamic\Forms\Form;
 use Symfony\Component\Mailer\SentMessage;
 use Symfony\Component\Mime\Email;
@@ -97,6 +98,8 @@ it('sends active notifications and skips inactive ones', function (): void {
     expect($recipients)->toHaveCount(2);
 });
 
+// statamic/cms 6.44 drops a disabled row before the job runs, so the add-on's own check and its note never fire
+// (UAMS-Web/aether-form-settings#117 settles which condition system stays).
 it('logs a debug note naming the form and notification when skipping an inactive one', function (): void {
     $log = Log::spy();
 
@@ -112,7 +115,7 @@ it('logs a debug note naming the form and notification when skipping an inactive
         && str_contains($message, 'Disabled notice')
         && str_contains($message, ACTIVE_TOGGLE_FORM_HANDLE)
         && str_contains($message, 'active=false'));
-});
+})->skip(class_exists(ConnectionLogic::class), 'core 6.44 filters disabled rows first');
 
 it('treats an imported string "false" toggle as inactive', function (): void {
     $form = makeForm(ACTIVE_TOGGLE_FORM_HANDLE);

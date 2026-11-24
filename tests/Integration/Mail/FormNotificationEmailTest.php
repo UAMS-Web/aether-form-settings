@@ -121,18 +121,19 @@ it('passes a replicator value that is not a Value through to the row builder as-
 });
 
 it('keeps non-string config entries verbatim while parsing the string ones', function (): void {
-    $config = ['subject' => '{{ "hello" | upper }}', 'enabled' => true, 'conditional_logic' => ['rules' => [1]], 'to' => 'a@example.test'];
+    $config = ['from_name' => '{{ "hello" | upper }}', 'enabled' => true, 'conditional_logic' => ['rules' => [1]], 'to' => 'a@example.test'];
 
     /** @var Collection<string, mixed> $parsed */
-    $parsed = (function () use ($config) {
+    $parsed = (function () use ($config): Collection {
         // The parent renders against the submission data, which build() normally sets.
         $this->submissionData = [];
 
         return $this->parseConfig($config);
     })->call(formNotificationEmail());
 
-    // The Antlers subject shows the string entries were rendered, not just copied.
-    expect($parsed->all())->toBe(['subject' => 'HELLO', 'enabled' => true, 'conditional_logic' => ['rules' => [1]], 'to' => 'a@example.test']);
+    // The Antlers `from_name` shows the string entries were rendered, not just copied. (The subject is not
+    // used for this: statamic/cms 6.44 renders it after parseConfig(), so it passes through here untouched.)
+    expect($parsed->all())->toBe(['from_name' => 'HELLO', 'enabled' => true, 'conditional_logic' => ['rules' => [1]], 'to' => 'a@example.test']);
 });
 
 it('returns itself and leaves submission data that is not an array alone', function (): void {
@@ -231,7 +232,7 @@ function formNotificationSubmissionValue(?string $type, ?array $config, bool $ha
     return $value;
 }
 
-it('drops only the Assets fields not flagged to attach', function (): void {
+it('drops only the Assets and form_upload fields not flagged to attach', function (): void {
     $data = [
         'id' => 'not a value',
         'date' => formNotificationSubmissionValue(null, null, false),
@@ -242,10 +243,13 @@ it('drops only the Assets fields not flagged to attach', function (): void {
         'flagged_text' => formNotificationSubmissionValue('assets', ['attach_to_email' => 'true']),
         'unflagged' => formNotificationSubmissionValue('assets', ['attach_to_email' => false]),
         'unset' => formNotificationSubmissionValue('assets', []),
+        'upload_flagged' => formNotificationSubmissionValue('form_upload', ['attach_to_email' => true]),
+        'upload_unflagged' => formNotificationSubmissionValue('form_upload', ['attach_to_email' => false]),
+        'upload_unset' => formNotificationSubmissionValue('form_upload', []),
     ];
 
     /** @var array<string, mixed> $kept */
     $kept = (fn (): array => $this->withoutUnflaggedAssetFields($data))->call(formNotificationEmail());
 
-    expect(array_keys($kept))->toBe(['id', 'date', 'orphan', 'name', 'files', 'flagged', 'flagged_text']);
+    expect(array_keys($kept))->toBe(['id', 'date', 'orphan', 'name', 'files', 'flagged', 'flagged_text', 'upload_flagged']);
 });
