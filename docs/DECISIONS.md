@@ -129,3 +129,13 @@ Oldest first, one entry per closed decision, so **a new entry is appended to the
 **Rejected.** Reading the stored `display` key directly to keep `q1` on 6.44: it also changes a missing display from `Q1` to the handle on every release, which `SurveyScorerTest` pins. Using `Fallback::view()` unchanged: renders a quiz as a yes/no control.
 
 **Companion.** `UAMS-Web/aether-form-settings#120`.
+
+## 2026-11-24: The add-on keeps its Restrictions settings beside Statamic 6.44's Access settings, and `require_login_message` has one owner (#118)
+
+**Decision.** The add-on keeps `limit_entries*`, `schedule_form*` and `require_login_query`, and core's Access settings (`close_date`, `submission_limit`, `closed_message`, `require_login`) apply alongside them: a form is closed when either closes it, and core refuses first, with its own message. `require_login_message` is declared once, by core when core defines it, shown for either login rule, so one stored message serves both. No stored value is migrated.
+
+**Why.** The add-on covers what core lacks (a start date, a `year` period, the query-string login rule), and the stored keys are the same keys the enforcement and the `restriction` tag read. A shared handle was the only collision, and one stored value of one meaning (the message shown when login is required) can serve both rules.
+
+**Rejected.** Migrating `limit_entries*` to `submission_limit` and `schedule_form` to `close_date`: core has no start date or `year` period, and core counts finalized submissions where the add-on counts all stored ones, so a mechanical migration would change what a stored limit means. Renaming the add-on's message handle: it would orphan every stored message and leave two messages for one situation.
+
+**Companion.** `UAMS-Web/aether-form-settings#118`.

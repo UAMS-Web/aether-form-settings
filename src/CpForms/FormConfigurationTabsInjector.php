@@ -377,6 +377,13 @@ final readonly class FormConfigurationTabsInjector
             ],
         ];
 
+        // Statamic 6.44's Access section already defines `require_login_message`, and a form's YAML
+        // holds one value for the key, so core owns the field and the query-string rule shares it
+        $restrictionsSection = $this->shareCoreLoginMessage(
+            $contents,
+            $restrictionsSection
+        );
+
         // ---
         // Inject the restrictions section at the end of all sections (after the
         // confirmation section)
@@ -497,6 +504,46 @@ final readonly class FormConfigurationTabsInjector
 
         // Report that the sections were injected
         return true;
+    }
+
+    /**
+     * Hand the `require_login_message` field to core when core's blueprint already has it.
+     *
+     * Statamic 6.44 defines the field in its Access section, shown when its `require_login`
+     * toggle is on. Declaring it again fails the blueprint with a duplicate field handle, so the
+     * add-on's copy is dropped and core's field is shown for either toggle, which keeps one
+     * stored message for both rules. Without a core field the section is returned unchanged.
+     *
+     * @param  array<string, mixed>  &$contents  The blueprint contents; core's field is updated in place.
+     * @param  array<string, array{display: string, fields: array<array-key, mixed>}>  $section  The restrictions section, keyed by name.
+     * @return array<string, array{display: string, fields: array<array-key, mixed>}> The section without its own message field when core has one.
+     */
+    private function shareCoreLoginMessage(
+        array &$contents,
+        array $section
+    ): array {
+        // Nothing to share when core's blueprint has no such field
+        $location = FormConfigurationSectionLocator::locateField($contents, 'require_login_message');
+        if ($location === null) {
+            return $section;
+        }
+
+        // Show core's field when either login rule is on
+        /** @var array{tabs: array<string, array{sections: array<int, array{fields: array<int, array{field: array<string, mixed>}>}>}>} $contents */
+        $field = &$contents['tabs'][$location['tab']]['sections'][$location['section']]['fields'][$location['field']]['field'];
+        unset($field['if']);
+        $field['if_any'] = [
+            'require_login' => 'equals true',
+            'require_login_query' => 'equals true',
+        ];
+        unset($field);
+
+        // Drop the add-on's own field from the restrictions section
+        foreach ($section as $key => $definition) {
+            unset($section[$key]['fields']['require_login_message']);
+        }
+
+        return $section;
     }
 
     /**

@@ -264,3 +264,38 @@ it('adds no Bard button when the extra buttons setting is missing or not a list'
     'null' => [null],
     'only non-strings' => [[1, 2]],
 ]);
+
+it('shares a core require_login_message field across both login rules and drops the add-on copy', function (): void {
+    $contents = ['tabs' => ['main' => ['sections' => [['fields' => [
+        ['handle' => 'require_login', 'field' => ['type' => 'toggle']],
+        ['handle' => 'require_login_message', 'field' => ['type' => 'textarea', 'if' => ['require_login' => 'equals true']]],
+    ]]]]]];
+    $section = ['restrictions' => ['display' => 'Restrictions', 'fields' => [
+        'require_login_message' => ['handle' => 'require_login_message'],
+        'require_login_query' => ['handle' => 'require_login_query'],
+    ]]];
+
+    $injector = app(FormConfigurationTabsInjector::class);
+    $result = mustBeStringKeyed(new ReflectionMethod($injector, 'shareCoreLoginMessage')->invokeArgs($injector, [&$contents, $section]), 'section');
+
+    expect($contents['tabs']['main']['sections'][0]['fields'][1]['field'])->toBe([
+        'type' => 'textarea',
+        'if_any' => ['require_login' => 'equals true', 'require_login_query' => 'equals true'],
+    ])->and(mustBeStringKeyed($result['restrictions'], 'restrictions')['fields'])->toBe([
+        'require_login_query' => ['handle' => 'require_login_query'],
+    ]);
+});
+
+it('leaves the restrictions section alone when core has no require_login_message field', function (): void {
+    $contents = ['tabs' => ['main' => ['sections' => [['fields' => [
+        ['handle' => 'title', 'field' => ['type' => 'text']],
+    ]]]]]];
+    $section = ['restrictions' => ['display' => 'Restrictions', 'fields' => [
+        'require_login_message' => ['handle' => 'require_login_message'],
+    ]]];
+
+    $injector = app(FormConfigurationTabsInjector::class);
+    $result = new ReflectionMethod($injector, 'shareCoreLoginMessage')->invokeArgs($injector, [&$contents, $section]);
+
+    expect($result)->toBe($section);
+});

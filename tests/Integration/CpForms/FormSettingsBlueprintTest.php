@@ -9,6 +9,7 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Statamic\Facades\Form as FormFacade;
 use Statamic\Fields\Blueprint;
 use Statamic\Fields\Fields;
+use Statamic\Forms\Connectors\ConnectionLogic;
 use Statamic\Forms\Form;
 use UAMSWeb\Aether\Forms\Settings\CpForms\FormConfigurationBlueprintCustomizer;
 use UAMSWeb\Aether\Forms\Settings\Http\Controllers\FormsController;
@@ -131,6 +132,31 @@ it('injects the five settings sections after the sections core emits', function 
         ['limit_entries', 'limit_entries_count', 'limit_entries_period', 'limit_entries_message', 'schedule_form_query', 'schedule_form', 'schedule_pending_message', 'schedule_expired_message', 'require_login_query', 'require_login_message'],
         ['quiz_grading', 'quiz_pass_percent', 'quiz_grades'],
     ]);
+})->skip(class_exists(ConnectionLogic::class), 'core 6.44 emits different sections and no email grid; the add-on rows return with UAMS-Web/aether-form-settings#123');
+
+it('declares require_login_message once, owned by core when core defines it', function (): void {
+    /** @var list<array{fields: list<array{handle: string, field: array<string, mixed>}>}> $sections */
+    $sections = data_get(formSettingsBlueprint()->contents(), 'tabs.main.sections', []);
+
+    $matches = [];
+    foreach ($sections as $section) {
+        foreach ($section['fields'] as $field) {
+            if ($field['handle'] === 'require_login_message') {
+                $matches[] = $field['field'];
+            }
+        }
+    }
+
+    // One field whichever release built the blueprint (core 6.44 raised a duplicate handle before)
+    expect($matches)->toHaveCount(1);
+
+    // Core's field is shown for either login rule, so one stored message serves both
+    if (class_exists(ConnectionLogic::class)) {
+        expect($matches[0])->not->toHaveKey('if')
+            ->and($matches[0]['if_any'] ?? null)->toBe(['require_login' => 'equals true', 'require_login_query' => 'equals true']);
+    } else {
+        expect($matches[0]['if'] ?? null)->toBe(['require_login_query' => 'equals true']);
+    }
 });
 
 it('accepts a form carrying only a title and a confirmation message', function (): void {
@@ -161,7 +187,7 @@ it('refuses an email row with a required column empty', function (string $column
     ]);
 
     expect(array_keys($errors))->toBe(['email.0.'.$column]);
-})->with(['name', 'to_type', 'subject', 'message']);
+})->with(['name', 'to_type', 'subject', 'message'])->skip(class_exists(ConnectionLogic::class), 'core 6.44 has no email grid; see UAMS-Web/aether-form-settings#123');
 
 it('refuses a recipient source without its value and accepts it once supplied', function (string $kind, string $source, string $column, mixed $value): void {
     // Choose the source and leave its value empty
@@ -184,7 +210,7 @@ it('refuses a recipient source without its value and accepts it once supplied', 
     'CC field' => ['cc', 'field', 'cc_field', 'email'],
     'BCC routing' => ['bcc', 'routing', 'bcc_routing', [['field' => 'department', 'operator' => 'equals', 'value' => 'cardiology', 'email' => 'cardio@example.com']]],
     'Reply-To field' => ['reply_to', 'field', 'reply_to_field', 'email'],
-]);
+])->skip(class_exists(ConnectionLogic::class), 'core 6.44 has no email grid; see UAMS-Web/aether-form-settings#123');
 
 it('accepts an empty CC, BCC and Reply-To address, which leaves that header unsent', function (): void {
     $row = [...formSettingsBlueprintValidEmailRow(), 'cc' => null, 'bcc' => null, 'reply_to' => null];
