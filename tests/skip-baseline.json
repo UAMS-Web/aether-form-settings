@@ -12,12 +12,12 @@
     ],
     "bands": {
         "suite": {
-            "expected": 3,
-            "why": "Three tests skip on the locked statamic/cms 6.42.0 because they need the 6.44 `form_upload` fieldtype or connection `body` (`FormEmailFormUploadAttachTest` x2, `FormEmailConnectionBodyTest` x1). They run when the lock moves to 6.44 or later, and the baseline returns to 0 with that move. The reusable workflow reads the band `suite`."
+            "expected": 6,
+            "why": "Six tests skip on the locked statamic/cms 6.42.0 because they need a 6.44 feature: the `form_upload` fieldtype or connection `body` (`FormEmailFormUploadAttachTest` x2, `FormEmailConnectionBodyTest` x1) or the Access settings (`FormAccessOverlapTest` x3). They run when the lock moves to 6.44 or later, and the baseline returns to 0 with that move. The reusable workflow reads the band `suite`."
         },
         "parallel": {
-            "expected": 3,
-            "why": "The same three 6.44-only tests as the `suite` band skip on the locked statamic/cms 6.42.0."
+            "expected": 6,
+            "why": "The same six 6.44-only tests as the `suite` band skip on the locked statamic/cms 6.42.0."
         }
     }
 }
