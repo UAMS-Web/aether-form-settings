@@ -120,6 +120,16 @@ Oldest first, one entry per closed decision, so **a new entry is appended to the
 
 **Companion.** `UAMS-Web/aether-form-settings#117`, `UAMS-Web/aether-form-settings#123`.
 
+## 2026-11-24: An empty question label follows core's humanized handle on `statamic/cms` 6.44, and the quiz names the Forms 2 choice views (#120)
+
+**Decision.** The scorers keep reading `Field::display()` and falling back to the handle only when it is empty. On 6.44 Statamic drops an empty `display` while it builds the blueprint, so a question with no label reports its humanized handle (`Q1`) there and the bare handle (`q1`) on earlier releases; the scorer tests assert each. The quiz fieldtype names the Forms 2 view for its control (`multi_choice` for `radio`, `dropdown` for `select`, `checkboxes` for `checkboxes`), published copy first, and the fieldtype's own view on earlier releases.
+
+**Why.** The humanized label is what the Control Panel and the submission show for the same field on 6.44, so reading anything else would make the scored label disagree with the form. Statamic's own `Fallback::view()` would pick `yes_no` for `radio`, because it takes the first Forms 2 type wrapping that fieldtype, which is not a list of the configured answers.
+
+**Rejected.** Reading the stored `display` key directly to keep `q1` on 6.44: it also changes a missing display from `Q1` to the handle on every release, which `SurveyScorerTest` pins. Using `Fallback::view()` unchanged: renders a quiz as a yes/no control.
+
+**Companion.** `UAMS-Web/aether-form-settings#120`.
+
 ## 2026-11-24: The add-on keeps its Restrictions settings beside Statamic 6.44's Access settings, and `require_login_message` has one owner (#118)
 
 **Decision.** The add-on keeps `limit_entries*`, `schedule_form*` and `require_login_query`, and core's Access settings (`close_date`, `submission_limit`, `closed_message`, `require_login`) apply alongside them: a form is closed when either closes it, and core refuses first, with its own message. `require_login_message` is declared once, by core when core defines it, shown for either login rule, so one stored message serves both. No stored value is migrated.
